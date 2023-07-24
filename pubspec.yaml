@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  shimmer_animation: ^2.1.0
+  firebase_core: ^2.15.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,6 +62,24 @@ flutter:
 
   assets:
     - assets/icon.png
+
+
+  fonts:
+    - family: "SF Pro"
+      fonts:
+        - asset: fonts/sf-pro-regular.otf
+        - asset: fonts/sf-pro-regularitalic.otf
+          style: italic
+        - asset: fonts/sf-pro-medium.otf
+          weight: 500
+        - asset: fonts/sf-pro-mediumitalic.otf
+          weight: 500
+          style: italic
+        - asset: fonts/sf-pro-bold.otf
+          weight: 700
+        - asset: fonts/sf-pro-bold-italic.otf
+          weight: 700
+          style: italic
 
   # To add assets to your application, add an assets section, like this:
   # assets:
