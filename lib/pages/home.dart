@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:twitter_clone/data/user.dart';
+import 'package:twitter_clone/pages/newTweet.dart';
 import 'package:twitter_clone/pages/notifications.dart';
+import 'package:twitter_clone/pages/userProfile.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key, required User user})
@@ -57,6 +59,27 @@ class _HomeState extends State<Home> {
     });
   }
 
+  Route _createRouteToNewTweet() {
+    return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            NewTweet(user: User()),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.easeInOut;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          return Transform.translate(
+              offset: tween.animate(animation).value,
+              child: Transform.scale(
+                scale: animation.value,
+                child: child,
+              ));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,12 +102,26 @@ class _HomeState extends State<Home> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         iconSize: 28,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: const Color.fromARGB(255, 88, 242, 226),
         onTap: _onItemTapped,
         enableFeedback: true,
         type: BottomNavigationBarType.fixed,
       ),
       drawer: buildProfileDrawer(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+              backgroundColor: Colors.transparent,
+              context: context,
+              isScrollControlled: true,
+              builder: (context) => NewTweet(user: User()));
+        },
+        backgroundColor: const Color.fromARGB(255, 88, 242, 226),
+        child: const Icon(
+          Icons.bolt,
+          size: 36,
+        ),
+      ),
     );
   }
 
@@ -124,7 +161,8 @@ class _HomeState extends State<Home> {
                 style: profileDrawerTextStyle,
               ),
               onTap: () {
-                // Handle Profile tap
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => UserProfile(user: User())));
               },
             ),
             ListTile(
@@ -167,9 +205,7 @@ class _HomeState extends State<Home> {
                 'Help Center',
                 style: profileDrawerTextStyle,
               ),
-              onTap: () {
-                // Handle Help Center tap
-              },
+              onTap: () {},
             ),
           ],
         ));
