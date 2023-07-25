@@ -19,26 +19,60 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: colorScheme,
         useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white
+        ),
+
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          foregroundColor: Colors.white
+        ),
+
+        primaryColor: Color.fromARGB(255, 88, 242, 226),
+
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            fontFamily: "SF Pro",
+            color: Colors.black,
+            fontSize: 40,
+            fontWeight: FontWeight.bold
+          ),
+          
+          bodyMedium: TextStyle(
+            color: Colors.black
+          )
+        ),
       ),
       darkTheme: ThemeData(
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFF14171A)
+        ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Color(0xFF14171A),
           unselectedIconTheme: IconThemeData(color: Colors.white)
         ),
-        primaryColor: const Color(0xFF1DA1F2),
-        primaryColorDark: const Color(0xFF1581D5),
-        primaryColorLight: const Color(0xFF1DA1F2),
+
+        primaryColor: Color.fromARGB(255, 0, 200, 226),
 
         scaffoldBackgroundColor: const Color(0xFF14171A),
         cardColor: const Color(0xFF1C2938),
 
-        primaryTextTheme: const TextTheme(
+        textTheme: const TextTheme(
           titleLarge: TextStyle(
+            fontFamily: "SF Pro",
             color: Colors.white,
+            fontSize: 40,
+            fontWeight: FontWeight.bold
             ),
+          bodyLarge: TextStyle(
+            fontSize: 18,
+            color: Colors.white
+          ),
           bodyMedium: TextStyle(
             color: Colors.white,
       ),
+          bodySmall: TextStyle(
+            color: Colors.white
+          )
     ),
 
     // Icon Colors

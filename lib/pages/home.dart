@@ -21,31 +21,26 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
+
   static TextStyle tempTextStyle = const TextStyle(
       fontSize: 30, fontWeight: FontWeight.w500, color: Colors.white);
 
-  void changeFontWithPlatform() {
-    if (kIsWeb) {
-      print("meow");
-    } else if (Platform.isIOS || Platform.isMacOS) {
-      tempTextStyle.fontFamily == "SF Pro";
-    }
-  }
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    Text(
-      "Welcome to Spark",
-      style: tempTextStyle,
+
+  static List<Widget> getWidgetOptions(BuildContext context) {
+    return [
+      Text(
+      "Welcome to Spark", style: Theme.of(context).textTheme.titleLarge,
     ),
-    Text("Search haha", style: tempTextStyle),
+    Text("Search haha", style: Theme.of(context).textTheme.titleLarge,),
     Notifications(user: User()),
-    Text("Message Haha", style: tempTextStyle)
-  ];
+    Text("Message Haha", style: Theme.of(context).textTheme.titleLarge,)
+    ];
+  }
 
   @override
   void initState() {
     super.initState();
-    changeFontWithPlatform();
   }
 
   @override
@@ -84,12 +79,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ThemeData.dark().primaryColor,
         title: Image.asset("assets/icon.png", width: 30),
         centerTitle: true,
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: getWidgetOptions(context).elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

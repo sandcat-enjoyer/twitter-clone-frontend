@@ -69,13 +69,12 @@ class NotificationCard extends StatelessWidget {
         bottom: BorderSide(color: Colors.grey, width: 0.5),
       ),
       contentPadding: EdgeInsets.all(10.0),
-      tileColor: Colors.black,
       leading: CircleAvatar(
         backgroundImage: NetworkImage(notification.profileImageUrl),
       ),
       title: Text(
         '${notification.username} ${notification.notificationText}',
-        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        style: Theme.of(context).textTheme.bodyLarge
       ),
       subtitle:
           Text(notification.timestamp, style: TextStyle(color: Colors.white)),
