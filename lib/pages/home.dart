@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:twitter_clone/data/user.dart';
+import 'package:twitter_clone/pages/firstSignin.dart';
 import 'package:twitter_clone/pages/newTweet.dart';
 import 'package:twitter_clone/pages/notifications.dart';
+import 'package:twitter_clone/pages/settings.dart';
 import 'package:twitter_clone/pages/userProfile.dart';
 
 class Home extends StatefulWidget {
@@ -21,20 +23,24 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
-
   static TextStyle tempTextStyle = const TextStyle(
       fontSize: 30, fontWeight: FontWeight.w500, color: Colors.white);
-
-
 
   static List<Widget> getWidgetOptions(BuildContext context) {
     return [
       Text(
-      "Welcome to Spark", style: Theme.of(context).textTheme.titleLarge,
-    ),
-    Text("Search haha", style: Theme.of(context).textTheme.titleLarge,),
-    Notifications(user: User()),
-    Text("Message Haha", style: Theme.of(context).textTheme.titleLarge,)
+        "Welcome to Spark",
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      Text(
+        "Search haha",
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      Notifications(user: User()),
+      Text(
+        "Message Haha",
+        style: Theme.of(context).textTheme.titleLarge,
+      )
     ];
   }
 
@@ -89,8 +95,7 @@ class _HomeState extends State<Home> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
         ],
         currentIndex: _selectedIndex,
         showSelectedLabels: false,
@@ -103,6 +108,8 @@ class _HomeState extends State<Home> {
       ),
       drawer: buildProfileDrawer(),
       floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        elevation: 5,
         onPressed: () {
           showModalBottomSheet(
               backgroundColor: Colors.transparent,
@@ -111,17 +118,14 @@ class _HomeState extends State<Home> {
               builder: (context) => NewTweet(user: User()));
         },
         backgroundColor: const Color.fromARGB(255, 88, 242, 226),
-        child: const Icon(
-          Icons.bolt,
-          size: 36,
-        ),
+        child: const Icon(Icons.bolt, size: 48),
       ),
     );
   }
 
   Widget buildProfileDrawer() {
     double iconSize = 32.0;
-    TextStyle profileDrawerTextStyle = TextStyle(
+    TextStyle profileDrawerTextStyle = const TextStyle(
         fontFamily: "SF Pro",
         fontSize: 20,
         fontWeight: FontWeight.bold,
@@ -129,11 +133,11 @@ class _HomeState extends State<Home> {
     return Drawer(
         backgroundColor: Colors.black,
         child: ListView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.black),
-              otherAccountsPictures: [
+              decoration: const BoxDecoration(color: Colors.black),
+              otherAccountsPictures: const [
                 CircleAvatar(
                   maxRadius: 20,
                   backgroundImage: NetworkImage(
@@ -166,7 +170,8 @@ class _HomeState extends State<Home> {
                 style: profileDrawerTextStyle,
               ),
               onTap: () {
-                // Handle Lists tap
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => FirstSignIn()));
               },
             ),
             ListTile(
@@ -180,7 +185,7 @@ class _HomeState extends State<Home> {
                 // Handle Bookmarks tap
               },
             ),
-            Divider(thickness: 0.2, color: Colors.grey),
+            const Divider(thickness: 0.2, color: Colors.grey),
             ListTile(
               leading:
                   Icon(Icons.settings, size: iconSize, color: Colors.white),
@@ -189,7 +194,8 @@ class _HomeState extends State<Home> {
                 style: profileDrawerTextStyle,
               ),
               onTap: () {
-                // Handle Settings tap
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Settings(user: User())));
               },
             ),
             ListTile(

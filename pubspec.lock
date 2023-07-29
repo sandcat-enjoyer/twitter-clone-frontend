@@ -160,6 +160,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.5"
+  responsive_ui:
+    dependency: "direct main"
+    description:
+      name: responsive_ui
+      sha256: "2d1c9ef15e7467533e56d54c38363c66a870da24c1ef49d760c16efb96fb1b0d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
+  settings_ui:
+    dependency: "direct main"
+    description:
+      name: settings_ui
+      sha256: d9838037cb554b24b4218b2d07666fbada3478882edefae375ee892b6c820ef3
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   shimmer_animation:
     dependency: "direct main"
     description:

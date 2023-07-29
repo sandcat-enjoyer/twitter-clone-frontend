@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   shimmer_animation: ^2.1.0
   firebase_core: ^2.15.0
+  settings_ui: ^2.0.2
+  responsive_ui: ^3.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
