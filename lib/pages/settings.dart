@@ -27,9 +27,76 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Settings"),
-        ),
-        body: Text("Settings"));
+      appBar: AppBar(
+        title:
+            Text('Settings', style: Theme.of(context).textTheme.displaySmall),
+      ),
+      body: ListView(
+        children: [
+          ListTile(
+            leading: Icon(Icons.notifications),
+            title: Text('Notifications',
+                style: Theme.of(context).textTheme.titleMedium),
+            trailing: Switch(
+              value:
+                  true, // Replace with actual value to manage the switch state
+              onChanged: (bool value) {
+                // Handle switch state change here
+              },
+              activeColor: Theme.of(context).primaryColor,
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Account Settings',
+                style: Theme.of(context).textTheme.titleMedium),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          ListTile(
+            leading: Icon(Icons.brush),
+            title:
+                Text('Colors', style: Theme.of(context).textTheme.titleMedium),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          ListTile(
+            leading: Icon(Icons.language),
+            title: Text('Language',
+                style: Theme.of(context).textTheme.titleMedium),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              // Navigate to language settings screen here
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.security),
+            title: Text('Security',
+                style: Theme.of(context).textTheme.titleMedium),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              // Navigate to security settings screen here
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.help),
+            title: Text('Help & Support',
+                style: Theme.of(context).textTheme.titleMedium),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              // Navigate to help & support screen here
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title:
+                Text('About', style: Theme.of(context).textTheme.titleMedium),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              // Navigate to about screen here
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

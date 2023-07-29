@@ -77,8 +77,40 @@ class _UserProfileState extends State<UserProfile> {
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 10),
-                        SizedBox(height: 10),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.location_city_rounded),
+                            SizedBox(width: 8),
+                            Text(
+                              "Antwerp",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            SizedBox(width: 60),
+                            const Icon(Icons.link_rounded),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text("Website Link")
+                          ],
+                        ),
+                        SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.calendar_today),
+                            SizedBox(width: 8),
+                            Text(
+                              "Born February 7",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            SizedBox(width: 40),
+                            Icon(Icons.calendar_month_outlined),
+                            SizedBox(width: 8),
+                            Text("Joined July 2023")
+                          ],
+                        ),
+                        /* Row(
                           children: [
                             Column(
                               children: [
@@ -135,7 +167,7 @@ class _UserProfileState extends State<UserProfile> {
                               ],
                             )
                           ],
-                        ),
+                        ), */
                         SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: () {},
@@ -155,10 +187,12 @@ class _UserProfileState extends State<UserProfile> {
                                 color: Colors.white,
                               ),
                               const SizedBox(width: 8.0),
-                              Text(
-                                "Edit Profile",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
+                              Text("Edit Profile",
+                                  style: TextStyle(
+                                      fontFamily: "SF Pro",
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 18)),
                             ],
                           ),
                         )

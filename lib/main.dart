@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:twitter_clone/data/user.dart';
 import 'package:twitter_clone/pages/home.dart';
 
@@ -18,16 +19,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Twitter Clone',
+      builder: (context, child) =>
+          ResponsiveBreakpoints.builder(child: child!, breakpoints: [
+        const Breakpoint(start: 0, end: 450, name: MOBILE),
+        const Breakpoint(start: 451, end: 800, name: TABLET),
+        const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+        const Breakpoint(start: 1921, end: double.infinity, name: "4K")
+      ]),
       theme: ThemeData(
         colorScheme: colorScheme,
         brightness: Brightness.light,
         useMaterial3: true,
         bottomNavigationBarTheme:
-            BottomNavigationBarThemeData(backgroundColor: Colors.white),
+            const BottomNavigationBarThemeData(backgroundColor: Colors.white),
         floatingActionButtonTheme:
-            FloatingActionButtonThemeData(foregroundColor: Colors.white),
-        primaryColor: Color.fromARGB(255, 88, 242, 226),
+            const FloatingActionButtonThemeData(foregroundColor: Colors.white),
+        primaryColor: const Color.fromARGB(255, 88, 242, 226),
         textTheme: const TextTheme(
+            displaySmall: TextStyle(
+              fontFamily: "SF Pro",
+              fontWeight: FontWeight.w600,
+            ),
             displayMedium:
                 TextStyle(fontFamily: "SF Pro", fontWeight: FontWeight.bold),
             titleLarge: TextStyle(
@@ -38,12 +50,12 @@ class MyApp extends StatelessWidget {
             bodyMedium: TextStyle(color: Colors.black)),
       ),
       darkTheme: ThemeData(
-        appBarTheme: AppBarTheme(backgroundColor: Color(0xFF14171A)),
+        appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF14171A)),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: Color(0xFF14171A),
             unselectedIconTheme: IconThemeData(color: Colors.white)),
 
-        primaryColor: Color.fromARGB(255, 0, 200, 226),
+        primaryColor: const Color.fromARGB(255, 0, 200, 226),
 
         scaffoldBackgroundColor: const Color(0xFF14171A),
         cardColor: const Color(0xFF1C2938),
