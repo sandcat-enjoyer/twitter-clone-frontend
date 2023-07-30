@@ -38,6 +38,8 @@ class MyApp extends StatelessWidget {
         floatingActionButtonTheme:
             const FloatingActionButtonThemeData(foregroundColor: Colors.white),
         primaryColor: const Color.fromARGB(255, 88, 242, 226),
+        iconTheme: IconThemeData(color: Colors.black),
+        primaryIconTheme: IconThemeData(color: Colors.black),
 
         //Fonts
         textTheme: const TextTheme(
@@ -74,6 +76,8 @@ class MyApp extends StatelessWidget {
 
         scaffoldBackgroundColor: const Color(0xFF14171A),
         cardColor: const Color(0xFF1C2938),
+
+        primaryIconTheme: IconThemeData(color: Colors.white),
 
         textTheme: const TextTheme(
             displayMedium: TextStyle(

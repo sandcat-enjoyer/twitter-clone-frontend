@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:twitter_clone/data/user.dart';
 import 'package:twitter_clone/pages/firstSignin.dart';
 import 'package:twitter_clone/pages/newTweet.dart';
@@ -25,6 +26,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
+  bool isDarkMode = false;
 
   static List<Widget> getWidgetOptions(BuildContext context) {
     return [
@@ -125,6 +127,23 @@ class _HomeState extends State<Home> {
     });
   }
 
+  _checkTheme() {
+    //deprecated method but we'll fix this later, not that important
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    isDarkMode = brightness == Brightness.dark;
+
+    if (isDarkMode) {
+      return Colors.black;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  _checkThemeForText() {
+    // don't really know if there's a cleaner way to do this, i hope there is though
+    return isDarkMode ? Colors.white : Colors.black;
+  }
+
   Route _createRouteToNewTweet() {
     return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -191,17 +210,16 @@ class _HomeState extends State<Home> {
   Widget buildProfileDrawer() {
     double iconSize = 32.0;
     TextStyle profileDrawerTextStyle = const TextStyle(
-        fontFamily: "SF Pro",
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: Colors.white);
+        fontFamily: "SF Pro", fontSize: 20, fontWeight: FontWeight.bold);
     return Drawer(
-        backgroundColor: Colors.black,
+        backgroundColor: _checkTheme(),
         child: ListView(
           physics: const NeverScrollableScrollPhysics(),
           children: [
             UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(color: Colors.black),
+              decoration: BoxDecoration(
+                color: _checkTheme(),
+              ),
               otherAccountsPictures: const [
                 CircleAvatar(
                   maxRadius: 20,
@@ -209,8 +227,19 @@ class _HomeState extends State<Home> {
                       "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg"),
                 )
               ],
-              accountName: Text("jules ! :3", style: profileDrawerTextStyle),
-              accountEmail: Text("@sandcat_enjoyer"),
+              accountName: Text(
+                "jules ! :3",
+                style: TextStyle(
+                    color: _checkThemeForText(),
+                    fontFamily: "SF Pro",
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              accountEmail: Text(
+                "@sandcat_enjoyer",
+                style: TextStyle(
+                    fontFamily: "SF Pro", color: _checkThemeForText()),
+              ),
               currentAccountPicture: CircleAvatar(
                 maxRadius: 20,
                 backgroundImage: NetworkImage(
@@ -218,7 +247,9 @@ class _HomeState extends State<Home> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.person, size: iconSize, color: Colors.white),
+              leading: Icon(Icons.person,
+                  size: iconSize,
+                  color: Theme.of(context).primaryIconTheme.color),
               title: Text(
                 'Profile',
                 style: profileDrawerTextStyle,
@@ -229,7 +260,9 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.list, size: iconSize, color: Colors.white),
+              leading: Icon(Icons.list,
+                  size: iconSize,
+                  color: Theme.of(context).primaryIconTheme.color),
               title: Text(
                 'Lists',
                 style: profileDrawerTextStyle,
@@ -240,8 +273,9 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              leading:
-                  Icon(Icons.bookmark, size: iconSize, color: Colors.white),
+              leading: Icon(Icons.bookmark,
+                  size: iconSize,
+                  color: Theme.of(context).primaryIconTheme.color),
               title: Text(
                 'Bookmarks',
                 style: profileDrawerTextStyle,
@@ -252,8 +286,9 @@ class _HomeState extends State<Home> {
             ),
             const Divider(thickness: 0.2, color: Colors.grey),
             ListTile(
-              leading:
-                  Icon(Icons.settings, size: iconSize, color: Colors.white),
+              leading: Icon(Icons.settings,
+                  size: iconSize,
+                  color: Theme.of(context).primaryIconTheme.color),
               title: Text(
                 'Settings and Privacy',
                 style: profileDrawerTextStyle,
@@ -264,8 +299,9 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              leading:
-                  Icon(Icons.help_outline, size: iconSize, color: Colors.white),
+              leading: Icon(Icons.help_outline,
+                  size: iconSize,
+                  color: Theme.of(context).primaryIconTheme.color),
               title: Text(
                 'Help Center',
                 style: profileDrawerTextStyle,
