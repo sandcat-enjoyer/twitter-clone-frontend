@@ -8,6 +8,9 @@ import 'package:twitter_clone/pages/newTweet.dart';
 import 'package:twitter_clone/pages/notifications.dart';
 import 'package:twitter_clone/pages/settings.dart';
 import 'package:twitter_clone/pages/userProfile.dart';
+import 'package:twitter_clone/widgets/post.dart';
+
+import '../data/tweet.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key, required User user})
@@ -23,14 +26,76 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
-  static TextStyle tempTextStyle = const TextStyle(
-      fontSize: 30, fontWeight: FontWeight.w500, color: Colors.white);
-
   static List<Widget> getWidgetOptions(BuildContext context) {
     return [
-      Text(
-        "Welcome to Spark",
-        style: Theme.of(context).textTheme.titleLarge,
+      ListView(
+        children: [
+          Post(Tweet(
+              displayName: "jules ! :3",
+              username: "@sandcat_enjoyer",
+              userProfileImageUrl:
+                  "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+              timeOfTweet: DateTime.now(),
+              postText: "Haha BUSINESS",
+              likes: 10,
+              retweets: 2)),
+          Post(Tweet(
+              displayName: "jules ! :3",
+              username: "@sandcat_enjoyer",
+              userProfileImageUrl:
+                  "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+              timeOfTweet: DateTime.now(),
+              postText: "Haha BUSINESS",
+              likes: 10,
+              retweets: 2)),
+          Post(Tweet(
+              displayName: "jules ! :3",
+              username: "@sandcat_enjoyer",
+              userProfileImageUrl:
+                  "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+              timeOfTweet: DateTime.now(),
+              postText: "Haha BUSINESS",
+              likes: 10,
+              retweets: 2,
+              imageUrl:
+                  "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg")),
+          Post(Tweet(
+              displayName: "jules ! :3",
+              username: "@sandcat_enjoyer",
+              userProfileImageUrl:
+                  "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+              timeOfTweet: DateTime.now(),
+              postText: "Haha BUSINESS",
+              likes: 10,
+              retweets: 2)),
+          Post(Tweet(
+              displayName: "jules ! :3",
+              username: "@sandcat_enjoyer",
+              userProfileImageUrl:
+                  "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+              timeOfTweet: DateTime.now(),
+              postText: "Haha BUSINESS",
+              likes: 10,
+              retweets: 2)),
+          Post(Tweet(
+              displayName: "jules ! :3",
+              username: "@sandcat_enjoyer",
+              userProfileImageUrl:
+                  "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+              timeOfTweet: DateTime.now(),
+              postText: "Haha BUSINESS",
+              likes: 10,
+              retweets: 2)),
+          Post(Tweet(
+              displayName: "jules ! :3",
+              username: "@sandcat_enjoyer",
+              userProfileImageUrl:
+                  "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+              timeOfTweet: DateTime.now(),
+              postText: "Haha BUSINESS",
+              likes: 10,
+              retweets: 2)),
+        ],
       ),
       Text(
         "Search haha",

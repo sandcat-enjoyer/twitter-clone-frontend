@@ -26,15 +26,20 @@ class MyApp extends StatelessWidget {
         const Breakpoint(start: 801, end: 1920, name: DESKTOP),
         const Breakpoint(start: 1921, end: double.infinity, name: "4K")
       ]),
+
+      //Light Theme
       theme: ThemeData(
         colorScheme: colorScheme,
         brightness: Brightness.light,
         useMaterial3: true,
+        //Colors
         bottomNavigationBarTheme:
             const BottomNavigationBarThemeData(backgroundColor: Colors.white),
         floatingActionButtonTheme:
             const FloatingActionButtonThemeData(foregroundColor: Colors.white),
         primaryColor: const Color.fromARGB(255, 88, 242, 226),
+
+        //Fonts
         textTheme: const TextTheme(
             displaySmall: TextStyle(
               fontFamily: "SF Pro",
@@ -47,7 +52,17 @@ class MyApp extends StatelessWidget {
                 color: Colors.black,
                 fontSize: 35,
                 fontWeight: FontWeight.bold),
-            bodyMedium: TextStyle(color: Colors.black)),
+            bodySmall:
+                TextStyle(fontFamily: "SF Pro", fontWeight: FontWeight.w600),
+            bodyMedium: TextStyle(
+                color: Colors.black, fontFamily: "SF Pro", fontSize: 16),
+            bodyLarge: TextStyle(fontFamily: "SF Pro"),
+            labelSmall: TextStyle(
+                fontFamily: "SF Pro",
+                fontSize: 13,
+                fontWeight: FontWeight.normal,
+                color: Colors.blueGrey),
+            labelLarge: TextStyle(fontFamily: "SF Pro")),
       ),
       darkTheme: ThemeData(
         appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF14171A)),
@@ -74,7 +89,11 @@ class MyApp extends StatelessWidget {
             bodyMedium: TextStyle(
               color: Colors.white,
             ),
-            bodySmall: TextStyle(color: Colors.white)),
+            bodySmall: TextStyle(color: Colors.white),
+            labelSmall: TextStyle(
+                fontFamily: "SF Pro",
+                fontWeight: FontWeight.normal,
+                color: Colors.grey)),
 
         // Icon Colors
         iconTheme: const IconThemeData(

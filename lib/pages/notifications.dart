@@ -32,12 +32,17 @@ class _NotificationsState extends State<Notifications> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: notifications.length,
-      itemBuilder: (context, index) {
-        return NotificationCard(
-          notification: notifications[index],
-        );
+    return RefreshIndicator(
+      child: ListView.builder(
+        itemCount: notifications.length,
+        itemBuilder: (context, index) {
+          return NotificationCard(
+            notification: notifications[index],
+          );
+        },
+      ),
+      onRefresh: () {
+        return Future.delayed(Duration(seconds: 2));
       },
     );
   }
@@ -72,10 +77,8 @@ class NotificationCard extends StatelessWidget {
       leading: CircleAvatar(
         backgroundImage: NetworkImage(notification.profileImageUrl),
       ),
-      title: Text(
-        '${notification.username} ${notification.notificationText}',
-        style: Theme.of(context).textTheme.bodyLarge
-      ),
+      title: Text('${notification.username} ${notification.notificationText}',
+          style: Theme.of(context).textTheme.bodyLarge),
       subtitle:
           Text(notification.timestamp, style: TextStyle(color: Colors.white)),
       trailing: Icon(

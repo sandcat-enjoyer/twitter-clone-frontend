@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 
+import "../data/tweet.dart";
 import "../data/user.dart";
+import "../widgets/post.dart";
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key, required User user})
@@ -13,7 +15,8 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  String username = "jules ! :3";
+  String displayName = "jules ! :3";
+  String username = "@sandcat_enjoyer";
   String bio = "🏳️‍🌈 | microplastics connoisseur | 7ongcatUnbanned 💘";
   String profileImageUrl =
       "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg";
@@ -34,12 +37,7 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'User Profile',
-            style: TextStyle(fontSize: 30),
-          ),
-        ),
+        appBar: AppBar(),
         body: SingleChildScrollView(
           child: Stack(
             children: [
@@ -65,9 +63,10 @@ class _UserProfileState extends State<UserProfile> {
                           backgroundImage: NetworkImage(profileImageUrl),
                         ),
                         SizedBox(height: 16.0),
-                        Text(username,
+                        Text(displayName,
                             style: Theme.of(context).textTheme.titleLarge),
                         SizedBox(height: 4.0),
+                        Text(username),
                         Text(pronouns,
                             style: Theme.of(context).textTheme.bodyLarge),
                         SizedBox(height: 8.0),
@@ -199,15 +198,55 @@ class _UserProfileState extends State<UserProfile> {
                       ],
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'Posts will go here',
-                      style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                  Column(
+                    children: [
+                      Post(Tweet(
+                          displayName: "jules ! :3",
+                          username: "@sandcat_enjoyer",
+                          userProfileImageUrl:
+                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                          timeOfTweet: DateTime.now(),
+                          postText: "Haha BUSINESS",
+                          likes: 10,
+                          retweets: 2)),
+                      Post(Tweet(
+                          displayName: "jules ! :3",
+                          username: "@sandcat_enjoyer",
+                          userProfileImageUrl:
+                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                          timeOfTweet: DateTime.now(),
+                          postText: "Haha BUSINESS",
+                          likes: 10,
+                          retweets: 2)),
+                      Post(Tweet(
+                          displayName: "jules ! :3",
+                          username: "@sandcat_enjoyer",
+                          userProfileImageUrl:
+                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                          timeOfTweet: DateTime.now(),
+                          postText: "Haha BUSINESS",
+                          likes: 10,
+                          retweets: 2)),
+                      Post(Tweet(
+                          displayName: "jules ! :3",
+                          username: "@sandcat_enjoyer",
+                          userProfileImageUrl:
+                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                          timeOfTweet: DateTime.now(),
+                          postText: "Haha BUSINESS",
+                          likes: 10,
+                          retweets: 2)),
+                      Post(Tweet(
+                          displayName: "jules ! :3",
+                          username: "@sandcat_enjoyer",
+                          userProfileImageUrl:
+                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                          timeOfTweet: DateTime.now(),
+                          postText: "Haha BUSINESS",
+                          likes: 10,
+                          retweets: 2)),
+                    ],
+                  )
                 ],
               ),
             ],
