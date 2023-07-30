@@ -40,7 +40,9 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color.fromARGB(255, 88, 242, 226),
         iconTheme: IconThemeData(color: Colors.black),
         primaryIconTheme: IconThemeData(color: Colors.black),
-
+        cardTheme: CardTheme(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16))),
         //Fonts
         textTheme: const TextTheme(
             displaySmall: TextStyle(
@@ -58,7 +60,7 @@ class MyApp extends StatelessWidget {
                 TextStyle(fontFamily: "SF Pro", fontWeight: FontWeight.w600),
             bodyMedium: TextStyle(
                 color: Colors.black, fontFamily: "SF Pro", fontSize: 16),
-            bodyLarge: TextStyle(fontFamily: "SF Pro"),
+            bodyLarge: TextStyle(fontFamily: "SF Pro", fontSize: 18),
             labelSmall: TextStyle(
                 fontFamily: "SF Pro",
                 fontSize: 13,
@@ -76,6 +78,9 @@ class MyApp extends StatelessWidget {
 
         scaffoldBackgroundColor: const Color(0xFF14171A),
         cardColor: const Color(0xFF1C2938),
+        cardTheme: CardTheme(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16))),
 
         primaryIconTheme: IconThemeData(color: Colors.white),
 
@@ -91,13 +96,14 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.bold),
             bodyLarge: TextStyle(fontSize: 18, color: Colors.white),
             bodyMedium: TextStyle(
-              color: Colors.white,
-            ),
+                color: Colors.white, fontFamily: "SF Pro", fontSize: 16),
             bodySmall: TextStyle(color: Colors.white),
             labelSmall: TextStyle(
                 fontFamily: "SF Pro",
                 fontWeight: FontWeight.normal,
-                color: Colors.grey)),
+                fontSize: 13,
+                color: Colors.grey),
+            labelLarge: TextStyle(fontFamily: "SF Pro", color: Colors.white)),
 
         // Icon Colors
         iconTheme: const IconThemeData(

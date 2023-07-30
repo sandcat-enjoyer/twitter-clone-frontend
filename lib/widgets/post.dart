@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:twitter_clone/data/tweet.dart';
 
 class Post extends StatelessWidget {
@@ -13,7 +14,7 @@ class Post extends StatelessWidget {
       elevation: 1.0,
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,28 +53,57 @@ class Post extends StatelessWidget {
             ),
             if (bolt.imageUrl != null) ...[
               SizedBox(height: 8),
-              Image.network(bolt.imageUrl!)
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(bolt.imageUrl!))
             ],
             SizedBox(height: 16.0),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.favorite_rounded,
-                  size: 30.0,
+                TextButton(
+                  child: Row(
+                    children: [
+                      Icon(Icons.favorite_rounded,
+                          size: 30.0, color: Colors.black),
+                      SizedBox(width: 8),
+                      Text(
+                        "${bolt.likes}",
+                        style: TextStyle(fontSize: 24, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {},
+                ),
+                SizedBox(width: 30),
+                TextButton(
+                  child: Row(
+                    children: [
+                      Icon(Icons.repeat_rounded,
+                          size: 30.0, color: Colors.black),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "${bolt.retweets}",
+                        style: TextStyle(fontSize: 24, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {},
                 ),
                 SizedBox(
-                  width: 4,
+                  width: 30,
                 ),
-                Text("${bolt.likes} Likes"),
-                SizedBox(width: 15),
-                Icon(
-                  Icons.repeat,
-                  size: 30.0,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Text("${bolt.retweets} Reposts")
+                TextButton(
+                    onPressed: () {
+                      Share.share("<here goes a link>");
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.ios_share, size: 30, color: Colors.black),
+                      ],
+                    ))
               ],
             )
           ],

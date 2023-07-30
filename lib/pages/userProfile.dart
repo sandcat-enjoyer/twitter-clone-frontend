@@ -67,8 +67,9 @@ class _UserProfileState extends State<UserProfile> {
                             style: Theme.of(context).textTheme.titleLarge),
                         SizedBox(height: 4.0),
                         Text(username),
+                        SizedBox(height: 8),
                         Text(pronouns,
-                            style: Theme.of(context).textTheme.bodyLarge),
+                            style: Theme.of(context).textTheme.bodyMedium),
                         SizedBox(height: 8.0),
                         Text(
                           bio,

@@ -33,6 +33,7 @@ class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      backgroundColor: Colors.black87,
       child: ListView.builder(
         itemCount: notifications.length,
         itemBuilder: (context, index) {
