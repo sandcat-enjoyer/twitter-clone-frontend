@@ -97,7 +97,7 @@ class Post extends StatelessWidget {
                 ),
                 TextButton(
                     onPressed: () {
-                      Share.share("<here goes a link>");
+                      Share.share("<here goes a link :3>");
                     },
                     child: Row(
                       children: [
