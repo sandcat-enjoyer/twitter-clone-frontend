@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../data/user.dart';
 
@@ -14,15 +15,37 @@ class NewTweet extends StatefulWidget {
 
 class _NewTweetState extends State<NewTweet> {
   final TextEditingController boltController = TextEditingController();
+  bool _canSendBolt = false;
+  bool isDarkMode = false;
+
   @override
   void initState() {
     super.initState();
+    boltController.addListener(_onTextChanged);
+  }
+
+  void _onTextChanged() {
+    setState(() {
+      _canSendBolt = boltController.text.isNotEmpty;
+    });
   }
 
   @override
   void dispose() {
     boltController.dispose();
     super.dispose();
+  }
+
+  _checkTheme() {
+    //deprecated method but we'll fix this later, not that important
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    isDarkMode = brightness == Brightness.dark;
+
+    if (isDarkMode) {
+      return Color.fromARGB(255, 44, 52, 61);
+    } else {
+      return Color.fromARGB(255, 240, 244, 250);
+    }
   }
 
   void _postBolt() {
@@ -32,7 +55,7 @@ class _NewTweetState extends State<NewTweet> {
 
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
-      ..showSnackBar(SnackBar(
+      ..showSnackBar(const SnackBar(
           content: Text(
         "Awesome! Your bolt was posted.",
         style: TextStyle(fontFamily: "SF Pro", fontWeight: FontWeight.bold),
@@ -43,34 +66,38 @@ class _NewTweetState extends State<NewTweet> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height *
-          0.65, // Adjust the height as needed
+          0.55, // Adjust the height as needed
       child: Material(
-          color: Color.fromARGB(255, 44, 52, 61),
+          color: _checkTheme(),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Center(
                         child: Text(
                           'Create Bolt',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "SF Pro",
-                              color: Colors.white),
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "SF Pro",
+                          ),
                         ),
                       ),
                       SizedBox(width: 200.0),
                       TextButton(
-                          onPressed: _postBolt,
+                          onPressed: _canSendBolt ? _postBolt : null,
                           child: Icon(
                             Icons.send_rounded,
-                            color: Color.fromARGB(255, 88, 242, 226),
+                            color: _canSendBolt
+                                ? Color.fromARGB(255, 88, 242, 226)
+                                : Colors.grey,
                             size: 36,
                           ))
                     ],
@@ -79,13 +106,12 @@ class _NewTweetState extends State<NewTweet> {
                 child: TextField(
                   controller: boltController,
                   maxLength: 350,
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+                  style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: null,
                   decoration: InputDecoration(
                     hintText: "What's striking you?",
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.all(20.0),
-                    counterStyle: TextStyle(color: Colors.white),
                     border: InputBorder.none,
                   ),
                 ),

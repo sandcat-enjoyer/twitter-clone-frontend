@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:twitter_clone/data/user.dart';
 import 'package:twitter_clone/pages/home.dart';
 
 void main() {
   runApp(const MyApp());
+}
+
+_checkScreenWidth(BuildContext context) {
+  if (MediaQuery.of(context).size.width >= 600) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft
+    ]);
+  } else {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
 }
 
 ColorScheme colorScheme = ColorScheme.fromSeed(seedColor: Colors.blue);
@@ -17,15 +31,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    _checkScreenWidth(context);
     return MaterialApp(
-      title: 'Twitter Clone',
-      builder: (context, child) =>
-          ResponsiveBreakpoints.builder(child: child!, breakpoints: [
-        const Breakpoint(start: 0, end: 450, name: MOBILE),
-        const Breakpoint(start: 451, end: 800, name: TABLET),
-        const Breakpoint(start: 801, end: 1920, name: DESKTOP),
-        const Breakpoint(start: 1921, end: double.infinity, name: "4K")
-      ]),
+      title: 'Bolt',
 
       //Light Theme
       theme: ThemeData(
@@ -59,17 +67,23 @@ class MyApp extends StatelessWidget {
             bodySmall:
                 TextStyle(fontFamily: "SF Pro", fontWeight: FontWeight.w600),
             bodyMedium: TextStyle(
-                color: Colors.black, fontFamily: "SF Pro", fontSize: 16),
-            bodyLarge: TextStyle(fontFamily: "SF Pro", fontSize: 18),
+                color: Colors.black,
+                fontFamily: "SF Pro",
+                fontSize: 16,
+                letterSpacing: 0.4),
+            bodyLarge: TextStyle(fontFamily: "SF Pro", fontSize: 25),
             labelSmall: TextStyle(
                 fontFamily: "SF Pro",
                 fontSize: 13,
                 fontWeight: FontWeight.normal,
-                color: Colors.blueGrey),
+                color: Colors.blueGrey,
+                letterSpacing: 1),
             labelLarge: TextStyle(fontFamily: "SF Pro")),
       ),
+
       darkTheme: ThemeData(
         appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF14171A)),
+        hintColor: Colors.white,
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: Color(0xFF14171A),
             unselectedIconTheme: IconThemeData(color: Colors.white)),
@@ -85,6 +99,10 @@ class MyApp extends StatelessWidget {
         primaryIconTheme: IconThemeData(color: Colors.white),
 
         textTheme: const TextTheme(
+            displaySmall: TextStyle(
+              fontFamily: "SF Pro",
+              fontWeight: FontWeight.w600,
+            ),
             displayMedium: TextStyle(
                 fontFamily: "SF Pro",
                 fontWeight: FontWeight.bold,
@@ -92,16 +110,24 @@ class MyApp extends StatelessWidget {
             titleLarge: TextStyle(
                 fontFamily: "SF Pro",
                 color: Colors.white,
-                fontSize: 40,
+                fontSize: 35,
                 fontWeight: FontWeight.bold),
-            bodyLarge: TextStyle(fontSize: 18, color: Colors.white),
+            bodySmall: TextStyle(
+                color: Colors.white,
+                fontFamily: "SF Pro",
+                fontWeight: FontWeight.w600),
             bodyMedium: TextStyle(
-                color: Colors.white, fontFamily: "SF Pro", fontSize: 16),
-            bodySmall: TextStyle(color: Colors.white),
+                color: Colors.white,
+                fontFamily: "SF Pro",
+                fontSize: 16,
+                letterSpacing: 0.4),
+            bodyLarge: TextStyle(
+                fontSize: 25, color: Colors.white, fontFamily: "SF Pro"),
             labelSmall: TextStyle(
                 fontFamily: "SF Pro",
-                fontWeight: FontWeight.normal,
                 fontSize: 13,
+                letterSpacing: 1,
+                fontWeight: FontWeight.normal,
                 color: Colors.grey),
             labelLarge: TextStyle(fontFamily: "SF Pro", color: Colors.white)),
 
