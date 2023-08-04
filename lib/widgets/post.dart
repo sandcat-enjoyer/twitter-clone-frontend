@@ -192,12 +192,11 @@ class Post extends StatelessWidget {
                 TextButton(
                   child: Row(
                     children: [
-                      Icon(Icons.favorite_rounded,
-                          size: 30.0, color: Colors.black),
+                      Icon(Icons.favorite_rounded, size: 30.0),
                       SizedBox(width: 8),
                       Text(
                         "${bolt.likes}",
-                        style: TextStyle(fontSize: 24, color: Colors.black),
+                        style: TextStyle(fontSize: 24),
                       ),
                     ],
                   ),
@@ -207,14 +206,13 @@ class Post extends StatelessWidget {
                 TextButton(
                   child: Row(
                     children: [
-                      Icon(Icons.repeat_rounded,
-                          size: 30.0, color: Colors.black),
+                      Icon(Icons.repeat_rounded, size: 30.0),
                       SizedBox(
                         width: 8,
                       ),
                       Text(
                         "${bolt.retweets}",
-                        style: TextStyle(fontSize: 24, color: Colors.black),
+                        style: TextStyle(fontSize: 24),
                       ),
                     ],
                   ),
@@ -229,7 +227,7 @@ class Post extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        Icon(Icons.ios_share, size: 30, color: Colors.black),
+                        Icon(Icons.ios_share, size: 30),
                       ],
                     ))
               ],
