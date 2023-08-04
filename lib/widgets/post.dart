@@ -196,7 +196,9 @@ class Post extends StatelessWidget {
                       SizedBox(width: 8),
                       Text(
                         "${bolt.likes}",
-                        style: TextStyle(fontSize: 24),
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Theme.of(context).primaryIconTheme.color),
                       ),
                     ],
                   ),
@@ -212,7 +214,9 @@ class Post extends StatelessWidget {
                       ),
                       Text(
                         "${bolt.retweets}",
-                        style: TextStyle(fontSize: 24),
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Theme.of(context).primaryIconTheme.color),
                       ),
                     ],
                   ),
@@ -227,7 +231,9 @@ class Post extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        Icon(Icons.ios_share, size: 30),
+                        Icon(Icons.ios_share,
+                            size: 30,
+                            color: Theme.of(context).primaryIconTheme.color),
                       ],
                     ))
               ],
