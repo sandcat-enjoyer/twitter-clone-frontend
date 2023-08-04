@@ -192,7 +192,11 @@ class Post extends StatelessWidget {
                 TextButton(
                   child: Row(
                     children: [
-                      Icon(Icons.favorite_rounded, size: 30.0),
+                      Icon(
+                        Icons.favorite_rounded,
+                        size: 30.0,
+                        color: Theme.of(context).primaryIconTheme.color,
+                      ),
                       SizedBox(width: 8),
                       Text(
                         "${bolt.likes}",
@@ -208,7 +212,9 @@ class Post extends StatelessWidget {
                 TextButton(
                   child: Row(
                     children: [
-                      Icon(Icons.repeat_rounded, size: 30.0),
+                      Icon(Icons.repeat_rounded,
+                          size: 30.0,
+                          color: Theme.of(context).primaryIconTheme.color),
                       SizedBox(
                         width: 8,
                       ),
