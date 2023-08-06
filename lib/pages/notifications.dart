@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twitter_clone/data/user.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key, required User user})
@@ -13,6 +14,9 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  AudioCache audioCache = AudioCache();
+  AudioPlayer audioPlayer = AudioPlayer();
+
   final List<NotificationItem> notifications = [
     NotificationItem(
       profileImageUrl:
@@ -42,8 +46,16 @@ class _NotificationsState extends State<Notifications> {
           );
         },
       ),
-      onRefresh: () {
-        return Future.delayed(Duration(seconds: 2));
+      onRefresh: () async {
+        await audioPlayer
+            .play(AssetSource("sound/spark_refresh_sound_start.mp3"));
+
+        Future.delayed(const Duration(seconds: 2));
+
+        await audioPlayer
+            .play(AssetSource("sound/spark_refresh_sound_end.mp3"));
+
+        return;
       },
     );
   }

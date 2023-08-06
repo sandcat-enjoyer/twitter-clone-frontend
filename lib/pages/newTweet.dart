@@ -79,18 +79,19 @@ class _NewTweetState extends State<NewTweet> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Center(
+                      Expanded(
+                        flex: 0,
                         child: Text(
                           'Create Bolt',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                             fontFamily: "SF Pro",
                           ),
                         ),
                       ),
-                      SizedBox(width: 200.0),
+                      SizedBox(width: 160.0),
                       TextButton(
                           onPressed: _canSendBolt ? _postBolt : null,
                           child: Icon(
