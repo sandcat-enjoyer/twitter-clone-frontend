@@ -127,7 +127,9 @@ class Post extends StatelessWidget {
               GestureDetector(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.network(bolt.imageUrl!),
+                  child: Image.network(
+                    bolt.imageUrl!,
+                  ),
                 ),
                 onTap: () {
                   Navigator.push(
@@ -139,6 +141,8 @@ class Post extends StatelessWidget {
                                 profilePictureUrl: bolt.userProfileImageUrl,
                                 profileUserName: bolt.username,
                                 boltDescription: bolt.postText,
+                                likes: bolt.likes,
+                                reposts: bolt.retweets,
                               )));
                 },
                 onLongPress: () {
@@ -150,55 +154,68 @@ class Post extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "SF Pro",
                               )),
-                          content: Container(
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            child: Column(
-                              children: [
-                                ListTile(
-                                  leading: Icon(Icons.save),
-                                  title: Text("Save Image",
-                                      style: TextStyle(fontFamily: "SF Pro")),
-                                  onTap: () {
-                                    _saveImageToGallery(context);
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.copy),
-                                  title: Text("Copy Image",
-                                      style: TextStyle(fontFamily: "SF Pro")),
-                                  onTap: () {
-                                    copyToClipboard();
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.ios_share),
-                                  title: Text("Share Image",
-                                      style: TextStyle(fontFamily: "SF Pro")),
-                                  onTap: () {
-                                    //this code needs to be modified to work still on ipads
-                                    final box = context.findRenderObject()
-                                        as RenderBox?;
-                                    Share.share(
-                                        "<here goes the image you want to share :3>",
-                                        sharePositionOrigin:
-                                            box!.localToGlobal(Offset.zero) &
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Icon(Icons.save),
+                                      title: Text("Save Image",
+                                          style: TextStyle(
+                                              fontFamily: "SF Pro",
+                                              fontSize: 16)),
+                                      onTap: () {
+                                        _saveImageToGallery(context);
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading: Icon(Icons.copy),
+                                      title: Text("Copy Image",
+                                          style: TextStyle(
+                                              fontFamily: "SF Pro",
+                                              fontSize: 16)),
+                                      onTap: () {
+                                        copyToClipboard();
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading: Icon(Icons.ios_share),
+                                      title: Text("Share Image",
+                                          style: TextStyle(
+                                              fontFamily: "SF Pro",
+                                              fontSize: 16)),
+                                      onTap: () {
+                                        //this code needs to be modified to work still on ipads
+                                        final box = context.findRenderObject()
+                                            as RenderBox?;
+                                        Share.share(
+                                            "<here goes the image you want to share :3>",
+                                            sharePositionOrigin: box!
+                                                    .localToGlobal(
+                                                        Offset.zero) &
                                                 box.size);
-                                    Navigator.pop(context);
-                                  },
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading: Icon(Icons.add_a_photo),
+                                      title: Text("Add Image to Bolt",
+                                          style: TextStyle(
+                                              fontFamily: "SF Pro",
+                                              fontSize: 16)),
+                                      onTap: () {
+                                        //logic to save image to device
+                                        Navigator.pop(context);
+                                      },
+                                    )
+                                  ],
                                 ),
-                                ListTile(
-                                  leading: Icon(Icons.add_a_photo),
-                                  title: Text("Add Image to Bolt",
-                                      style: TextStyle(fontFamily: "SF Pro")),
-                                  onTap: () {
-                                    //logic to save image to device
-                                    Navigator.pop(context);
-                                  },
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           )));
                 },
               ),
@@ -225,7 +242,6 @@ class Post extends StatelessWidget {
                   ),
                   onPressed: () {},
                 ),
-                SizedBox(width: 30),
                 TextButton(
                   child: Row(
                     children: [
@@ -245,9 +261,6 @@ class Post extends StatelessWidget {
                     ],
                   ),
                   onPressed: () {},
-                ),
-                SizedBox(
-                  width: 30,
                 ),
                 TextButton(
                     onPressed: () {
@@ -325,12 +338,13 @@ class Post extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ExpandedImagePage(
-                                imageUrl: bolt.imageUrl!,
-                                profileDisplayName: bolt.displayName,
-                                profilePictureUrl: bolt.userProfileImageUrl,
-                                profileUserName: bolt.username,
-                                boltDescription: bolt.postText,
-                              )));
+                              imageUrl: bolt.imageUrl!,
+                              profileDisplayName: bolt.displayName,
+                              profilePictureUrl: bolt.userProfileImageUrl,
+                              profileUserName: bolt.username,
+                              boltDescription: bolt.postText,
+                              likes: bolt.likes,
+                              reposts: bolt.retweets)));
                 },
                 onLongPress: () {
                   final RenderBox overlay = Overlay.of(context)

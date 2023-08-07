@@ -7,19 +7,25 @@ class ExpandedImagePage extends StatelessWidget {
   final String profileUserName;
   final String profilePictureUrl;
   final String? boltDescription;
+  final int likes;
+  final int reposts;
 
   ExpandedImagePage(
       {required this.imageUrl,
       required this.profileDisplayName,
       required this.profileUserName,
       required this.profilePictureUrl,
-      required this.boltDescription});
+      required this.boltDescription,
+      required this.likes,
+      required this.reposts});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
+          backgroundColor: Colors.black54,
+          foregroundColor: Colors.white,
         ),
         backgroundColor: Colors.black,
         body: Column(
@@ -63,19 +69,44 @@ class ExpandedImagePage extends StatelessWidget {
                     SizedBox(height: 8),
                     Row(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              boltDescription!,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
-                        )
+                        Flexible(
+                            child: Text(boltDescription!,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                overflow: TextOverflow.clip))
                       ],
-                    )
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.favorite_rounded, color: Colors.white),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          likes.toString(),
+                          style: TextStyle(
+                              fontFamily: "SF Pro", color: Colors.white),
+                        ),
+                        SizedBox(
+                          width: 160,
+                        ),
+                        Icon(Icons.repeat_rounded, color: Colors.white),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          reposts.toString(),
+                          style: TextStyle(
+                              fontFamily: "SF Pro", color: Colors.white),
+                        ),
+                        SizedBox(width: 160),
+                        Icon(Icons.ios_share, color: Colors.white)
+                      ],
+                    ),
+                    SizedBox(height: 30)
                   ],
                 ))
           ],

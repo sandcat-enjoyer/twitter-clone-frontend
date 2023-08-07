@@ -51,6 +51,7 @@ dependencies:
   http: ^1.1.0
   image_gallery_saver: ^2.0.3
   audioplayers: ^5.0.0
+  photo_gallery: ^2.1.1
 
 dev_dependencies:
   flutter_test:

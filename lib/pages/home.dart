@@ -36,6 +36,19 @@ class _HomeState extends State<Home> {
         ListView(
           children: [
             Post(Tweet(
+              displayName: "pizza cat/ Longcat. - 2%",
+              username: "@7ongcatUnbanned",
+              userProfileImageUrl:
+                  "https://pbs.twimg.com/profile_images/1667776665768869888/Vqf4ewyl_400x400.jpg",
+              timeOfTweet: DateTime.now(),
+              imageUrl:
+                  "https://cdn.discordapp.com/attachments/810642958972878848/1138206895719600280/34by2d63j8g81.png",
+              postText:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pharetra orci id quam posuere, id convallis ligula convallis. Nulla ut tellus consectetur, venenatis arcu nec, molestie ante. Curabitur sit amet malesuada libero. Aliquam erat volutpat. Cras hendrerit dapibus justo, sit amet consectetur sapien dapibus at. Nulla commodo velit nisi, nec fermentum diam feugiat eu. Vestibulum felis donec.",
+              likes: 30000,
+              retweets: 100000,
+            )),
+            Post(Tweet(
                 displayName: "jules ! :3",
                 username: "@sandcat_enjoyer",
                 userProfileImageUrl:
