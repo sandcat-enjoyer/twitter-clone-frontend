@@ -11,6 +11,8 @@ import 'package:twitter_clone/pages/notifications.dart';
 import 'package:twitter_clone/pages/settings.dart';
 import 'package:twitter_clone/pages/userProfile.dart';
 import 'package:twitter_clone/widgets/post.dart';
+import "package:split_view/split_view.dart";
+import 'package:twitter_clone/widgets/sidebar.dart';
 
 import '../data/tweet.dart';
 
@@ -25,9 +27,27 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   bool isDarkMode = false;
+  late AnimationController controller;
+  late Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+          ..forward()
+          ..repeat();
+    animation = Tween<double>(begin: 0.0, end: 1.0).animate(controller);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose;
+  }
 
   static List<Widget> getWidgetOptions(BuildContext context) {
     if (MediaQuery.of(context).size.width >= 600) {
@@ -35,6 +55,7 @@ class _HomeState extends State<Home> {
       return [
         ListView(
           children: [
+            SizedBox(height: 40),
             Post(Tweet(
               displayName: "pizza cat/ Longcat. - 2%",
               username: "@7ongcatUnbanned",
@@ -212,16 +233,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose;
-  }
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -284,19 +295,16 @@ class _HomeState extends State<Home> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Image.asset("assets/icon.png", width: 30),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: getWidgetOptions(context).elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+  _determineIfBottomNavBarNeeded(BuildContext context) {
+    if (MediaQuery.of(context).size.width >= 900) {
+      return;
+    } else {
+      return BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: AnimatedIcon(
+                  icon: AnimatedIcons.menu_home, progress: animation),
+              label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
         ],
@@ -308,8 +316,57 @@ class _HomeState extends State<Home> {
         onTap: _onItemTapped,
         enableFeedback: true,
         type: BottomNavigationBarType.fixed,
+      );
+    }
+  }
+
+  _determineIfDrawerIsNecessary() {
+    if (MediaQuery.of(context).size.width >= 600) {
+      return;
+    } else {
+      return buildProfileDrawer();
+    }
+  }
+
+  _determineIfAppBarIsNecessary() {
+    if (MediaQuery.of(context).size.width >= 600) {
+      return;
+    } else {
+      return AppBar(
+        title: Image.asset("assets/icon.png"),
+        centerTitle: true,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _determineIfAppBarIsNecessary(),
+      body: Row(
+        children: [
+          LayoutBuilder(builder: (context, constraints) {
+            if (constraints.maxWidth >= 600) {
+              return Sidebar(
+                selectedIndex: _selectedIndex,
+                onDestinationSelected: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+              );
+            } else {
+              return buildProfileDrawer();
+            }
+          }),
+          Expanded(
+            child: Center(
+                child: getWidgetOptions(context).elementAt(_selectedIndex)),
+          )
+        ],
       ),
-      drawer: buildProfileDrawer(),
+      bottomNavigationBar: _determineIfBottomNavBarNeeded(context),
+      drawer: _determineIfDrawerIsNecessary(),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         elevation: 5,

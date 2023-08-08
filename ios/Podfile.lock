@@ -25,6 +25,8 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - photo_gallery (0.0.1):
+    - Flutter
   - PromisesObjC (2.3.1)
   - share_plus (0.0.1):
     - Flutter
@@ -36,6 +38,7 @@ DEPENDENCIES:
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - pasteboard (from `.symlinks/plugins/pasteboard/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - photo_gallery (from `.symlinks/plugins/photo_gallery/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
 
 SPEC REPOS:
@@ -59,6 +62,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/pasteboard/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  photo_gallery:
+    :path: ".symlinks/plugins/photo_gallery/ios"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
 
@@ -73,6 +78,7 @@ SPEC CHECKSUMS:
   image_gallery_saver: cb43cc43141711190510e92c460eb1655cd343cb
   pasteboard: 982969ebaa7c78af3e6cc7761e8f5e77565d9ce0
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  photo_gallery: 9f95e57747cd22c10676ece3660d1ffe6c603ee5
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   share_plus: 599aa54e4ea31d4b4c0e9c911bcc26c55e791028
 

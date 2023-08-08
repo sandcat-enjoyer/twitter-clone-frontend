@@ -43,9 +43,9 @@ class _NewTweetState extends State<NewTweet> {
     isDarkMode = brightness == Brightness.dark;
 
     if (isDarkMode) {
-      return Color.fromARGB(255, 44, 52, 61);
+      return const Color.fromARGB(255, 44, 52, 61);
     } else {
-      return Color.fromARGB(255, 240, 244, 250);
+      return const Color.fromARGB(255, 240, 244, 250);
     }
   }
 
