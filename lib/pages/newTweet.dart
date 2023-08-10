@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import "package:photo_gallery/photo_gallery.dart";
 
 import '../data/user.dart';
 
@@ -11,6 +10,7 @@ class NewTweet extends StatefulWidget {
 
   final User _user;
 
+  @override
   _NewTweetState createState() => _NewTweetState();
 }
 
@@ -65,7 +65,7 @@ class _NewTweetState extends State<NewTweet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height *
           0.55, // Adjust the height as needed
       child: Material(
@@ -80,7 +80,7 @@ class _NewTweetState extends State<NewTweet> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
+                      const Expanded(
                         flex: 0,
                         child: Text(
                           'Create Bolt',
@@ -92,13 +92,13 @@ class _NewTweetState extends State<NewTweet> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 160.0),
+                      const SizedBox(width: 160.0),
                       TextButton(
                           onPressed: _canSendBolt ? _postBolt : null,
                           child: Icon(
                             Icons.send_rounded,
                             color: _canSendBolt
-                                ? Color.fromARGB(255, 88, 242, 226)
+                                ? const Color.fromARGB(255, 88, 242, 226)
                                 : Colors.grey,
                             size: 36,
                           ))
@@ -110,7 +110,7 @@ class _NewTweetState extends State<NewTweet> {
                   maxLength: 350,
                   style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: null,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "What's striking you?",
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.all(20.0),
@@ -122,15 +122,15 @@ class _NewTweetState extends State<NewTweet> {
                 children: [
                   TextButton(
                       onPressed: () {},
-                      child: Icon(Icons.camera_alt_rounded,
+                      child: const Icon(Icons.camera_alt_rounded,
                           color: Color.fromARGB(255, 88, 242, 226))),
                   TextButton(
                       onPressed: () {},
-                      child: Icon(Icons.photo_rounded,
+                      child: const Icon(Icons.photo_rounded,
                           color: Color.fromARGB(255, 88, 242, 226))),
                   TextButton(
                       onPressed: () {},
-                      child: Icon(Icons.gif_box_rounded,
+                      child: const Icon(Icons.gif_box_rounded,
                           color: Color.fromARGB(255, 88, 242, 226)))
                 ],
               )

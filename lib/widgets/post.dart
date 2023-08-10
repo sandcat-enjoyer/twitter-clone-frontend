@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:ui' as ui;
 
-import "dart:typed_data";
 import "dart:async";
 
 import 'package:flutter/material.dart';
@@ -13,19 +11,18 @@ import 'package:pasteboard/pasteboard.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:twitter_clone/data/tweet.dart';
 import 'package:twitter_clone/widgets/expandedImagePage.dart';
-import "package:clipboard/clipboard.dart";
 
 class Post extends StatelessWidget {
   late final Tweet bolt;
   Uint8List? imageBytes;
 
-  Post(this.bolt);
+  Post(this.bolt, {super.key});
 
   _checkScreenSize(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     double screenWidth = mediaQueryData.size.width;
     double tabletWidthThreshold = 600.0;
-    print("${'Ermmm the screen size it is ' + screenWidth.toString()}");
+    print('Ermmm the screen size it is $screenWidth');
 
     if (screenWidth > tabletWidthThreshold) {
       return _buildTabletPosts(context);
@@ -74,7 +71,7 @@ class Post extends StatelessWidget {
       await ImageGallerySaver.saveImage(Uint8List.fromList(response.bodyBytes));
 
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Image was saved to the device.")));
+          const SnackBar(content: Text("Image was saved to the device.")));
     } catch (e) {
       print("Error saving image. $e");
     }
@@ -95,13 +92,13 @@ class Post extends StatelessWidget {
                   radius: 20.0,
                   backgroundImage: NetworkImage(bolt.userProfileImageUrl),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   bolt.displayName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold, fontFamily: "SF Pro"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 Text(
@@ -110,20 +107,20 @@ class Post extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               bolt.postText,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Text(
-              "${DateFormat.yMMMd().format(bolt.timeOfTweet) + ", " + DateFormat.Hm().format(bolt.timeOfTweet)}",
+              "${DateFormat.yMMMd().format(bolt.timeOfTweet)}, ${DateFormat.Hm().format(bolt.timeOfTweet)}",
               style: Theme.of(context).textTheme.labelSmall,
             ),
             if (bolt.imageUrl != null) ...[
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               GestureDetector(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
@@ -149,7 +146,7 @@ class Post extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                          title: Text("Image Options",
+                          title: const Text("Image Options",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "SF Pro",
@@ -161,8 +158,8 @@ class Post extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      leading: Icon(Icons.save),
-                                      title: Text("Save Image",
+                                      leading: const Icon(Icons.save),
+                                      title: const Text("Save Image",
                                           style: TextStyle(
                                               fontFamily: "SF Pro",
                                               fontSize: 16)),
@@ -172,8 +169,8 @@ class Post extends StatelessWidget {
                                       },
                                     ),
                                     ListTile(
-                                      leading: Icon(Icons.copy),
-                                      title: Text("Copy Image",
+                                      leading: const Icon(Icons.copy),
+                                      title: const Text("Copy Image",
                                           style: TextStyle(
                                               fontFamily: "SF Pro",
                                               fontSize: 16)),
@@ -183,8 +180,8 @@ class Post extends StatelessWidget {
                                       },
                                     ),
                                     ListTile(
-                                      leading: Icon(Icons.ios_share),
-                                      title: Text("Share Image",
+                                      leading: const Icon(Icons.ios_share),
+                                      title: const Text("Share Image",
                                           style: TextStyle(
                                               fontFamily: "SF Pro",
                                               fontSize: 16)),
@@ -202,8 +199,8 @@ class Post extends StatelessWidget {
                                       },
                                     ),
                                     ListTile(
-                                      leading: Icon(Icons.add_a_photo),
-                                      title: Text("Add Image to Bolt",
+                                      leading: const Icon(Icons.add_a_photo),
+                                      title: const Text("Add Image to Bolt",
                                           style: TextStyle(
                                               fontFamily: "SF Pro",
                                               fontSize: 16)),
@@ -220,7 +217,7 @@ class Post extends StatelessWidget {
                 },
               ),
             ],
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -230,7 +227,7 @@ class Post extends StatelessWidget {
                       Icon(Icons.favorite_rounded,
                           size: 30.0,
                           color: Theme.of(context).primaryIconTheme.color),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
                         "${bolt.likes}",
                         style: TextStyle(
@@ -248,7 +245,7 @@ class Post extends StatelessWidget {
                       Icon(Icons.repeat_rounded,
                           size: 30.0,
                           color: Theme.of(context).primaryIconTheme.color),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       Text(
@@ -299,13 +296,13 @@ class Post extends StatelessWidget {
                   radius: 20.0,
                   backgroundImage: NetworkImage(bolt.userProfileImageUrl),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   bolt.displayName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold, fontFamily: "SF Pro"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 Text(
@@ -314,20 +311,20 @@ class Post extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               bolt.postText,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Text(
-              "${DateFormat.yMMMd().format(bolt.timeOfTweet) + ", " + DateFormat.Hm().format(bolt.timeOfTweet)}",
+              "${DateFormat.yMMMd().format(bolt.timeOfTweet)}, ${DateFormat.Hm().format(bolt.timeOfTweet)}",
               style: Theme.of(context).textTheme.labelSmall,
             ),
             if (bolt.imageUrl != null) ...[
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               GestureDetector(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
@@ -359,12 +356,12 @@ class Post extends StatelessWidget {
                                   overlay.size.bottomRight(Offset.zero))),
                           Offset.zero & overlay.size),
                       items: <PopupMenuItem>[
-                        PopupMenuItem(child: Text("Save Image"))
+                        const PopupMenuItem(child: Text("Save Image"))
                       ]);
                 },
               ),
             ],
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -376,7 +373,7 @@ class Post extends StatelessWidget {
                         size: 30.0,
                         color: Theme.of(context).primaryIconTheme.color,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
                         "${bolt.likes}",
                         style: TextStyle(
@@ -387,14 +384,14 @@ class Post extends StatelessWidget {
                   ),
                   onPressed: () {},
                 ),
-                SizedBox(width: 30),
+                const SizedBox(width: 30),
                 TextButton(
                   child: Row(
                     children: [
                       Icon(Icons.repeat_rounded,
                           size: 30.0,
                           color: Theme.of(context).primaryIconTheme.color),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       Text(
@@ -407,7 +404,7 @@ class Post extends StatelessWidget {
                   ),
                   onPressed: () {},
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 TextButton(
@@ -433,7 +430,7 @@ class Post extends StatelessWidget {
   Widget build(BuildContext context) {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
     final double screenWidth = mediaQueryData.size.width;
-    final double tabletWidthThreshold = 600.0;
+    const double tabletWidthThreshold = 600.0;
 
     if (screenWidth > tabletWidthThreshold) {
       // Return tablet layout

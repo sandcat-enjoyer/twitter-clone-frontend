@@ -10,8 +10,8 @@ class ExpandedImagePage extends StatelessWidget {
   final int likes;
   final int reposts;
 
-  ExpandedImagePage(
-      {required this.imageUrl,
+  const ExpandedImagePage(
+      {super.key, required this.imageUrl,
       required this.profileDisplayName,
       required this.profileUserName,
       required this.profilePictureUrl,
@@ -39,7 +39,7 @@ class ExpandedImagePage extends StatelessWidget {
             ),
             Container(
                 color: Colors.black54,
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -49,64 +49,64 @@ class ExpandedImagePage extends StatelessWidget {
                           radius: 24,
                           backgroundImage: NetworkImage(profilePictureUrl),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(profileDisplayName,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold)),
                             Text(profileUserName,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 14))
                           ],
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
                         Flexible(
                             child: Text(boltDescription!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                 ),
                                 overflow: TextOverflow.clip))
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.favorite_rounded, color: Colors.white),
-                        SizedBox(
+                        const Icon(Icons.favorite_rounded, color: Colors.white),
+                        const SizedBox(
                           width: 8,
                         ),
                         Text(
                           likes.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: "SF Pro", color: Colors.white),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 160,
                         ),
-                        Icon(Icons.repeat_rounded, color: Colors.white),
-                        SizedBox(
+                        const Icon(Icons.repeat_rounded, color: Colors.white),
+                        const SizedBox(
                           width: 8,
                         ),
                         Text(
                           reposts.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: "SF Pro", color: Colors.white),
                         ),
-                        SizedBox(width: 160),
-                        Icon(Icons.ios_share, color: Colors.white)
+                        const SizedBox(width: 160),
+                        const Icon(Icons.ios_share, color: Colors.white)
                       ],
                     ),
-                    SizedBox(height: 30)
+                    const SizedBox(height: 30)
                   ],
                 ))
           ],

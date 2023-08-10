@@ -1,9 +1,6 @@
-import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:twitter_clone/data/user.dart';
 import 'package:twitter_clone/pages/firstSignin.dart';
 import 'package:twitter_clone/pages/newTweet.dart';
@@ -11,7 +8,6 @@ import 'package:twitter_clone/pages/notifications.dart';
 import 'package:twitter_clone/pages/settings.dart';
 import 'package:twitter_clone/pages/userProfile.dart';
 import 'package:twitter_clone/widgets/post.dart';
-import "package:split_view/split_view.dart";
 import 'package:twitter_clone/widgets/sidebar.dart';
 
 import '../data/tweet.dart';
@@ -55,7 +51,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       return [
         ListView(
           children: [
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Post(Tweet(
               displayName: "pizza cat/ Longcat. - 2%",
               username: "@7ongcatUnbanned",
@@ -259,7 +255,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void _showCustomModalBottomSheet(BuildContext context) {
     final animationController = AnimationController(
       vsync: Navigator.of(context),
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
 
     final sheet = NewTweet(user: User());
@@ -305,8 +301,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               icon: AnimatedIcon(
                   icon: AnimatedIcons.menu_home, progress: animation),
               label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
+          const BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
+          const BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
         ],
         currentIndex: _selectedIndex,
         showSelectedLabels: false,
@@ -412,7 +408,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 style: TextStyle(
                     fontFamily: "SF Pro", color: _checkThemeForText()),
               ),
-              currentAccountPicture: CircleAvatar(
+              currentAccountPicture: const CircleAvatar(
                 maxRadius: 20,
                 backgroundImage: NetworkImage(
                     "https://pbs.twimg.com/profile_images/1667776269772046337/pUgHvR7W_400x400.jpg"),
@@ -441,7 +437,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               onTap: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => FirstSignIn()));
+                    MaterialPageRoute(builder: (context) => const FirstSignIn()));
               },
             ),
             ListTile(

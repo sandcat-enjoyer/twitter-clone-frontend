@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 import 'package:twitter_clone/data/user.dart';
 import 'package:twitter_clone/pages/home.dart';
 
@@ -46,8 +45,8 @@ class MyApp extends StatelessWidget {
         floatingActionButtonTheme:
             const FloatingActionButtonThemeData(foregroundColor: Colors.white),
         primaryColor: const Color.fromARGB(255, 88, 242, 226),
-        iconTheme: IconThemeData(color: Colors.black),
-        primaryIconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
+        primaryIconTheme: const IconThemeData(color: Colors.black),
         cardTheme: CardTheme(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16))),
@@ -96,7 +95,7 @@ class MyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16))),
 
-        primaryIconTheme: IconThemeData(color: Colors.white),
+        primaryIconTheme: const IconThemeData(color: Colors.white),
 
         textTheme: const TextTheme(
             displaySmall: TextStyle(

@@ -11,6 +11,7 @@ class UserProfile extends StatefulWidget {
 
   final User _user;
 
+  @override
   _UserProfileState createState() => _UserProfileState();
 }
 
@@ -51,63 +52,63 @@ class _UserProfileState extends State<UserProfile> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                       height:
                           100), // Adjust the height to make space for the header image
                   Container(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
                         CircleAvatar(
                           radius: 60.0,
                           backgroundImage: NetworkImage(profileImageUrl),
                         ),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         Text(displayName,
                             style: Theme.of(context).textTheme.titleLarge),
-                        SizedBox(height: 4.0),
+                        const SizedBox(height: 4.0),
                         Text(username),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(pronouns,
                             style: Theme.of(context).textTheme.bodyMedium),
-                        SizedBox(height: 8.0),
+                        const SizedBox(height: 8.0),
                         Text(
                           bio,
                           style: Theme.of(context).textTheme.bodyLarge,
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(Icons.location_city_rounded),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               "Antwerp",
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
-                            SizedBox(width: 60),
+                            const SizedBox(width: 60),
                             const Icon(Icons.link_rounded),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                             ),
-                            Text("Website Link")
+                            const Text("Website Link")
                           ],
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(Icons.calendar_today),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               "Born February 7",
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
-                            SizedBox(width: 40),
-                            Icon(Icons.calendar_month_outlined),
-                            SizedBox(width: 8),
-                            Text("Joined July 2023")
+                            const SizedBox(width: 40),
+                            const Icon(Icons.calendar_month_outlined),
+                            const SizedBox(width: 8),
+                            const Text("Joined July 2023")
                           ],
                         ),
                         /* Row(
@@ -168,7 +169,7 @@ class _UserProfileState extends State<UserProfile> {
                             )
                           ],
                         ), */
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: () {},
                           style: ButtonStyle(
@@ -179,14 +180,14 @@ class _UserProfileState extends State<UserProfile> {
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(8.0)))),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.edit,
                                 color: Colors.white,
                               ),
-                              const SizedBox(width: 8.0),
+                              SizedBox(width: 8.0),
                               Text("Edit Profile",
                                   style: TextStyle(
                                       fontFamily: "SF Pro",

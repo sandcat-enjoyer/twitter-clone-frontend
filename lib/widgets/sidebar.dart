@@ -4,7 +4,7 @@ class Sidebar extends StatefulWidget {
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
 
-  Sidebar({required this.selectedIndex, required this.onDestinationSelected});
+  const Sidebar({super.key, required this.selectedIndex, required this.onDestinationSelected});
 
   @override
   _SidebarState createState() => _SidebarState();
@@ -14,12 +14,12 @@ class _SidebarState extends State<Sidebar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: NavigationRail(
             groupAlignment: -0.9,
             leading: Image.asset("assets/icon.png", width: 40),
             labelType: NavigationRailLabelType.all,
-            destinations: [
+            destinations: const [
               NavigationRailDestination(
                   icon: Icon(
                     Icons.home_rounded,

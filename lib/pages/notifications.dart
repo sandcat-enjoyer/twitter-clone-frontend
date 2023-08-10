@@ -78,23 +78,23 @@ class NotificationItem {
 class NotificationCard extends StatelessWidget {
   final NotificationItem notification;
 
-  const NotificationCard({required this.notification});
+  const NotificationCard({super.key, required this.notification});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      shape: Border(
+      shape: const Border(
         bottom: BorderSide(color: Colors.grey, width: 0.5),
       ),
-      contentPadding: EdgeInsets.all(10.0),
+      contentPadding: const EdgeInsets.all(10.0),
       leading: CircleAvatar(
         backgroundImage: NetworkImage(notification.profileImageUrl),
       ),
       title: Text('${notification.username} ${notification.notificationText}',
           style: Theme.of(context).textTheme.bodyLarge),
       subtitle:
-          Text(notification.timestamp, style: TextStyle(color: Colors.white)),
-      trailing: Icon(
+          Text(notification.timestamp, style: const TextStyle(color: Colors.white)),
+      trailing: const Icon(
         Icons.favorite,
         color: Colors.pink,
       ),

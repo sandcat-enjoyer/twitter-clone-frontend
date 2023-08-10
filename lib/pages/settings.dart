@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 
 import "../data/user.dart";
-import "package:settings_ui/settings_ui.dart";
 
 class Settings extends StatefulWidget {
   const Settings({Key? key, required User user})
@@ -10,6 +9,7 @@ class Settings extends StatefulWidget {
 
   final User _user;
 
+  @override
   _SettingsState createState() => _SettingsState();
 }
 
@@ -34,7 +34,7 @@ class _SettingsState extends State<Settings> {
       body: ListView(
         children: [
           ListTile(
-            leading: Icon(Icons.notifications),
+            leading: const Icon(Icons.notifications),
             title: Text('Notifications',
                 style: Theme.of(context).textTheme.titleMedium),
             trailing: Switch(
@@ -47,50 +47,50 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.person),
+            leading: const Icon(Icons.person),
             title: Text('Account Settings',
                 style: Theme.of(context).textTheme.titleMedium),
-            trailing: Icon(Icons.arrow_forward_ios),
+            trailing: const Icon(Icons.arrow_forward_ios),
           ),
           ListTile(
-            leading: Icon(Icons.brush),
+            leading: const Icon(Icons.brush),
             title:
                 Text('Colors', style: Theme.of(context).textTheme.titleMedium),
-            trailing: Icon(Icons.arrow_forward_ios),
+            trailing: const Icon(Icons.arrow_forward_ios),
           ),
           ListTile(
-            leading: Icon(Icons.language),
+            leading: const Icon(Icons.language),
             title: Text('Language',
                 style: Theme.of(context).textTheme.titleMedium),
-            trailing: Icon(Icons.arrow_forward_ios),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               // Navigate to language settings screen here
             },
           ),
           ListTile(
-            leading: Icon(Icons.security),
+            leading: const Icon(Icons.security),
             title: Text('Security',
                 style: Theme.of(context).textTheme.titleMedium),
-            trailing: Icon(Icons.arrow_forward_ios),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               // Navigate to security settings screen here
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.help),
+            leading: const Icon(Icons.help),
             title: Text('Help & Support',
                 style: Theme.of(context).textTheme.titleMedium),
-            trailing: Icon(Icons.arrow_forward_ios),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               // Navigate to help & support screen here
             },
           ),
           ListTile(
-            leading: Icon(Icons.info),
+            leading: const Icon(Icons.info),
             title:
                 Text('About', style: Theme.of(context).textTheme.titleMedium),
-            trailing: Icon(Icons.arrow_forward_ios),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               // Navigate to about screen here
             },

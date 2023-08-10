@@ -49,17 +49,17 @@ class _LoginState extends State<Login> {
                     'assets/icon.png',
                     height: 150,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text("Sign in to Spark.",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.displaySmall),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       labelText: 'Username/E-mail',
-                      errorStyle: TextStyle(
+                      errorStyle: const TextStyle(
                           fontFamily: "SF Pro",
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
@@ -75,13 +75,13 @@ class _LoginState extends State<Login> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: _passwordController,
                     obscureText: true,
-                    style: TextStyle(fontFamily: "SF Pro"),
+                    style: const TextStyle(fontFamily: "SF Pro"),
                     decoration: InputDecoration(
-                      errorStyle: TextStyle(
+                      errorStyle: const TextStyle(
                           fontFamily: "SF Pro",
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
@@ -97,26 +97,26 @@ class _LoginState extends State<Login> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _submitForm,
-                    child: Text(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Theme.of(context).primaryColor)),
+                    child: const Text(
                       'Login',
                       style: TextStyle(
                           fontFamily: "SF Pro", fontWeight: FontWeight.bold),
                     ),
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Theme.of(context).primaryColor)),
                   ),
-                  SizedBox(height: 20),
-                  Text("Don't have an account?",
+                  const SizedBox(height: 20),
+                  const Text("Don't have an account?",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontFamily: "SF Pro", fontSize: 18)),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                       onPressed: () {},
-                      child: Text("Register",
+                      child: const Text("Register",
                           style: TextStyle(
                               fontFamily: "SF Pro",
                               fontWeight: FontWeight.bold)))

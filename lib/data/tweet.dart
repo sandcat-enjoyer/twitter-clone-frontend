@@ -1,4 +1,3 @@
-import 'package:twitter_clone/data/user.dart';
 
 class Tweet {
   String displayName;
