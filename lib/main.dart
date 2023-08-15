@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:twitter_clone/data/user.dart';
 import 'package:twitter_clone/pages/home.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -53,31 +57,31 @@ class MyApp extends StatelessWidget {
         //Fonts
         textTheme: const TextTheme(
             displaySmall: TextStyle(
-              fontFamily: "SF Pro",
+              fontFamily: "Poppins",
               fontWeight: FontWeight.w600,
             ),
             displayMedium:
-                TextStyle(fontFamily: "SF Pro", fontWeight: FontWeight.bold),
+                TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.bold),
             titleLarge: TextStyle(
-                fontFamily: "SF Pro",
+                fontFamily: "Poppins",
                 color: Colors.black,
                 fontSize: 35,
                 fontWeight: FontWeight.bold),
             bodySmall:
-                TextStyle(fontFamily: "SF Pro", fontWeight: FontWeight.w600),
+                TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w600),
             bodyMedium: TextStyle(
                 color: Colors.black,
-                fontFamily: "SF Pro",
+                fontFamily: "Poppins",
                 fontSize: 16,
-                letterSpacing: 0.4),
-            bodyLarge: TextStyle(fontFamily: "SF Pro", fontSize: 25),
+                letterSpacing: 0),
+            bodyLarge: TextStyle(fontFamily: "Poppins", fontSize: 25),
             labelSmall: TextStyle(
-                fontFamily: "SF Pro",
+                fontFamily: "Poppins",
                 fontSize: 13,
                 fontWeight: FontWeight.normal,
                 color: Colors.blueGrey,
                 letterSpacing: 1),
-            labelLarge: TextStyle(fontFamily: "SF Pro")),
+            labelLarge: TextStyle(fontFamily: "Poppins")),
       ),
 
       darkTheme: ThemeData(
@@ -99,36 +103,36 @@ class MyApp extends StatelessWidget {
 
         textTheme: const TextTheme(
             displaySmall: TextStyle(
-              fontFamily: "SF Pro",
+              fontFamily: "Poppins",
               fontWeight: FontWeight.w600,
             ),
             displayMedium: TextStyle(
-                fontFamily: "SF Pro",
+                fontFamily: "Poppins",
                 fontWeight: FontWeight.bold,
                 color: Colors.white),
             titleLarge: TextStyle(
-                fontFamily: "SF Pro",
+                fontFamily: "Poppins",
                 color: Colors.white,
                 fontSize: 35,
                 fontWeight: FontWeight.bold),
             bodySmall: TextStyle(
                 color: Colors.white,
-                fontFamily: "SF Pro",
+                fontFamily: "Poppins",
                 fontWeight: FontWeight.w600),
             bodyMedium: TextStyle(
                 color: Colors.white,
-                fontFamily: "SF Pro",
+                fontFamily: "Poppins",
                 fontSize: 16,
                 letterSpacing: 0.4),
             bodyLarge: TextStyle(
-                fontSize: 25, color: Colors.white, fontFamily: "SF Pro"),
+                fontSize: 25, color: Colors.white, fontFamily: "Poppins"),
             labelSmall: TextStyle(
-                fontFamily: "SF Pro",
+                fontFamily: "Poppins",
                 fontSize: 13,
                 letterSpacing: 1,
                 fontWeight: FontWeight.normal,
                 color: Colors.grey),
-            labelLarge: TextStyle(fontFamily: "SF Pro", color: Colors.white)),
+            labelLarge: TextStyle(fontFamily: "Poppins", color: Colors.white)),
 
         // Icon Colors
         iconTheme: const IconThemeData(

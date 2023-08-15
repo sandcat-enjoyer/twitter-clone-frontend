@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:twitter_clone/data/user.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+
 class Notifications extends StatefulWidget {
   const Notifications({Key? key, required User user})
       : _user = user,
@@ -47,15 +48,13 @@ class _NotificationsState extends State<Notifications> {
         },
       ),
       onRefresh: () async {
-        await audioPlayer
-            .play(AssetSource("sound/spark_refresh_sound_start.mp3"));
+        await audioPlayer.play(AssetSource("sound/spark_refresh_sound_start.mp3")).then((value) {
+          Future.delayed(const Duration(seconds: 2)).then((value) {
+            audioPlayer.play(AssetSource("sound/spark_refresh_sound_end.mp3"));
 
-        Future.delayed(const Duration(seconds: 2));
+          });
+        });
 
-        await audioPlayer
-            .play(AssetSource("sound/spark_refresh_sound_end.mp3"));
-
-        return;
       },
     );
   }

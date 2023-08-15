@@ -50,9 +50,10 @@ dependencies:
   pasteboard: ^0.2.0
   http: ^1.1.0
   image_gallery_saver: ^2.0.3
-  audioplayers: ^5.0.0
+  audioplayers: ^5.1.0
   photo_gallery: ^2.1.1
   split_view: ^3.2.1
+  flutter_sound: ^9.2.13
 
 dev_dependencies:
   flutter_test:
@@ -97,6 +98,31 @@ flutter:
         - asset: fonts/sf-pro-bold-italic.otf
           weight: 700
           style: italic
+    - family: "Poppins"
+      fonts:
+        - asset: fonts/Poppins-Regular.ttf
+        - asset: fonts/Poppins-Italic.ttf
+          style: italic
+        - asset: fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: fonts/Poppins-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: fonts/Poppins-BoldItalic.ttf
+          style: italic
+          weight: 700
+        - asset: fonts/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/Poppins-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: fonts/Poppins-Black.ttf
+          weight: 900
+        - asset: fonts/Poppins-BlackItalic.ttf
+          style: italic
+          weight: 900
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -5,6 +5,7 @@ import 'package:twitter_clone/data/user.dart';
 import 'package:twitter_clone/pages/firstSignin.dart';
 import 'package:twitter_clone/pages/newTweet.dart';
 import 'package:twitter_clone/pages/notifications.dart';
+import 'package:twitter_clone/pages/post_detail.dart';
 import 'package:twitter_clone/pages/settings.dart';
 import 'package:twitter_clone/pages/userProfile.dart';
 import 'package:twitter_clone/widgets/post.dart';
@@ -27,16 +28,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   bool isDarkMode = false;
   late AnimationController controller;
-  late Animation<double> animation;
+  //late Animation<double> animation;
 
   @override
   void initState() {
     super.initState();
-    controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1))
-          ..forward()
-          ..repeat();
-    animation = Tween<double>(begin: 0.0, end: 1.0).animate(controller);
+    //controller =
+    //    AnimationController(vsync: this, duration: const Duration(seconds: 1))
+    //      ..forward()
+    //      ..repeat();
+    //animation = Tween<double>(begin: 0.0, end: 1.0).animate(controller);
   }
 
   @override
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.dispose;
   }
 
-  static List<Widget> getWidgetOptions(BuildContext context) {
+   List<Widget> getWidgetOptions(BuildContext context) {
     if (MediaQuery.of(context).size.width >= 600) {
       //tablet layout
       return [
@@ -148,7 +149,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       return [
         ListView(
           children: [
-            Post(Tweet(
+            InkWell(
+              onTap: () {
+                //we will need a much more sophisticated way of keeping post IDs but for testing purposes this is fine (probably)
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => PostDetail(user: widget._user, postId: 1)));
+              },
+              child: Post(Tweet(
                 displayName: "jules ! :3",
                 username: "@sandcat_enjoyer",
                 userProfileImageUrl:
@@ -157,7 +163,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 postText: "Haha BUSINESS",
                 likes: 10,
                 retweets: 2)),
-            Post(Tweet(
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => PostDetail(user: widget._user, postId: 2)));
+
+              },
+              child: Post(Tweet(
                 displayName: "jules ! :3",
                 username: "@sandcat_enjoyer",
                 userProfileImageUrl:
@@ -167,6 +179,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     "Haha BUSINESS fomfidhgbisogufdjosghufjpuibhjkgioshiujklgfbhfnfbhndfsjbhnlfdjgbhiogfjnkldjnkldndonldjsonlojpiknsgophjklnodpikns,pokghjiksfophjfklsojnlsgjnf,gsjnjlfjoshiknslopfkohifsdhu",
                 likes: 10,
                 retweets: 2)),
+            ),
             Post(Tweet(
                 displayName: "jules ! :3",
                 username: "@sandcat_enjoyer",
@@ -296,13 +309,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       return;
     } else {
       return BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: AnimatedIcon(
-                  icon: AnimatedIcons.menu_home, progress: animation),
+              icon: Icon(Icons.home),
               label: ""),
-          const BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
-          const BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
         ],
         currentIndex: _selectedIndex,
         showSelectedLabels: false,
@@ -329,7 +341,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       return;
     } else {
       return AppBar(
-        title: Image.asset("assets/icon.png"),
+        title: Image.asset("assets/icon.png", width: 40,),
         centerTitle: true,
       );
     }
@@ -339,9 +351,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _determineIfAppBarIsNecessary(),
-      body: Row(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 2));
+        },
+        child: Row(
         children: [
-          LayoutBuilder(builder: (context, constraints) {
+          if (MediaQuery.of(context).size.width >= 600) ...[
+            LayoutBuilder(builder: (context, constraints) {
             if (constraints.maxWidth >= 600) {
               return Sidebar(
                 selectedIndex: _selectedIndex,
@@ -355,11 +372,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               return buildProfileDrawer();
             }
           }),
+          ],
           Expanded(
             child: Center(
                 child: getWidgetOptions(context).elementAt(_selectedIndex)),
           )
         ],
+      ),
       ),
       bottomNavigationBar: _determineIfBottomNavBarNeeded(context),
       drawer: _determineIfDrawerIsNecessary(),
@@ -378,7 +397,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget buildProfileDrawer() {
     double iconSize = 32.0;
     TextStyle profileDrawerTextStyle = const TextStyle(
-        fontFamily: "SF Pro", fontSize: 20, fontWeight: FontWeight.bold);
+        fontFamily: "Poppins", fontSize: 20, fontWeight: FontWeight.bold);
     return Drawer(
         backgroundColor: _checkTheme(),
         child: ListView(
@@ -399,14 +418,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 "jules ! :3",
                 style: TextStyle(
                     color: _checkThemeForText(),
-                    fontFamily: "SF Pro",
+                    fontFamily: "Poppins",
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
               accountEmail: Text(
                 "@sandcat_enjoyer",
                 style: TextStyle(
-                    fontFamily: "SF Pro", color: _checkThemeForText()),
+                    fontFamily: "Poppins", color: _checkThemeForText()),
               ),
               currentAccountPicture: const CircleAvatar(
                 maxRadius: 20,

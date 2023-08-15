@@ -96,7 +96,7 @@ class Post extends StatelessWidget {
                 Text(
                   bolt.displayName,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontFamily: "SF Pro"),
+                      fontWeight: FontWeight.bold, fontFamily: "Poppins"),
                 ),
                 const SizedBox(
                   width: 8,
@@ -115,10 +115,7 @@ class Post extends StatelessWidget {
             const SizedBox(
               height: 4,
             ),
-            Text(
-              "${DateFormat.yMMMd().format(bolt.timeOfTweet)}, ${DateFormat.Hm().format(bolt.timeOfTweet)}",
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
+            
             if (bolt.imageUrl != null) ...[
               const SizedBox(height: 8),
               GestureDetector(
@@ -149,7 +146,7 @@ class Post extends StatelessWidget {
                           title: const Text("Image Options",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "SF Pro",
+                                fontFamily: "Poppins",
                               )),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -161,7 +158,7 @@ class Post extends StatelessWidget {
                                       leading: const Icon(Icons.save),
                                       title: const Text("Save Image",
                                           style: TextStyle(
-                                              fontFamily: "SF Pro",
+                                              fontFamily: "Poppins",
                                               fontSize: 16)),
                                       onTap: () {
                                         _saveImageToGallery(context);
@@ -172,7 +169,7 @@ class Post extends StatelessWidget {
                                       leading: const Icon(Icons.copy),
                                       title: const Text("Copy Image",
                                           style: TextStyle(
-                                              fontFamily: "SF Pro",
+                                              fontFamily: "Poppins",
                                               fontSize: 16)),
                                       onTap: () {
                                         copyToClipboard();
@@ -183,7 +180,7 @@ class Post extends StatelessWidget {
                                       leading: const Icon(Icons.ios_share),
                                       title: const Text("Share Image",
                                           style: TextStyle(
-                                              fontFamily: "SF Pro",
+                                              fontFamily: "Poppins",
                                               fontSize: 16)),
                                       onTap: () {
                                         //this code needs to be modified to work still on ipads
@@ -202,7 +199,7 @@ class Post extends StatelessWidget {
                                       leading: const Icon(Icons.add_a_photo),
                                       title: const Text("Add Image to Bolt",
                                           style: TextStyle(
-                                              fontFamily: "SF Pro",
+                                              fontFamily: "Poppins",
                                               fontSize: 16)),
                                       onTap: () {
                                         //logic to save image to device
@@ -218,6 +215,11 @@ class Post extends StatelessWidget {
               ),
             ],
             const SizedBox(height: 16.0),
+            Text(
+              "${DateFormat.yMMMd().format(bolt.timeOfTweet)}, ${DateFormat.Hm().format(bolt.timeOfTweet)}",
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -300,7 +302,7 @@ class Post extends StatelessWidget {
                 Text(
                   bolt.displayName,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontFamily: "SF Pro"),
+                      fontWeight: FontWeight.bold, fontFamily: "Poppins"),
                 ),
                 const SizedBox(
                   width: 8,
@@ -319,10 +321,7 @@ class Post extends StatelessWidget {
             const SizedBox(
               height: 4,
             ),
-            Text(
-              "${DateFormat.yMMMd().format(bolt.timeOfTweet)}, ${DateFormat.Hm().format(bolt.timeOfTweet)}",
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
+            
             if (bolt.imageUrl != null) ...[
               const SizedBox(height: 8),
               GestureDetector(
@@ -360,8 +359,14 @@ class Post extends StatelessWidget {
                       ]);
                 },
               ),
+            const SizedBox(height: 16)
             ],
-            const SizedBox(height: 16.0),
+            
+            Text(
+              "${DateFormat.yMMMd().format(bolt.timeOfTweet)}, ${DateFormat.Hm().format(bolt.timeOfTweet)}",
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -56,11 +56,20 @@ class _NewTweetState extends State<NewTweet> {
 
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
-      ..showSnackBar(const SnackBar(
-          content: Text(
+      ..showSnackBar(SnackBar(
+          content: Row(
+            children: [
+              const Text(
         "Awesome! Your bolt was posted.",
-        style: TextStyle(fontFamily: "SF Pro", fontWeight: FontWeight.bold),
-      )));
+        style: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.bold),
+      ),
+      TextButton(child: const Text("View Bolt", style: TextStyle(
+        fontFamily: "Poppins"
+      )), onPressed: () {
+
+      })
+            ],
+          ) ));
   }
 
   @override
@@ -88,7 +97,7 @@ class _NewTweetState extends State<NewTweet> {
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "SF Pro",
+                            fontFamily: "Poppins",
                           ),
                         ),
                       ),

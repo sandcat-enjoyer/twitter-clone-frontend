@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
                     decoration: InputDecoration(
                       labelText: 'Username/E-mail',
                       errorStyle: const TextStyle(
-                          fontFamily: "SF Pro",
+                          fontFamily: "Poppins",
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
                       border: OutlineInputBorder(
@@ -79,10 +79,10 @@ class _LoginState extends State<Login> {
                   TextFormField(
                     controller: _passwordController,
                     obscureText: true,
-                    style: const TextStyle(fontFamily: "SF Pro"),
+                    style: const TextStyle(fontFamily: "Poppins"),
                     decoration: InputDecoration(
                       errorStyle: const TextStyle(
-                          fontFamily: "SF Pro",
+                          fontFamily: "Poppins",
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
                       labelText: 'Password',
@@ -106,19 +106,19 @@ class _LoginState extends State<Login> {
                     child: const Text(
                       'Login',
                       style: TextStyle(
-                          fontFamily: "SF Pro", fontWeight: FontWeight.bold),
+                          fontFamily: "Poppins", fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(height: 20),
                   const Text("Don't have an account?",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: "SF Pro", fontSize: 18)),
+                      style: TextStyle(fontFamily: "Poppins", fontSize: 18)),
                   const SizedBox(height: 20),
                   ElevatedButton(
                       onPressed: () {},
                       child: const Text("Register",
                           style: TextStyle(
-                              fontFamily: "SF Pro",
+                              fontFamily: "Poppins",
                               fontWeight: FontWeight.bold)))
                 ],
               ),

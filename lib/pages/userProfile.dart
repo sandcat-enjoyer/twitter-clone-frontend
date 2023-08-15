@@ -190,7 +190,7 @@ class _UserProfileState extends State<UserProfile> {
                               SizedBox(width: 8.0),
                               Text("Edit Profile",
                                   style: TextStyle(
-                                      fontFamily: "SF Pro",
+                                      fontFamily: "Poppins",
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                       fontSize: 18)),

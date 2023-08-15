@@ -81,29 +81,29 @@ class ExpandedImagePage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.favorite_rounded, color: Colors.white),
+                        const Icon(Icons.favorite_rounded, color: Colors.white, size: 36),
                         const SizedBox(
                           width: 8,
                         ),
                         Text(
                           likes.toString(),
                           style: const TextStyle(
-                              fontFamily: "SF Pro", color: Colors.white),
+                              fontFamily: "Poppins", color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
                         ),
                         const SizedBox(
-                          width: 160,
+                          width: 50,
                         ),
-                        const Icon(Icons.repeat_rounded, color: Colors.white),
+                        const Icon(Icons.repeat_rounded, color: Colors.white, size: 36,),
                         const SizedBox(
                           width: 8,
                         ),
                         Text(
                           reposts.toString(),
                           style: const TextStyle(
-                              fontFamily: "SF Pro", color: Colors.white),
+                              fontFamily: "Poppins", color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
                         ),
-                        const SizedBox(width: 160),
-                        const Icon(Icons.ios_share, color: Colors.white)
+                        const SizedBox(width: 50),
+                        const Icon(Icons.ios_share, color: Colors.white, size: 36)
                       ],
                     ),
                     const SizedBox(height: 30)
