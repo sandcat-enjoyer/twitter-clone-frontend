@@ -78,7 +78,9 @@ class Post extends StatelessWidget {
   }
 
   _buildTabletPosts(BuildContext context) {
-    return Card(
+    return Container(
+      width: MediaQuery.of(context).size.width - 100,
+      child: Card(
       elevation: 1.0,
       margin: const EdgeInsets.symmetric(horizontal: 200.0, vertical: 8.0),
       child: Padding(
@@ -86,7 +88,8 @@ class Post extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 CircleAvatar(
                   radius: 20.0,
@@ -220,8 +223,7 @@ class Post extends StatelessWidget {
               style: Theme.of(context).textTheme.labelSmall,
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
               children: [
                 TextButton(
                   child: Row(
@@ -280,6 +282,7 @@ class Post extends StatelessWidget {
           ],
         ),
       ),
+    )
     );
   }
 
@@ -292,7 +295,8 @@ class Post extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            Wrap(
+              
               children: [
                 CircleAvatar(
                   radius: 20.0,

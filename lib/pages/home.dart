@@ -305,7 +305,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   _determineIfBottomNavBarNeeded(BuildContext context) {
-    if (MediaQuery.of(context).size.width >= 900) {
+    if (MediaQuery.of(context).size.width >= 600) {
       return;
     } else {
       return BottomNavigationBar(
