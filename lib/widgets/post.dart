@@ -9,8 +9,8 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:twitter_clone/data/tweet.dart';
-import 'package:twitter_clone/widgets/expandedImagePage.dart';
+import 'package:spark/data/tweet.dart';
+import 'package:spark/widgets/expandedImagePage.dart';
 
 class Post extends StatelessWidget {
   late final Tweet bolt;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:twitter_clone/data/user.dart';
-import 'package:twitter_clone/pages/home.dart';
+import 'package:spark/data/user.dart';
+import 'package:spark/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

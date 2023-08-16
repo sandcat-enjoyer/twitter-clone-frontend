@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:twitter_clone/data/user.dart';
+import 'package:spark/data/user.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 

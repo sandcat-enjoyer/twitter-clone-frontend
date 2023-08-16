@@ -1,15 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:twitter_clone/data/user.dart';
-import 'package:twitter_clone/pages/firstSignin.dart';
-import 'package:twitter_clone/pages/newTweet.dart';
-import 'package:twitter_clone/pages/notifications.dart';
-import 'package:twitter_clone/pages/post_detail.dart';
-import 'package:twitter_clone/pages/settings.dart';
-import 'package:twitter_clone/pages/userProfile.dart';
-import 'package:twitter_clone/widgets/post.dart';
-import 'package:twitter_clone/widgets/sidebar.dart';
+import 'package:spark/data/user.dart';
+import 'package:spark/pages/firstSignin.dart';
+import 'package:spark/pages/newTweet.dart';
+import 'package:spark/pages/notifications.dart';
+import 'package:spark/pages/post_detail.dart';
+import 'package:spark/pages/settings.dart';
+import 'package:spark/pages/userProfile.dart';
+import 'package:spark/widgets/post.dart';
+import 'package:spark/widgets/sidebar.dart';
 
 import '../data/tweet.dart';
 

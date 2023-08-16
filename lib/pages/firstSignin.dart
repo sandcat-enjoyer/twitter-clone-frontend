@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:twitter_clone/pages/login.dart';
+import 'package:spark/pages/login.dart';
 
 class FirstSignIn extends StatelessWidget {
   const FirstSignIn({Key? key}) : super(key: key);
