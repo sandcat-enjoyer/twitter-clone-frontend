@@ -10,15 +10,24 @@ class Sidebar extends StatefulWidget {
   _SidebarState createState() => _SidebarState();
 }
 
+_checkIfExtendedIsNeeded(BuildContext context){
+  if (MediaQuery.of(context).size.width >= 900) {
+    return true;
+  }
+  else {
+    return false;
+  }
+} 
+
 class _SidebarState extends State<Sidebar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(8),
         child: NavigationRail(
             groupAlignment: -0.9,
+            extended: _checkIfExtendedIsNeeded(context),
             leading: Image.asset("assets/icon.png", width: 40),
-            labelType: NavigationRailLabelType.all,
             destinations: const [
               NavigationRailDestination(
                   icon: Icon(

@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -18,10 +19,12 @@ class _NewTweetState extends State<NewTweet> {
   final TextEditingController boltController = TextEditingController();
   bool _canSendBolt = false;
   bool isDarkMode = false;
+  late List<CameraDescription> _cameras;
 
   @override
   void initState() {
     super.initState();
+    
     boltController.addListener(_onTextChanged);
   }
 
@@ -75,9 +78,10 @@ class _NewTweetState extends State<NewTweet> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height *
-          0.55, // Adjust the height as needed
-      child: Material(
+      height: MediaQuery.of(context).size.height * 0.70, // Adjust the height as needed
+      child: SingleChildScrollView(
+      
+        child: Material(
           color: _checkTheme(),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
@@ -116,6 +120,7 @@ class _NewTweetState extends State<NewTweet> {
               SingleChildScrollView(
                 child: TextField(
                   controller: boltController,
+                  autofocus: true,
                   maxLength: 350,
                   style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: null,
@@ -147,6 +152,7 @@ class _NewTweetState extends State<NewTweet> {
               // Add other widgets as needed for composing the tweet
             ],
           )),
+      ) 
     );
   }
 }

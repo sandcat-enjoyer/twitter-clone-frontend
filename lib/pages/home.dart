@@ -57,7 +57,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               displayName: "pizza cat/ Longcat. - 2%",
               username: "@7ongcatUnbanned",
               userProfileImageUrl:
-                  "https://pbs.twimg.com/profile_images/1667776665768869888/Vqf4ewyl_400x400.jpg",
+                  "https://pbs.twimg.com/profile_images/1438646762080772098/xAwDFg3d_400x400.jpg",
               timeOfTweet: DateTime.now(),
               imageUrl:
                   "https://cdn.discordapp.com/attachments/810642958972878848/1138206895719600280/34by2d63j8g81.png",
@@ -350,6 +350,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: _determineIfAppBarIsNecessary(),
       body: RefreshIndicator(
         onRefresh: () async {

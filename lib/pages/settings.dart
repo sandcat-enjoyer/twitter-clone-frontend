@@ -27,9 +27,10 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
         title:
-            Text('Settings', style: Theme.of(context).textTheme.displaySmall),
+            Text('Settings', style: Theme.of(context).textTheme.bodyLarge),
       ),
       body: ListView(
         children: [

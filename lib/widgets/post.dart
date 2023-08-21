@@ -78,11 +78,11 @@ class Post extends StatelessWidget {
   }
 
   _buildTabletPosts(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width - 100,
-      child: Card(
+    return Center(
+      child: Container(
+        width: 450,
+        child: Card(
       elevation: 1.0,
-      margin: const EdgeInsets.symmetric(horizontal: 200.0, vertical: 8.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -111,7 +111,7 @@ class Post extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Text(
+            SelectableText(
               bolt.postText,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
@@ -140,6 +140,7 @@ class Post extends StatelessWidget {
                                 boltDescription: bolt.postText,
                                 likes: bolt.likes,
                                 reposts: bolt.retweets,
+                          
                               )));
                 },
                 onLongPress: () {
@@ -282,7 +283,8 @@ class Post extends StatelessWidget {
           ],
         ),
       ),
-    )
+    ),
+      ) 
     );
   }
 
@@ -344,23 +346,80 @@ class Post extends StatelessWidget {
                               profileUserName: bolt.username,
                               boltDescription: bolt.postText,
                               likes: bolt.likes,
-                              reposts: bolt.retweets)));
+                              reposts: bolt.retweets,)));
                 },
                 onLongPress: () {
-                  final RenderBox overlay = Overlay.of(context)
-                      .context
-                      .findRenderObject() as RenderBox;
-                  showMenu(
+                  showDialog(
                       context: context,
-                      position: RelativeRect.fromRect(
-                          Rect.fromPoints(
-                              overlay.localToGlobal(Offset.zero),
-                              overlay.localToGlobal(
-                                  overlay.size.bottomRight(Offset.zero))),
-                          Offset.zero & overlay.size),
-                      items: <PopupMenuItem>[
-                        const PopupMenuItem(child: Text("Save Image"))
-                      ]);
+                      builder: (context) => AlertDialog(
+                          title: const Text("Image Options",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Poppins",
+                              )),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading: const Icon(Icons.save),
+                                      title: const Text("Save Image",
+                                          style: TextStyle(
+                                              fontFamily: "Poppins",
+                                              fontSize: 16)),
+                                      onTap: () {
+                                        _saveImageToGallery(context);
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading: const Icon(Icons.copy),
+                                      title: const Text("Copy Image",
+                                          style: TextStyle(
+                                              fontFamily: "Poppins",
+                                              fontSize: 16)),
+                                      onTap: () {
+                                        copyToClipboard();
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading: const Icon(Icons.ios_share),
+                                      title: const Text("Share Image",
+                                          style: TextStyle(
+                                              fontFamily: "Poppins",
+                                              fontSize: 16)),
+                                      onTap: () {
+                                        //this code needs to be modified to work still on ipads
+                                        final box = context.findRenderObject()
+                                            as RenderBox?;
+                                        Share.share(
+                                            "<here goes the image you want to share :3>",
+                                            sharePositionOrigin: box!
+                                                    .localToGlobal(
+                                                        Offset.zero) &
+                                                box.size);
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading: const Icon(Icons.add_a_photo),
+                                      title: const Text("Add Image to Bolt",
+                                          style: TextStyle(
+                                              fontFamily: "Poppins",
+                                              fontSize: 16)),
+                                      onTap: () {
+                                        //logic to save image to device
+                                        Navigator.pop(context);
+                                      },
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          )));
                 },
               ),
             const SizedBox(height: 16)

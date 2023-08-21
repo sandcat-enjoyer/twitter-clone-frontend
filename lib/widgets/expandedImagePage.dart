@@ -17,7 +17,7 @@ class ExpandedImagePage extends StatelessWidget {
       required this.profilePictureUrl,
       required this.boltDescription,
       required this.likes,
-      required this.reposts});
+      required this.reposts,});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +32,22 @@ class ExpandedImagePage extends StatelessWidget {
           children: [
             Expanded(
               child: PhotoView(
+                loadingBuilder: (context, event) => Center(
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      value: event == null ? 0 : event.cumulativeBytesLoaded / event.expectedTotalBytes!
+                    ),
+                  ),
+                ),
+
                 imageProvider: NetworkImage(imageUrl),
                 minScale: PhotoViewComputedScale.contained,
                 maxScale: PhotoViewComputedScale.covered * 2.0,
               ),
             ),
-            Container(
+            Visibility(visible: false, child: Container(
                 color: Colors.black54,
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -108,7 +118,8 @@ class ExpandedImagePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 30)
                   ],
-                ))
+                )))
+            
           ],
         ));
   }

@@ -21,7 +21,7 @@ class _NotificationsState extends State<Notifications> {
   final List<NotificationItem> notifications = [
     NotificationItem(
       profileImageUrl:
-          'https://pbs.twimg.com/profile_images/1667776665768869888/Vqf4ewyl_400x400.jpg',
+          'https://pbs.twimg.com/profile_images/1438646762080772098/xAwDFg3d_400x400.jpg',
       username: 'Meowings',
       notificationText: 'liked your tweet: "Business Opportunity"',
       timestamp: '2h',
