@@ -37,13 +37,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     _checkScreenWidth(context);
     return MaterialApp(
-      title: 'Bolt',
+      title: 'Spark',
 
       //Light Theme
       theme: ThemeData(
         colorScheme: colorScheme,
         brightness: Brightness.light,
-        useMaterial3: true,
+        
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.grey,
+          elevation: 0
+        ),
+        scaffoldBackgroundColor: Colors.white,
         //Colors
         bottomNavigationBarTheme:
             const BottomNavigationBarThemeData(backgroundColor: Colors.white),
@@ -53,6 +59,8 @@ class MyApp extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
         primaryIconTheme: const IconThemeData(color: Colors.black),
         cardTheme: CardTheme(
+          color: Colors.white,
+          elevation: 2,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16))),
         //Fonts
@@ -61,20 +69,28 @@ class MyApp extends StatelessWidget {
               fontFamily: "Poppins",
               fontWeight: FontWeight.w600,
             ),
+            headlineSmall: TextStyle(
+              fontFamily: "Poppins",
+              fontWeight: FontWeight.w500,
+              
+            ),
             displayMedium:
-                TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.bold),
+                TextStyle(fontFamily: "Poppins", 
+                fontWeight: FontWeight.bold),
             titleLarge: TextStyle(
                 fontFamily: "Poppins",
                 color: Colors.black,
                 fontSize: 35,
                 fontWeight: FontWeight.bold),
             bodySmall:
-                TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w600),
+                TextStyle(fontFamily: "Poppins", 
+                fontWeight: FontWeight.w600),
             bodyMedium: TextStyle(
                 color: Colors.black,
                 fontFamily: "Poppins",
                 fontSize: 16,
-                letterSpacing: 0),
+                letterSpacing: 0.4
+                ),
             bodyLarge: TextStyle(fontFamily: "Poppins", fontSize: 25),
             labelSmall: TextStyle(
                 fontFamily: "Poppins",
@@ -91,6 +107,7 @@ class MyApp extends StatelessWidget {
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: Color(0xFF14171A),
             unselectedIconTheme: IconThemeData(color: Colors.white)),
+        
 
         primaryColor: const Color.fromARGB(255, 0, 200, 226),
 
@@ -106,6 +123,11 @@ class MyApp extends StatelessWidget {
             displaySmall: TextStyle(
               fontFamily: "Poppins",
               fontWeight: FontWeight.w600,
+            ),
+            headlineSmall: TextStyle(
+              fontFamily: "Poppins",
+              fontWeight: FontWeight.w500,
+              color: Colors.white
             ),
             displayMedium: TextStyle(
                 fontFamily: "Poppins",
@@ -126,7 +148,8 @@ class MyApp extends StatelessWidget {
                 fontSize: 16,
                 letterSpacing: 0.4),
             bodyLarge: TextStyle(
-                fontSize: 25, color: Colors.white, fontFamily: "Poppins"),
+                fontSize: 25, color: Colors.white, 
+                fontFamily: "Poppins"),
             labelSmall: TextStyle(
                 fontFamily: "Poppins",
                 fontSize: 13,

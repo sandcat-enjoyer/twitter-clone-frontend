@@ -426,12 +426,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               accountEmail: Text(
                 "@sandcat_enjoyer",
                 style: TextStyle(
-                    fontFamily: "Poppins", color: _checkThemeForText()),
+                    fontFamily: "Poppins", color: _checkThemeForText(), fontWeight: FontWeight.w500),
               ),
               currentAccountPicture: const CircleAvatar(
                 maxRadius: 20,
                 backgroundImage: NetworkImage(
-                    "https://pbs.twimg.com/profile_images/1667776269772046337/pUgHvR7W_400x400.jpg"),
+                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg"),
               ),
             ),
             ListTile(
@@ -445,19 +445,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => UserProfile(user: User())));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.list,
-                  size: iconSize,
-                  color: Theme.of(context).primaryIconTheme.color),
-              title: Text(
-                'Lists',
-                style: profileDrawerTextStyle,
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const FirstSignIn()));
               },
             ),
             ListTile(
@@ -478,7 +465,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   size: iconSize,
                   color: Theme.of(context).primaryIconTheme.color),
               title: Text(
-                'Settings and Privacy',
+                'Settings',
                 style: profileDrawerTextStyle,
               ),
               onTap: () {
@@ -491,7 +478,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   size: iconSize,
                   color: Theme.of(context).primaryIconTheme.color),
               title: Text(
-                'Help Center',
+                'Help & FAQ',
                 style: profileDrawerTextStyle,
               ),
               onTap: () {},

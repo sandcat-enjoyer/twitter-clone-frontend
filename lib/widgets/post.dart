@@ -224,7 +224,8 @@ class Post extends StatelessWidget {
               style: Theme.of(context).textTheme.labelSmall,
             ),
             const SizedBox(height: 16),
-            Wrap(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
                   child: Row(
@@ -298,7 +299,7 @@ class Post extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Wrap(
-              
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 CircleAvatar(
                   radius: 20.0,
