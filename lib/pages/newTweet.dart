@@ -77,11 +77,13 @@ class _NewTweetState extends State<NewTweet> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.70, // Adjust the height as needed
-      child: SingleChildScrollView(
-      
-        child: Material(
+    return SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.1, 0, MediaQuery.of(context).size.width * 0.1, MediaQuery.of(context).size.height * 0.5),
+          height: MediaQuery.of(context).size.height * 0.30,
+          alignment: Alignment.center,
+          
+          child: Material(      
           color: _checkTheme(),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
@@ -132,27 +134,32 @@ class _NewTweetState extends State<NewTweet> {
                   ),
                 ),
               ),
-              Row(
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                
                 children: [
                   TextButton(
                       onPressed: () {},
-                      child: const Icon(Icons.camera_alt_rounded,
+                      child: const Icon(Icons.camera_alt_rounded, size: 28,
                           color: Color.fromARGB(255, 88, 242, 226))),
                   TextButton(
                       onPressed: () {},
-                      child: const Icon(Icons.photo_rounded,
+                      child: const Icon(Icons.photo_rounded, size: 28,
                           color: Color.fromARGB(255, 88, 242, 226))),
                   TextButton(
                       onPressed: () {},
-                      child: const Icon(Icons.gif_box_rounded,
+                      child: const Icon(Icons.gif_box_rounded, size: 28,
                           color: Color.fromARGB(255, 88, 242, 226)))
                 ],
+              ),
               )
+              
 
               // Add other widgets as needed for composing the tweet
             ],
           )),
-      ) 
-    );
+        ) 
+      ) ;
   }
 }

@@ -53,6 +53,37 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ListView(
           children: [
             const SizedBox(height: 40),
+            InkWell(
+              onTap: () {
+                //we will need a much more sophisticated way of keeping post IDs but for testing purposes this is fine (probably)
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => PostDetail(user: widget._user, postId: 1)));
+              },
+              child: Post(Tweet(
+                displayName: "jules ! :3",
+                username: "@sandcat_enjoyer",
+                userProfileImageUrl:
+                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                timeOfTweet: DateTime.now(),
+                postText: "Haha BUSINESS",
+                likes: 10,
+                retweets: 2)),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => PostDetail(user: widget._user, postId: 2)));
+
+              },
+              child: Post(Tweet(
+                displayName: "jules ! :3",
+                username: "@sandcat_enjoyer",
+                userProfileImageUrl:
+                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                timeOfTweet: DateTime.now(),
+                postText:
+                    "Haha BUSINESS fomfidhgbisogufdjosghufjpuibhjkgioshiujklgfbhfnfbhndfsjbhnlfdjgbhiogfjnkldjnkldndonldjsonlojpiknsgophjklnodpikns,pokghjiksfophjfklsojnlsgjnf,gsjnjlfjoshiknslopfkohifsdhu",
+                likes: 10,
+                retweets: 2)),
+            ),
             Post(Tweet(
               displayName: "pizza cat/ Longcat. - 2%",
               username: "@7ongcatUnbanned",
@@ -142,7 +173,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         Text(
           "Message Haha",
           style: Theme.of(context).textTheme.titleLarge,
-        )
+        ),
+        UserProfile(user: User()),
+        Settings(user: User())
       ];
     } else {
       //phone layout
@@ -283,6 +316,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
     showModalBottomSheet(
       context: context,
+      isDismissible: true,
+
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
@@ -398,7 +433,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget buildProfileDrawer() {
     double iconSize = 32.0;
     TextStyle profileDrawerTextStyle = const TextStyle(
-        fontFamily: "Poppins", fontSize: 20, fontWeight: FontWeight.bold);
+        fontFamily: "Poppins", fontSize: 20, fontWeight: FontWeight.w500);
     return Drawer(
         backgroundColor: _checkTheme(),
         child: ListView(

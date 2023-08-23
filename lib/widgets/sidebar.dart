@@ -19,6 +19,22 @@ _checkIfExtendedIsNeeded(BuildContext context){
   }
 } 
 
+_showProfileNameWhenNeeded(BuildContext context) {
+  if (MediaQuery.of(context).size.width <= 900 && MediaQuery.of(context).size.width >= 600) {
+    return Container();
+  }
+  else {
+    return Container(
+      child: Row(
+        children: [
+          SizedBox(width: 25),
+          Text("jules :3 - 2%")
+        ],
+      ),
+    );
+  }
+}
+
 class _SidebarState extends State<Sidebar> {
   @override
   Widget build(BuildContext context) {
@@ -31,6 +47,38 @@ class _SidebarState extends State<Sidebar> {
             selectedIconTheme: Theme.of(context).primaryIconTheme,
             extended: _checkIfExtendedIsNeeded(context),
             leading: Image.asset("assets/icon.png", width: 40),
+            trailing: Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: InkWell(
+                  onTap: () {
+
+                    showMenu(context: context, position: RelativeRect.fromLTRB(0, 0, 0, 0), items: [
+                      PopupMenuItem(child: Text("Test"))
+                    ]);
+
+                  },
+                  child: Padding(
+                  padding: EdgeInsets.only(bottom: 16),
+                  child: Wrap(alignment: WrapAlignment.center, crossAxisAlignment: WrapCrossAlignment.center, children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundImage: NetworkImage("https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg"),
+                    ),
+                   
+                    _showProfileNameWhenNeeded(context)
+                      ],
+                    ),
+                    
+                  ],)
+                ),
+                ) 
+              ),
+            ),
+            elevation: 5,
             destinations: [
               NavigationRailDestination(
                   icon: Icon(
@@ -74,6 +122,28 @@ class _SidebarState extends State<Sidebar> {
                   selectedIcon: Icon(Icons.mail_rounded, color: Color.fromARGB(255, 0, 200, 226), size: 32,),
                   label: Text(
                     "Messages",
+                   style: Theme.of(context).textTheme.headlineSmall,
+                  )),
+              NavigationRailDestination(
+                  icon: Icon(
+                    Icons.person_rounded,
+                    size: 32,
+                    color: Theme.of(context).primaryIconTheme.color,
+                  ),
+                  selectedIcon: Icon(Icons.mail_rounded, color: Color.fromARGB(255, 0, 200, 226), size: 32,),
+                  label: Text(
+                    "Profile",
+                   style: Theme.of(context).textTheme.headlineSmall,
+                  )),
+               NavigationRailDestination(
+                  icon: Icon(
+                    Icons.settings_rounded,
+                    size: 32,
+                    color: Theme.of(context).primaryIconTheme.color,
+                  ),
+                  selectedIcon: Icon(Icons.mail_rounded, color: Color.fromARGB(255, 0, 200, 226), size: 32,),
+                  label: Text(
+                    "Settings",
                    style: Theme.of(context).textTheme.headlineSmall,
                   )),
             ],
