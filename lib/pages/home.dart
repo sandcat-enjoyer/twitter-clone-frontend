@@ -220,7 +220,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     future: userRef.get(),
                     builder: (context, userSnapshot) {
                       if (userSnapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
+                        return Container();
                       }
                       else if (userSnapshot.hasError) {
                         return Text("Error: ${userSnapshot.error}");
