@@ -1,4 +1,7 @@
+import "dart:io";
+
 import "package:flutter/material.dart";
+import "package:permission_handler/permission_handler.dart";
 
 import "../data/user.dart";
 
@@ -26,6 +29,7 @@ class _SettingsState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool notificationsEnabled = false;
     return Scaffold(
       
       appBar: AppBar(
@@ -37,12 +41,23 @@ class _SettingsState extends State<SettingsPage> {
           ListTile(
             leading: const Icon(Icons.notifications),
             title: Text('Notifications',
-                style: Theme.of(context).textTheme.titleMedium),
+                style: Theme.of(context).textTheme.bodyMedium),
             trailing: Switch(
-              value:
-                  true, // Replace with actual value to manage the switch state
-              onChanged: (bool value) {
-                // Handle switch state change here
+              value: notificationsEnabled, // Replace with actual value to manage the switch state
+              onChanged: (bool value) async {
+                if (!Platform.isMacOS) {
+                  await Permission.notification.request();
+                  if (await Permission.notification.request().isGranted) {
+                    setState(() {
+                    notificationsEnabled = true;
+                  });
+                  }
+                  
+                }
+                else {
+                  return;
+                }
+                
               },
               activeColor: Theme.of(context).primaryColor,
             ),
@@ -50,19 +65,25 @@ class _SettingsState extends State<SettingsPage> {
           ListTile(
             leading: const Icon(Icons.person),
             title: Text('Account Settings',
-                style: Theme.of(context).textTheme.titleMedium),
+                style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+
+            },
           ),
           ListTile(
             leading: const Icon(Icons.brush),
             title:
-                Text('Colors', style: Theme.of(context).textTheme.titleMedium),
+                Text('Colors', style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+
+            },
           ),
           ListTile(
             leading: const Icon(Icons.language),
             title: Text('Language',
-                style: Theme.of(context).textTheme.titleMedium),
+                style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               // Navigate to language settings screen here
@@ -71,7 +92,7 @@ class _SettingsState extends State<SettingsPage> {
           ListTile(
             leading: const Icon(Icons.security),
             title: Text('Security',
-                style: Theme.of(context).textTheme.titleMedium),
+                style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               // Navigate to security settings screen here

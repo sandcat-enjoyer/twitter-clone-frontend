@@ -68,121 +68,54 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     if (MediaQuery.of(context).size.width >= 600) {
       //tablet layout
       return [
-        ListView(
-          children: [
-            const SizedBox(height: 40),
-            InkWell(
-              onTap: () {
-                //we will need a much more sophisticated way of keeping post IDs but for testing purposes this is fine (probably)
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => PostDetail(user: widget._user, postId: 1)));
-              },
-              child: Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => PostDetail(user: widget._user, postId: 2)));
+        FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          future: FirebaseFirestore.instance.collection("posts").get(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            }
+            else if (snapshot.hasError) {
+              return Text("Error: ${snapshot.error}");
+            }
+            else {
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  Map<String, dynamic> data = snapshot.data!.docs[index].data();
 
-              },
-              child: Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText:
-                    "Haha BUSINESS fomfidhgbisogufdjosghufjpuibhjkgioshiujklgfbhfnfbhndfsjbhnlfdjgbhiogfjnkldjnkldndonldjsonlojpiknsgophjklnodpikns,pokghjiksfophjfklsojnlsgjnf,gsjnjlfjoshiknslopfkohifsdhu",
-                likes: 10,
-                retweets: 2)),
-            ),
-            Post(Tweet(
-              displayName: "pizza cat/ Longcat. - 2%",
-              username: "@7ongcatUnbanned",
-              userProfileImageUrl:
-                  "https://pbs.twimg.com/profile_images/1438646762080772098/xAwDFg3d_400x400.jpg",
-              timeOfTweet: DateTime.now(),
-              imageUrl:
-                  "https://cdn.discordapp.com/attachments/810642958972878848/1138206895719600280/34by2d63j8g81.png",
-              postText:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pharetra orci id quam posuere, id convallis ligula convallis. Nulla ut tellus consectetur, venenatis arcu nec, molestie ante. Curabitur sit amet malesuada libero. Aliquam erat volutpat. Cras hendrerit dapibus justo, sit amet consectetur sapien dapibus at. Nulla commodo velit nisi, nec fermentum diam feugiat eu. Vestibulum felis donec.",
-              likes: 30000,
-              retweets: 100000,
-            )),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText:
-                    "Haha BUSINESS fomfidhgbisogufdjosghufjpuibhjkgioshiujklgfbhfnfbhndfsjbhnlfdjgbhiogfjnkldjnkldndonldjsonlojpiknsgophjklnodpikns,pokghjiksfophjfklsojnlsgjnf,gsjnjlfjoshiknslopfkohifsdhu",
-                likes: 10,
-                retweets: 2)),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2,
-                imageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg")),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-          ],
-        ),
+                  //grab the user reference
+                  DocumentReference userRef = data["user"] as DocumentReference;
+
+                  return FutureBuilder(
+                    future: userRef.get(),
+                    builder: (context, userSnapshot) {
+                      if (userSnapshot.connectionState == ConnectionState.waiting) {
+                        return Container();
+                      }
+                      else if (userSnapshot.hasError) {
+                        return Text("Error: ${userSnapshot.error}");
+                      }
+                      else {
+                        Map<String, dynamic> userData = userSnapshot.data!.data() as Map<String, dynamic>;
+                        return Post(Tweet(
+                    displayName: userData["displayname"],
+                    username: userData["username"],
+                    postText: data['content'],
+                    likes: data["likes"],
+                    retweets: data["rebolts"],
+                    timeOfTweet: DateTime.now(),
+                    userProfileImageUrl: "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                  ));
+                      }
+                    },
+                  );
+
+                  
+
+                },
+              );
+            }
+          },),
         Text(
           "Search haha",
           style: Theme.of(context).textTheme.titleLarge,
