@@ -79,7 +79,7 @@ class _NewTweetState extends State<NewTweet> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.1, 0, MediaQuery.of(context).size.width * 0.1, MediaQuery.of(context).size.height * 0.5),
+          margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0, MediaQuery.of(context).size.width * 0.05, MediaQuery.of(context).size.height * 0.5),
           height: MediaQuery.of(context).size.height * 0.30,
           alignment: Alignment.center,
           

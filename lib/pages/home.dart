@@ -198,7 +198,55 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     } else {
       //phone layout
       return [
-        ListView(
+        FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          future: FirebaseFirestore.instance.collection("posts").get(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            }
+            else if (snapshot.hasError) {
+              return Text("Error: ${snapshot.error}");
+            }
+            else {
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  Map<String, dynamic> data = snapshot.data!.docs[index].data();
+
+                  //grab the user reference
+                  DocumentReference userRef = data["user"] as DocumentReference;
+
+                  return FutureBuilder(
+                    future: userRef.get(),
+                    builder: (context, userSnapshot) {
+                      if (userSnapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      }
+                      else if (userSnapshot.hasError) {
+                        return Text("Error: ${userSnapshot.error}");
+                      }
+                      else {
+                        Map<String, dynamic> userData = userSnapshot.data!.data() as Map<String, dynamic>;
+                        return Post(Tweet(
+                    displayName: userData["displayname"],
+                    username: userData["username"],
+                    postText: data['content'],
+                    likes: 0,
+                    retweets: 0,
+                    timeOfTweet: DateTime.now(),
+                    userProfileImageUrl: "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                  ));
+                      }
+                    },
+                  );
+
+                  
+
+                },
+              );
+            }
+          },)
+        /* ListView(
           children: [
             InkWell(
               onTap: () {
@@ -279,7 +327,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 likes: 10,
                 retweets: 2)),
           ],
-        ),
+        ), */,
         Text(
           "Search haha",
           style: Theme.of(context).textTheme.titleLarge,
