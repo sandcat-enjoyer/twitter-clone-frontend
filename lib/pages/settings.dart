@@ -2,8 +2,8 @@ import "package:flutter/material.dart";
 
 import "../data/user.dart";
 
-class Settings extends StatefulWidget {
-  const Settings({Key? key, required User user})
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key, required User user})
       : _user = user,
         super(key: key);
 
@@ -13,7 +13,7 @@ class Settings extends StatefulWidget {
   _SettingsState createState() => _SettingsState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingsState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();

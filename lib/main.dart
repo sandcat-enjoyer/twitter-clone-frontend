@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:spark/data/user.dart';
@@ -9,8 +11,10 @@ import 'package:macos_window_utils/macos_window_utils.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await WindowManipulator.initialize();
-  WindowManipulator.hideTitle();
+  /* if (Platform.isMacOS) {
+    await WindowManipulator.initialize();
+    WindowManipulator.hideTitle();
+  } */
   //WindowManipulator.makeTitlebarTransparent();
   runApp(const MyApp());
 }
@@ -41,12 +45,10 @@ class MyApp extends StatelessWidget {
     _checkScreenWidth(context);
     return MaterialApp(
       title: 'Spark',
-
       //Light Theme
       theme: ThemeData(
         colorScheme: colorScheme,
         brightness: Brightness.light,
-        
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
           foregroundColor: Colors.grey,

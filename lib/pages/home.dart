@@ -10,6 +10,7 @@ import 'package:spark/pages/settings.dart';
 import 'package:spark/pages/userProfile.dart';
 import 'package:spark/widgets/post.dart';
 import 'package:spark/widgets/sidebar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../data/tweet.dart';
 
@@ -27,12 +28,29 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   bool isDarkMode = false;
+  dynamic posts;
   late AnimationController controller;
   //late Animation<double> animation;
+
+  Future<void> fetchPosts() async {
+    final QuerySnapshot<Map<String, dynamic>> snapshot =
+      await FirebaseFirestore.instance.collection("posts").get();
+
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents = snapshot.docs;
+
+    documents.forEach((document) { 
+      print("Document ID: ${document.id}");
+      print("Document data: ${document.data()}");
+      setState(() {
+        posts = document.data();
+      });
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    fetchPosts();
     //controller =
     //    AnimationController(vsync: this, duration: const Duration(seconds: 1))
     //      ..forward()
@@ -175,7 +193,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         UserProfile(user: User()),
-        Settings(user: User())
+        SettingsPage(user: User())
       ];
     } else {
       //phone layout
@@ -505,7 +523,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Settings(user: User())));
+                    builder: (context) => SettingsPage(user: User())));
               },
             ),
             ListTile(
