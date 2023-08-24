@@ -231,8 +231,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     displayName: userData["displayname"],
                     username: userData["username"],
                     postText: data['content'],
-                    likes: 0,
-                    retweets: 0,
+                    likes: data["likes"],
+                    retweets: data["rebolts"],
                     timeOfTweet: DateTime.now(),
                     userProfileImageUrl: "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
                   ));

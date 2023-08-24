@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -52,8 +53,25 @@ class _NewTweetState extends State<NewTweet> {
     }
   }
 
-  void _postBolt() {
+  void _postBolt() async {
     String boltText = boltController.text;
+    if (boltText.isNotEmpty) {
+      try {
+        String userId = "XZzvddv35Z8XuO9oFqRt";
+        DocumentReference userRef = FirebaseFirestore.instance.collection("users").doc(userId);
+        await FirebaseFirestore.instance.collection("posts").add({
+          "content": boltText,
+          "createdAt": FieldValue.serverTimestamp(),
+          "user": userRef,
+          "likes": 0,
+          "rebolts": 0
+        });
+        boltController.clear();
+      }
+      catch (e) {
+        print("Error posting: $e");
+      }
+    }
     print("The BOLT is here : $boltText");
     Navigator.pop(context);
 

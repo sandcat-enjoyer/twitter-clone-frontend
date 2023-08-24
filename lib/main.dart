@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:spark/data/post_provider.dart';
 import 'package:spark/data/user.dart';
 import 'package:spark/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,7 +45,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _checkScreenWidth(context);
-    return MaterialApp(
+    return ChangeNotifierProvider(create: (context) => PostsProvider(),
+    child: MaterialApp(
       title: 'Spark',
       //Light Theme
       theme: ThemeData(
@@ -177,6 +180,6 @@ class MyApp extends StatelessWidget {
         dividerColor: Colors.grey,
       ),
       home: Home(user: User()),
-    );
+    )); 
   }
 }
