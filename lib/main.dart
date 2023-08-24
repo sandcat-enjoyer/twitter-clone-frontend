@@ -10,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await WindowManipulator.initialize();
-  
+  WindowManipulator.hideTitle();
   //WindowManipulator.makeTitlebarTransparent();
   runApp(const MyApp());
 }
