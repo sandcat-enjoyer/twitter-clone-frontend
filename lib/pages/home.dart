@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:spark/data/navigationbloc.dart';
 import 'package:spark/data/user.dart';
 import 'package:spark/pages/firstSignin.dart';
 import 'package:spark/pages/newTweet.dart';
@@ -11,6 +11,7 @@ import 'package:spark/pages/userProfile.dart';
 import 'package:spark/widgets/post.dart';
 import 'package:spark/widgets/sidebar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 
 import '../data/tweet.dart';
 
@@ -30,22 +31,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool isDarkMode = false;
   dynamic posts;
   late AnimationController controller;
+
   //late Animation<double> animation;
-
-  Future<void> fetchPosts() async {
-    final QuerySnapshot<Map<String, dynamic>> snapshot =
-      await FirebaseFirestore.instance.collection("posts").get();
-
-    final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents = snapshot.docs;
-
-    documents.forEach((document) { 
-      print("Document ID: ${document.id}");
-      print("Document data: ${document.data()}");
-      setState(() {
-        posts = document.data();
-      });
-    });
-  }
 
   @override
   void initState() {
@@ -62,6 +49,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void dispose() {
     controller.dispose();
     super.dispose;
+  }
+
+  Future<void> fetchPosts() async {
+    final QuerySnapshot<Map<String, dynamic>> snapshot =
+      await FirebaseFirestore.instance.collection("posts").get();
+
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents = snapshot.docs;
+
+    documents.forEach((document) { 
+      print("Document ID: ${document.id}");
+      print("Document data: ${document.data()}");
+      setState(() {
+        posts = document.data();
+      });
+    });
   }
 
    List<Widget> getWidgetOptions(BuildContext context) {
@@ -278,6 +280,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     setState(() {
       _selectedIndex = index;
     });
+    
   }
 
   _checkTheme() {
@@ -364,7 +367,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   _determineIfDrawerIsNecessary() {
     if (MediaQuery.of(context).size.width >= 600) {
-      return;
+      return null;
     } else {
       return buildProfileDrawer();
     }
@@ -372,7 +375,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   _determineIfAppBarIsNecessary() {
     if (MediaQuery.of(context).size.width >= 600) {
-      return;
+      return null;
     } else {
       return AppBar(
         title: Image.asset("assets/icon.png", width: 40,),
@@ -387,33 +390,53 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       resizeToAvoidBottomInset: false,
       appBar: _determineIfAppBarIsNecessary(),
       body: RefreshIndicator(
-        onRefresh: () async {
-          await Future.delayed(const Duration(seconds: 2));
-        },
-        child: Row(
-        children: [
-          if (MediaQuery.of(context).size.width >= 600) ...[
-            LayoutBuilder(builder: (context, constraints) {
-            if (constraints.maxWidth >= 600) {
-              return Sidebar(
-                selectedIndex: _selectedIndex,
-                onDestinationSelected: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-              );
-            } else {
-              return buildProfileDrawer();
+        onRefresh: fetchPosts,
+        child: FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          future: FirebaseFirestore.instance.collection("posts").get(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
             }
-          }),
-          ],
-          Expanded(
-            child: Center(
-                child: getWidgetOptions(context).elementAt(_selectedIndex)),
-          )
-        ],
-      ),
+            else if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            }
+            else {
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  Map<String, dynamic> data = snapshot.data!.docs[index].data();
+
+                  //grab the user reference
+                  DocumentReference userRef = data["user"] as DocumentReference;
+
+                  return FutureBuilder(
+                    future: userRef.get(),
+                    builder: (context, userSnapshot) {
+                      if (userSnapshot.connectionState == ConnectionState.waiting) {
+                        return Container();
+                      }
+                      else if (userSnapshot.hasError) {
+                        return Text("Error: ${userSnapshot.error}");
+                      }
+                      else {
+                        Map<String, dynamic> userData = userSnapshot.data!.data() as Map<String, dynamic>;
+                        return Post(Tweet(
+                    displayName: userData["displayname"],
+                    username: userData["username"],
+                    postText: data['content'],
+                    likes: data["likes"],
+                    retweets: data["rebolts"],
+                    timeOfTweet: DateTime.now(),
+                    userProfileImageUrl: "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                  ));
+                      }
+                    },
+                  ); 
+                });
+            }
+          },
+        )
+
       ),
       bottomNavigationBar: _determineIfBottomNavBarNeeded(context),
       drawer: _determineIfDrawerIsNecessary(),
