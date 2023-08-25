@@ -111,14 +111,14 @@ class MyApp extends StatelessWidget {
 
       darkTheme: ThemeData(
         appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF14171A)),
+        dialogTheme: DialogTheme(
+          backgroundColor: Color.fromARGB(255, 18, 18, 18)
+        ),
         hintColor: Colors.white,
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: Color(0xFF14171A),
             unselectedIconTheme: IconThemeData(color: Colors.white)),
-        
-
         primaryColor: const Color.fromARGB(255, 0, 200, 226),
-
         scaffoldBackgroundColor: const Color(0xFF14171A),
         cardColor: const Color(0xFF1C2938),
         cardTheme: CardTheme(

@@ -2,6 +2,7 @@ import "dart:io";
 
 import "package:flutter/material.dart";
 import "package:permission_handler/permission_handler.dart";
+import "package:spark/pages/settingsPages/colors.dart";
 
 import "../data/user.dart";
 
@@ -39,13 +40,14 @@ class _SettingsState extends State<SettingsPage> {
       body: ListView(
         children: [
           ListTile(
-            leading: const Icon(Icons.notifications),
+            leading: Icon(Icons.notifications, color: Theme.of(context).primaryIconTheme.color ),
             title: Text('Notifications',
                 style: Theme.of(context).textTheme.bodyMedium),
             trailing: Switch(
               value: notificationsEnabled, // Replace with actual value to manage the switch state
               onChanged: (bool value) async {
                 if (!Platform.isMacOS) {
+                  print("aheehee");
                   await Permission.notification.request();
                   if (await Permission.notification.request().isGranted) {
                     setState(() {
@@ -63,25 +65,26 @@ class _SettingsState extends State<SettingsPage> {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.person),
+            leading: Icon(Icons.person, color: Theme.of(context).primaryIconTheme.color),
             title: Text('Account Settings',
                 style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
-
+              
             },
           ),
           ListTile(
-            leading: const Icon(Icons.brush),
+            leading: Icon(Icons.brush, color: Theme.of(context).primaryIconTheme.color),
             title:
                 Text('Colors', style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ColorsPage(user: User())));
 
             },
           ),
           ListTile(
-            leading: const Icon(Icons.language),
+            leading: Icon(Icons.language, color: Theme.of(context).primaryIconTheme.color),
             title: Text('Language',
                 style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
@@ -90,7 +93,7 @@ class _SettingsState extends State<SettingsPage> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.security),
+            leading: Icon(Icons.security, color: Theme.of(context).primaryIconTheme.color),
             title: Text('Security',
                 style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
@@ -100,21 +103,39 @@ class _SettingsState extends State<SettingsPage> {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.help),
+            leading: Icon(Icons.help, color: Theme.of(context).primaryIconTheme.color),
             title: Text('Help & Support',
-                style: Theme.of(context).textTheme.titleMedium),
+                style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               // Navigate to help & support screen here
             },
           ),
           ListTile(
-            leading: const Icon(Icons.info),
+            leading: Icon(Icons.info, color: Theme.of(context).primaryIconTheme.color),
             title:
-                Text('About', style: Theme.of(context).textTheme.titleMedium),
+                Text('About', style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
-              // Navigate to about screen here
+              showDialog(context: context, builder: (context) {
+                return AlertDialog(
+                  title: Text("About Spark", style: Theme.of(context).textTheme.bodyLarge,),
+                  content: Column(
+                    
+                    children: [
+                      Image.asset("assets/icon.png", width: 100,),
+                      SizedBox(height: 100),
+                      Text("Version number goes here", style: Theme.of(context).textTheme.bodyMedium,),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(onPressed: () {
+                      Navigator.pop(context);
+
+                    }, child: Text("OK"))
+                  ],
+                );
+              },);
             },
           ),
         ],
