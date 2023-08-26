@@ -53,11 +53,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   Future<void> fetchPosts() async {
     final QuerySnapshot<Map<String, dynamic>> snapshot =
-      await FirebaseFirestore.instance.collection("posts").get();
+        await FirebaseFirestore.instance.collection("posts").get();
 
-    final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents = snapshot.docs;
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents =
+        snapshot.docs;
 
-    documents.forEach((document) { 
+    documents.forEach((document) {
       print("Document ID: ${document.id}");
       print("Document data: ${document.data()}");
       setState(() {
@@ -66,7 +67,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     });
   }
 
-   List<Widget> getWidgetOptions(BuildContext context) {
+  List<Widget> getWidgetOptions(BuildContext context) {
     if (MediaQuery.of(context).size.width >= 600) {
       //tablet layout
       return [
@@ -75,11 +76,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
-            }
-            else if (snapshot.hasError) {
+            } else if (snapshot.hasError) {
               return Text("Error: ${snapshot.error}");
-            }
-            else {
+            } else {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
@@ -91,33 +90,32 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   return FutureBuilder(
                     future: userRef.get(),
                     builder: (context, userSnapshot) {
-                      if (userSnapshot.connectionState == ConnectionState.waiting) {
+                      if (userSnapshot.connectionState ==
+                          ConnectionState.waiting) {
                         return Container();
-                      }
-                      else if (userSnapshot.hasError) {
+                      } else if (userSnapshot.hasError) {
                         return Text("Error: ${userSnapshot.error}");
-                      }
-                      else {
-                        Map<String, dynamic> userData = userSnapshot.data!.data() as Map<String, dynamic>;
+                      } else {
+                        Map<String, dynamic> userData =
+                            userSnapshot.data!.data() as Map<String, dynamic>;
                         return Post(Tweet(
-                    displayName: userData["displayname"],
-                    username: userData["username"],
-                    postText: data['content'],
-                    likes: data["likes"],
-                    retweets: data["rebolts"],
-                    timeOfTweet: DateTime.now(),
-                    userProfileImageUrl: "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                  ));
+                          displayName: userData["displayname"],
+                          username: userData["username"],
+                          postText: data['content'],
+                          likes: data["likes"],
+                          retweets: data["rebolts"],
+                          timeOfTweet: DateTime.now(),
+                          userProfileImageUrl:
+                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                        ));
                       }
                     },
                   );
-
-                  
-
                 },
               );
             }
-          },),
+          },
+        ),
         Text(
           "Search haha",
           style: Theme.of(context).textTheme.titleLarge,
@@ -138,11 +136,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
-            }
-            else if (snapshot.hasError) {
+            } else if (snapshot.hasError) {
               return Text("Error: ${snapshot.error}");
-            }
-            else {
+            } else {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
@@ -154,33 +150,32 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   return FutureBuilder(
                     future: userRef.get(),
                     builder: (context, userSnapshot) {
-                      if (userSnapshot.connectionState == ConnectionState.waiting) {
+                      if (userSnapshot.connectionState ==
+                          ConnectionState.waiting) {
                         return Container();
-                      }
-                      else if (userSnapshot.hasError) {
+                      } else if (userSnapshot.hasError) {
                         return Text("Error: ${userSnapshot.error}");
-                      }
-                      else {
-                        Map<String, dynamic> userData = userSnapshot.data!.data() as Map<String, dynamic>;
+                      } else {
+                        Map<String, dynamic> userData =
+                            userSnapshot.data!.data() as Map<String, dynamic>;
                         return Post(Tweet(
-                    displayName: userData["displayname"],
-                    username: userData["username"],
-                    postText: data['content'],
-                    likes: data["likes"],
-                    retweets: data["rebolts"],
-                    timeOfTweet: DateTime.now(),
-                    userProfileImageUrl: "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                  ));
+                          displayName: userData["displayname"],
+                          username: userData["username"],
+                          postText: data['content'],
+                          likes: data["likes"],
+                          retweets: data["rebolts"],
+                          timeOfTweet: DateTime.now(),
+                          userProfileImageUrl:
+                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                        ));
                       }
                     },
                   );
-
-                  
-
                 },
               );
             }
-          },)
+          },
+        )
         /* ListView(
           children: [
             InkWell(
@@ -262,7 +257,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 likes: 10,
                 retweets: 2)),
           ],
-        ), */,
+        ), */
+        ,
         Text(
           "Search haha",
           style: Theme.of(context).textTheme.titleLarge,
@@ -280,7 +276,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     setState(() {
       _selectedIndex = index;
     });
-    
   }
 
   _checkTheme() {
@@ -319,7 +314,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     showModalBottomSheet(
       context: context,
       isDismissible: true,
-
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
@@ -347,9 +341,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     } else {
       return BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
         ],
@@ -378,7 +370,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       return null;
     } else {
       return AppBar(
-        title: Image.asset("assets/icon.png", width: 40,),
+        title: Image.asset(
+          "assets/icon.png",
+          width: 40,
+        ),
         centerTitle: true,
       );
     }
@@ -390,8 +385,31 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       resizeToAvoidBottomInset: false,
       appBar: _determineIfAppBarIsNecessary(),
       body: RefreshIndicator(
-        onRefresh: fetchPosts,
-        child: FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          onRefresh: fetchPosts,
+          child: Row(
+            children: [
+              if (MediaQuery.of(context).size.width >= 600) ...[
+                LayoutBuilder(builder: (context, constraints) {
+                  if (constraints.maxWidth >= 600) {
+                    return Sidebar(
+                      selectedIndex: _selectedIndex,
+                      onDestinationSelected: (index) {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      },
+                    );
+                  } else {
+                    return buildProfileDrawer();
+                  }
+                })
+              ],
+              Expanded(
+                  child: Center(
+                child: getWidgetOptions(context).elementAt(_selectedIndex),
+              ))
+            ],
+          ) /* FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
           future: FirebaseFirestore.instance.collection("posts").get(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -435,9 +453,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 });
             }
           },
-        )
+        ) */
 
-      ),
+          ),
       bottomNavigationBar: _determineIfBottomNavBarNeeded(context),
       drawer: _determineIfDrawerIsNecessary(),
       floatingActionButton: FloatingActionButton(
@@ -483,7 +501,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               accountEmail: Text(
                 "@sandcat_enjoyer",
                 style: TextStyle(
-                    fontFamily: "Poppins", color: _checkThemeForText(), fontWeight: FontWeight.w500),
+                    fontFamily: "Poppins",
+                    color: _checkThemeForText(),
+                    fontWeight: FontWeight.w500),
               ),
               currentAccountPicture: const CircleAvatar(
                 maxRadius: 20,
