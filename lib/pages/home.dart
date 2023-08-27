@@ -75,11 +75,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           future: FirebaseFirestore.instance.collection("posts").get(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Text("Error: ${snapshot.error}");
             } else {
               return ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   Map<String, dynamic> data = snapshot.data!.docs[index].data();
@@ -141,6 +142,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             } else {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
+                physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   Map<String, dynamic> data = snapshot.data!.docs[index].data();
 

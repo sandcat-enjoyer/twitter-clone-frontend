@@ -4,7 +4,7 @@ class Sidebar extends StatefulWidget {
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
 
-  const Sidebar({super.key, required this.selectedIndex, required this.onDestinationSelected});
+  Sidebar({super.key, required this.selectedIndex, required this.onDestinationSelected});
 
   @override
   _SidebarState createState() => _SidebarState();
@@ -46,7 +46,15 @@ class _SidebarState extends State<Sidebar> {
             groupAlignment: -0.9,
             selectedIconTheme: Theme.of(context).primaryIconTheme,
             extended: _checkIfExtendedIsNeeded(context),
-            leading: Image.asset("assets/icon.png", width: 40),
+            leading: IconButton(
+              icon: Image.asset("assets/icon.png"),
+              iconSize: 40,
+              onPressed: () {
+                setState(() {
+                  widget.onDestinationSelected(0);
+                });
+              },
+            ) ,
             trailing: Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -54,13 +62,15 @@ class _SidebarState extends State<Sidebar> {
                   onTap: () {
 
                     showMenu(context: context, position: RelativeRect.fromLTRB(0, 0, 0, 0), items: [
-                      PopupMenuItem(child: Text("Test"))
+                      PopupMenuItem(child: Text("Test", style: Theme.of(context).textTheme.bodyMedium,))
                     ]);
 
                   },
                   child: Padding(
                   padding: EdgeInsets.only(bottom: 16),
-                  child: Wrap(alignment: WrapAlignment.center, crossAxisAlignment: WrapCrossAlignment.center, children: [
+                  child: Wrap(alignment: WrapAlignment.center, 
+                  crossAxisAlignment: WrapCrossAlignment.center, 
+                  children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
