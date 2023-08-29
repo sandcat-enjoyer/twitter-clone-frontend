@@ -64,7 +64,8 @@ class _NewTweetState extends State<NewTweet> {
           "createdAt": FieldValue.serverTimestamp(),
           "user": userRef,
           "likes": 0,
-          "rebolts": 0
+          "rebolts": 0,
+          "likedBy": []
         });
         boltController.clear();
       }

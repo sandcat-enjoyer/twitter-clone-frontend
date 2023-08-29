@@ -202,51 +202,7 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                   Column(
                     children: [
-                      Post(Tweet(
-                          displayName: "jules ! :3",
-                          username: "@sandcat_enjoyer",
-                          userProfileImageUrl:
-                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                          timeOfTweet: DateTime.now(),
-                          postText: "Haha BUSINESS",
-                          likes: 10,
-                          retweets: 2)),
-                      Post(Tweet(
-                          displayName: "jules ! :3",
-                          username: "@sandcat_enjoyer",
-                          userProfileImageUrl:
-                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                          timeOfTweet: DateTime.now(),
-                          postText: "Haha BUSINESS",
-                          likes: 10,
-                          retweets: 2)),
-                      Post(Tweet(
-                          displayName: "jules ! :3",
-                          username: "@sandcat_enjoyer",
-                          userProfileImageUrl:
-                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                          timeOfTweet: DateTime.now(),
-                          postText: "Haha BUSINESS",
-                          likes: 10,
-                          retweets: 2)),
-                      Post(Tweet(
-                          displayName: "jules ! :3",
-                          username: "@sandcat_enjoyer",
-                          userProfileImageUrl:
-                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                          timeOfTweet: DateTime.now(),
-                          postText: "Haha BUSINESS",
-                          likes: 10,
-                          retweets: 2)),
-                      Post(Tweet(
-                          displayName: "jules ! :3",
-                          username: "@sandcat_enjoyer",
-                          userProfileImageUrl:
-                              "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                          timeOfTweet: DateTime.now(),
-                          postText: "Haha BUSINESS",
-                          likes: 10,
-                          retweets: 2)),
+                      
                     ],
                   )
                 ],

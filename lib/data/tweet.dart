@@ -1,5 +1,6 @@
 
 class Tweet {
+  String id;
   String displayName;
   String username;
   String userProfileImageUrl; //temporarily leaving this
@@ -10,7 +11,8 @@ class Tweet {
   int retweets = 0;
 
   Tweet(
-      {required this.username,
+      {required this.id,
+        required this.username,
       required this.displayName,
       required this.userProfileImageUrl,
       required this.postText,

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import "dart:async";
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import "package:http/http.dart" as http;
@@ -15,6 +16,7 @@ import 'package:spark/widgets/expandedImagePage.dart';
 class Post extends StatelessWidget {
   late final Tweet bolt;
   Uint8List? imageBytes;
+  bool _isLiked = false;
 
   Post(this.bolt, {super.key});
 
@@ -22,6 +24,7 @@ class Post extends StatelessWidget {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     double screenWidth = mediaQueryData.size.width;
     double tabletWidthThreshold = 600.0;
+    
     print('Ermmm the screen size it is $screenWidth');
 
     if (screenWidth > tabletWidthThreshold) {
@@ -232,7 +235,7 @@ class Post extends StatelessWidget {
                     children: [
                       Icon(Icons.favorite_rounded,
                           size: 30.0,
-                          color: Theme.of(context).primaryIconTheme.color),
+                          color: _isLiked ? Colors.red : Theme.of(context).primaryIconTheme.color),
                       const SizedBox(width: 8),
                       Text(
                         "${bolt.likes}",
@@ -243,7 +246,29 @@ class Post extends StatelessWidget {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_isLiked) {
+                      FirebaseFirestore.instance
+                        .collection("posts")
+                        .doc(bolt.id)
+                        .update({
+                          "likes": FieldValue.increment(1),
+                          "likedBy": FieldValue.arrayUnion(["userID"]) // still needs a real user id
+                        });
+                    }
+                    else {
+                      FirebaseFirestore.instance
+                        .collection("posts")
+                        .doc(bolt.id)
+                        .update({
+                          "likes": FieldValue.increment(-1),
+                          "likedBy": FieldValue.arrayRemove(["userID"])
+                        });
+                    }
+
+                
+
+                  },
                 ),
                 TextButton(
                   child: Row(
@@ -451,7 +476,27 @@ class Post extends StatelessWidget {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_isLiked) {
+                      _isLiked = true;
+                      FirebaseFirestore.instance
+                        .collection("posts")
+                        .doc(bolt.id)
+                        .update({
+                          "likes": FieldValue.increment(1),
+                          "likedBy": FieldValue.arrayUnion(["userID"]) // still needs a real user id
+                        });
+                    }
+                    else {
+                      FirebaseFirestore.instance
+                        .collection("posts")
+                        .doc(bolt.id)
+                        .update({
+                          "likes": FieldValue.increment(-1),
+                          "likedBy": FieldValue.arrayRemove(["userID"])
+                        });
+                    }
+                  },
                 ),
                 const SizedBox(width: 30),
                 TextButton(

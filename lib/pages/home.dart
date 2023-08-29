@@ -107,6 +107,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     postId: snapshot.data!.docs[index].id)));
                           },
                           child: Post(Tweet(
+                              id: snapshot.data!.docs[index].id,
                               displayName: userData["displayname"],
                               username: userData["username"],
                               postText: data['content'],
@@ -175,6 +176,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                       postId: snapshot.data!.docs[index].id)));
                             },
                             child: Post(Tweet(
+                              id: snapshot.data!.docs[index].id,
                               displayName: userData["displayname"],
                               username: userData["username"],
                               postText: data['content'],
