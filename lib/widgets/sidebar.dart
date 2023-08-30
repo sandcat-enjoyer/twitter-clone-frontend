@@ -19,6 +19,10 @@ _checkIfExtendedIsNeeded(BuildContext context){
   }
 } 
 
+_checkIfProfileImagePresent() {
+  
+}
+
 _showProfileNameWhenNeeded(BuildContext context) {
   if (MediaQuery.of(context).size.width <= 900 && MediaQuery.of(context).size.width >= 600) {
     return Container();

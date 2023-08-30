@@ -5,12 +5,12 @@ import "package:http/http.dart";
 import "../data/user.dart";
 
 class PostDetail extends StatefulWidget {
-  const PostDetail({Key? key, required User user, required String postId})
+  const PostDetail({Key? key, required UserLocal user, required String postId})
       : _user = user,
         _postId = postId,
         super(key: key);
 
-  final User _user;
+  final UserLocal _user;
   final String _postId;
 
   @override
@@ -177,9 +177,9 @@ class _PostDetailState extends State<PostDetail> {
                             const SizedBox(width: 20),
                             IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.repeat_rounded),
+                              icon: const Icon(Icons.repeat_rounded),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             IconButton(
                               icon: const Icon(Icons.ios_share_rounded),
                               onPressed: () {},

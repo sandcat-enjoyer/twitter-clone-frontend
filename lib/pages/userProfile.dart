@@ -1,3 +1,4 @@
+import "package:cloud_firestore/cloud_firestore.dart";
 import "package:flutter/material.dart";
 
 import "../data/tweet.dart";
@@ -5,11 +6,11 @@ import "../data/user.dart";
 import "../widgets/post.dart";
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({Key? key, required User user})
+  const UserProfile({Key? key, required UserLocal user})
       : _user = user,
         super(key: key);
 
-  final User _user;
+  final UserLocal _user;
 
   @override
   _UserProfileState createState() => _UserProfileState();
@@ -24,6 +25,7 @@ class _UserProfileState extends State<UserProfile> {
   String headerImageUrl =
       "https://pbs.twimg.com/profile_banners/1201209148018434048/1665952533/1500x500";
   String pronouns = "he/him";
+
 
   @override
   void initState() {
@@ -61,19 +63,19 @@ class _UserProfileState extends State<UserProfile> {
                       children: [
                         CircleAvatar(
                           radius: 60.0,
-                          backgroundImage: NetworkImage(profileImageUrl),
+                          backgroundImage: NetworkImage(widget._user.profilePictureUrl),
                         ),
                         const SizedBox(height: 16.0),
-                        Text(displayName,
+                        Text(widget._user.displayName,
                             style: Theme.of(context).textTheme.titleLarge),
                         const SizedBox(height: 4.0),
-                        Text(username),
+                        Text(widget._user.username),
                         const SizedBox(height: 8),
                         Text(pronouns,
                             style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(height: 8.0),
                         Text(
-                          bio,
+                          widget._user.bio ?? "",
                           style: Theme.of(context).textTheme.bodyLarge,
                           textAlign: TextAlign.center,
                         ),

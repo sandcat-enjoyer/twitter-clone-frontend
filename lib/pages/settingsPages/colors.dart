@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:spark/data/user.dart';
 
 class ColorsPage extends StatefulWidget {
-  const ColorsPage({Key? key, required User user})
+  const ColorsPage({Key? key, required UserLocal user})
     : _user = user,
       super(key: key);
   
-  final User _user;
+  final UserLocal _user;
 
   @override 
   _ColorsPageState createState() => _ColorsPageState();

@@ -2,15 +2,16 @@ import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:spark/services/auth_service.dart';
 
 import '../data/user.dart';
 
 class NewTweet extends StatefulWidget {
-  const NewTweet({Key? key, required User user})
+  const NewTweet({Key? key, required UserLocal user})
       : _user = user,
         super(key: key);
 
-  final User _user;
+  final UserLocal _user;
 
   @override
   _NewTweetState createState() => _NewTweetState();
@@ -21,6 +22,7 @@ class _NewTweetState extends State<NewTweet> {
   bool _canSendBolt = false;
   bool isDarkMode = false;
   late List<CameraDescription> _cameras;
+  final AuthService authService = AuthService();
 
   @override
   void initState() {
@@ -57,8 +59,7 @@ class _NewTweetState extends State<NewTweet> {
     String boltText = boltController.text;
     if (boltText.isNotEmpty) {
       try {
-        String userId = "XZzvddv35Z8XuO9oFqRt";
-        DocumentReference userRef = FirebaseFirestore.instance.collection("users").doc(userId);
+        DocumentReference userRef = FirebaseFirestore.instance.collection("users").doc(widget._user.uid);
         await FirebaseFirestore.instance.collection("posts").add({
           "content": boltText,
           "createdAt": FieldValue.serverTimestamp(),

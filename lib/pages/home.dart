@@ -6,7 +6,9 @@ import 'package:spark/pages/firstSignin.dart';
 import 'package:spark/pages/newTweet.dart';
 import 'package:spark/pages/notifications.dart';
 import 'package:spark/pages/post_detail.dart';
+import 'package:spark/pages/register.dart';
 import 'package:spark/pages/settings.dart';
+import 'package:spark/pages/splash.dart';
 import 'package:spark/pages/userProfile.dart';
 import 'package:spark/widgets/post.dart';
 import 'package:spark/widgets/sidebar.dart';
@@ -16,11 +18,11 @@ import 'dart:async';
 import '../data/tweet.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key, required User user})
+  const Home({Key? key, required UserLocal user})
       : _user = user,
         super(key: key);
 
-  final User _user;
+  final UserLocal _user;
 
   @override
   _HomeState createState() => _HomeState();
@@ -103,7 +105,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => PostDetail(
-                                    user: User(),
+                                    user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio,),
                                     postId: snapshot.data!.docs[index].id)));
                           },
                           child: Post(Tweet(
@@ -129,13 +131,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           "Search haha",
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        Notifications(user: User()),
+        Notifications(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio, )),
         Text(
           "Message Haha",
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        UserProfile(user: User()),
-        SettingsPage(user: User())
+        UserProfile(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio, )),
+        SettingsPage(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio,))
       ];
     } else {
       //phone layout
@@ -172,7 +174,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => PostDetail(
-                                      user: User(),
+                                      user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio),
                                       postId: snapshot.data!.docs[index].id)));
                             },
                             child: Post(Tweet(
@@ -281,7 +283,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           "Search haha",
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        Notifications(user: User()),
+        Notifications(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio)),
         Text(
           "Message Haha",
           style: Theme.of(context).textTheme.titleLarge,
@@ -319,7 +321,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       duration: const Duration(milliseconds: 500),
     );
 
-    final sheet = NewTweet(user: User());
+    final sheet = NewTweet(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio));
 
     const curve = Curves
         .fastEaseInToSlowEaseOut; // You can experiment with different curves here
@@ -539,7 +541,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => UserProfile(user: User())));
+                    builder: (context) => UserProfile(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
               },
             ),
             ListTile(
@@ -551,7 +553,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 style: profileDrawerTextStyle,
               ),
               onTap: () {
-                // Handle Bookmarks tap
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Splash()));
               },
             ),
             const Divider(thickness: 0.2, color: Colors.grey),
@@ -565,7 +567,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SettingsPage(user: User())));
+                    builder: (context) => SettingsPage(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
               },
             ),
             ListTile(

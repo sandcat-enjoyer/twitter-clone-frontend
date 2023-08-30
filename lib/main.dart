@@ -7,6 +7,7 @@ import 'package:spark/data/post_provider.dart';
 import 'package:spark/data/user.dart';
 import 'package:spark/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:spark/pages/splash.dart';
 import 'firebase_options.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:macos_window_utils/macos_window_utils.dart';
@@ -179,7 +180,7 @@ class MyApp extends StatelessWidget {
         // Divider Color
         dividerColor: Colors.grey,
       ),
-      home: Home(user: User()),
+      home: Splash(),
     )); 
   }
 }

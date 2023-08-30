@@ -30,7 +30,7 @@ class FirstSignIn extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => const Login()));
+                      .pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(

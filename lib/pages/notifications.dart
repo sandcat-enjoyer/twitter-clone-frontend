@@ -4,11 +4,11 @@ import 'package:audioplayers/audioplayers.dart';
 
 
 class Notifications extends StatefulWidget {
-  const Notifications({Key? key, required User user})
+  const Notifications({Key? key, required UserLocal user})
       : _user = user,
         super(key: key);
 
-  final User _user;
+  final UserLocal _user;
 
   @override
   _NotificationsState createState() => _NotificationsState();

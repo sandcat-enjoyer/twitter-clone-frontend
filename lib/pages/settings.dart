@@ -7,11 +7,11 @@ import "package:spark/pages/settingsPages/colors.dart";
 import "../data/user.dart";
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key, required User user})
+  const SettingsPage({Key? key, required UserLocal user})
       : _user = user,
         super(key: key);
 
-  final User _user;
+  final UserLocal _user;
 
   @override
   _SettingsState createState() => _SettingsState();
@@ -79,7 +79,7 @@ class _SettingsState extends State<SettingsPage> {
                 Text('Colors', style: Theme.of(context).textTheme.bodyMedium),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ColorsPage(user: User())));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ColorsPage(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
 
             },
           ),
