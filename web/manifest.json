@@ -1,11 +1,11 @@
 {
-    "name": "twitter_clone",
-    "short_name": "twitter_clone",
+    "name": "Spark",
+    "short_name": "Spark",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#hexcode",
     "theme_color": "#hexcode",
-    "description": "A new Flutter project.",
+    "description": "What's striking you?",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
