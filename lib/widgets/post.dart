@@ -223,7 +223,7 @@ class Post extends StatelessWidget {
             ],
             const SizedBox(height: 16.0),
             Text(
-              "${DateFormat.yMMMd().format(bolt.timeOfTweet)}, ${DateFormat.Hm().format(bolt.timeOfTweet)}",
+              "${bolt.timeOfTweet.toDate()}",
               style: Theme.of(context).textTheme.labelSmall,
             ),
             const SizedBox(height: 16),
@@ -452,7 +452,7 @@ class Post extends StatelessWidget {
             ],
             
             Text(
-              "${DateFormat.yMMMd().format(bolt.timeOfTweet)}, ${DateFormat.Hm().format(bolt.timeOfTweet)}",
+              "${bolt.timeOfTweet.toDate()}",
               style: Theme.of(context).textTheme.labelSmall,
             ),
             const SizedBox(height: 16),

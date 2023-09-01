@@ -1,12 +1,14 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Tweet {
   String id;
   String displayName;
   String username;
-  String userProfileImageUrl; //temporarily leaving this
+  String userProfileImageUrl;
   String postText = "";
   String? imageUrl;
-  DateTime timeOfTweet = DateTime.now(); //this too
+  Timestamp timeOfTweet; //this too
   int likes = 0;
   int retweets = 0;
 

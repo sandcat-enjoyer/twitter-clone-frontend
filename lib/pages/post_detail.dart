@@ -232,8 +232,8 @@ class _PostDetailState extends State<PostDetail> {
                                                   "profilePictureUrl"]),
                                         ),
                                         title:
-                                            Text(replyUserData["displayname"], style: const TextStyle(
-                                              color: Colors.white,
+                                            Text(replyUserData["displayname"], style: TextStyle(
+                                              color: Theme.of(context).textTheme.bodyMedium!.color,
                                               fontWeight: FontWeight.bold
                                             )),
                                         subtitle: Text(replyData["text"]),

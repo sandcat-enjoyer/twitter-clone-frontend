@@ -16,7 +16,7 @@ class FirstSignIn extends StatelessWidget {
               const SizedBox(height: 40),
               Image.asset(
                 "assets/icon.png",
-                width: MediaQuery.of(context).size.width * 0.4,
+                width: MediaQuery.of(context).size.width * 0.3,
               ),
               const SizedBox(
                 height: 40,

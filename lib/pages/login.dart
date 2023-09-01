@@ -49,7 +49,7 @@ class _LoginState extends State<Login> {
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                
                 children: [
                   Image.asset(
                     'assets/icon.png',
@@ -97,6 +97,7 @@ class _LoginState extends State<Login> {
                       color: Theme.of(context).textTheme.bodySmall!.color,
                     ),
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       errorStyle: const TextStyle(
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.bold,
@@ -135,6 +136,10 @@ class _LoginState extends State<Login> {
 
                     },
                     style: ButtonStyle(
+                      
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.all(16)
+                      ),
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Theme.of(context).primaryColor)),
                     child: const Text(

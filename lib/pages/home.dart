@@ -33,6 +33,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool isDarkMode = false;
   dynamic posts;
   late AnimationController controller;
+  Timestamp? timestamp;
 
   //late Animation<double> animation;
 
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   Future<void> fetchPosts() async {
     final QuerySnapshot<Map<String, dynamic>> snapshot =
-        await FirebaseFirestore.instance.collection("posts").get();
+        await FirebaseFirestore.instance.collection("posts").orderBy("createdAt", descending: true).get();
 
     final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents =
         snapshot.docs;
@@ -74,7 +75,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       //tablet layout
       return [
         FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          future: FirebaseFirestore.instance.collection("posts").get(),
+          future: FirebaseFirestore.instance.collection("posts").orderBy("createdAt", descending: true).get(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -115,7 +116,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               postText: data['content'],
                               likes: data["likes"],
                               retweets: data["rebolts"],
-                              timeOfTweet: DateTime.now(),
+                              timeOfTweet: data["createdAt"],
                               userProfileImageUrl:
                                   userData["profilePictureUrl"])),
                         );
@@ -143,7 +144,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       //phone layout
       return [
         FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          future: FirebaseFirestore.instance.collection("posts").get(),
+          future: FirebaseFirestore.instance.collection("posts").orderBy("createdAt", descending: true).get(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
@@ -184,9 +185,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               postText: data['content'],
                               likes: data["likes"],
                               retweets: data["rebolts"],
-                              timeOfTweet: DateTime.now(),
+                              timeOfTweet: data["createdAt"],
                               userProfileImageUrl:
-                                  "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
+                                  userData["profilePictureUrl"],
                             )));
                       }
                     },
