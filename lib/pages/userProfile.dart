@@ -1,5 +1,6 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:flutter/material.dart";
+import "package:spark/pages/editProfile.dart";
 
 import "../data/tweet.dart";
 import "../data/user.dart";
@@ -35,6 +36,46 @@ class _UserProfileState extends State<UserProfile> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void _showCustomModalBottomSheet(BuildContext context) {
+    final animationController = AnimationController(
+      vsync: Navigator.of(context),
+      duration: const Duration(milliseconds: 500),
+    );
+
+    final sheet = EditProfile(widget._user);
+
+    const curve = Curves
+        .fastEaseInToSlowEaseOut; // You can experiment with different curves here
+
+    final curvedAnimation =
+        CurvedAnimation(parent: animationController, curve: curve);
+
+    animationController.forward();
+
+    showModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: AnimatedBuilder(
+            animation: animationController,
+            builder: (context, child) => Transform.translate(
+              offset: Offset(
+                  0.0,
+                  (1 - curvedAnimation.value) *
+                      MediaQuery.of(context).size.height),
+              child: child,
+            ),
+            child: sheet,
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -173,7 +214,15 @@ class _UserProfileState extends State<UserProfile> {
                         ), */
                         const SizedBox(height: 10),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (MediaQuery.of(context).size.width > 600) {
+                              _showCustomModalBottomSheet(context);
+                            }
+                            else {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditProfile(widget._user)));
+                            }
+                            
+                          },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Theme.of(context).primaryColor),
@@ -202,11 +251,6 @@ class _UserProfileState extends State<UserProfile> {
                       ],
                     ),
                   ),
-                  Column(
-                    children: [
-                      
-                    ],
-                  )
                 ],
               ),
             ],
@@ -214,3 +258,5 @@ class _UserProfileState extends State<UserProfile> {
         ));
   }
 }
+
+
