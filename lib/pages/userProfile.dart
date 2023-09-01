@@ -18,15 +18,9 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  String displayName = "jules ! :3";
-  String username = "@sandcat_enjoyer";
-  String bio = "🏳️‍🌈 | microplastics connoisseur | 7ongcatUnbanned 💘";
-  String profileImageUrl =
-      "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg";
   String headerImageUrl =
       "https://pbs.twimg.com/profile_banners/1201209148018434048/1665952533/1500x500";
   String pronouns = "he/him";
-
 
   @override
   void initState() {
@@ -56,12 +50,13 @@ class _UserProfileState extends State<UserProfile> {
 
     showModalBottomSheet(
       context: context,
-      isDismissible: true,
+      isDismissible: false,
+      useSafeArea: true,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
         return GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
+          onTap: () {},
           child: AnimatedBuilder(
             animation: animationController,
             builder: (context, child) => Transform.translate(
@@ -104,7 +99,8 @@ class _UserProfileState extends State<UserProfile> {
                       children: [
                         CircleAvatar(
                           radius: 60.0,
-                          backgroundImage: NetworkImage(widget._user.profilePictureUrl),
+                          backgroundImage:
+                              NetworkImage(widget._user.profilePictureUrl),
                         ),
                         const SizedBox(height: 16.0),
                         Text(widget._user.displayName,
@@ -217,11 +213,11 @@ class _UserProfileState extends State<UserProfile> {
                           onPressed: () {
                             if (MediaQuery.of(context).size.width > 600) {
                               _showCustomModalBottomSheet(context);
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditProfile(widget._user)));
                             }
-                            else {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditProfile(widget._user)));
-                            }
-                            
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
@@ -258,5 +254,3 @@ class _UserProfileState extends State<UserProfile> {
         ));
   }
 }
-
-
