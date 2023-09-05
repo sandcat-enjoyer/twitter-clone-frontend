@@ -22,7 +22,26 @@ class AuthService {
         "displayname": username.toUpperCase()
       });
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(user: UserLocal(uid: authResult.user!.uid, displayName: username.toUpperCase(), profilePictureUrl: "", username: username, bio: ""))));
+      await authResult.user?.sendEmailVerification();
+
+      await FirebaseAuth.instance.signOut();
+
+      showDialog(context: context, builder: (context) {
+        return AlertDialog(
+          title: Text("Account created successfully!"),
+          content: Text("A verification e-mail has been sent to ${authResult.user?.email}. Please check your inbox and sign in to your account afterwards."),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      });
+
+      //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(user: UserLocal(uid: authResult.user!.uid, displayName: username.toUpperCase(), profilePictureUrl: "", username: username, bio: ""))));
      
     }
     catch (e) {

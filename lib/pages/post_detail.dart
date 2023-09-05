@@ -32,6 +32,8 @@ class _PostDetailState extends State<PostDetail> {
     super.dispose();
   }
 
+  
+
   Future<void> fetchReplies() async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance
@@ -88,11 +90,21 @@ class _PostDetailState extends State<PostDetail> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CircleAvatar(
+                            if (userData["profilePictureUrl"] == "") ...[
+                              CircleAvatar(
+                                radius: 30,
+                                child: Text(userData["username"].toString().substring(0, 1), style: TextStyle(
+                                  fontSize: 30
+                                ),),
+                              )
+                            ],
+                            if (userData["profilePictureUrl"] != "") ...[
+                              CircleAvatar(
                               radius: 30,
                               backgroundImage:
                                   NetworkImage(userData["profilePictureUrl"]),
                             ),
+                            ],                            
                             const SizedBox(width: 8),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

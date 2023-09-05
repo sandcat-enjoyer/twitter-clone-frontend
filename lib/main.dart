@@ -111,7 +111,11 @@ class MyApp extends StatelessWidget {
       ),
 
       darkTheme: ThemeData(
-        appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF14171A)),
+        appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF14171A), titleTextStyle: TextStyle(
+          fontFamily: "Poppins",
+          fontSize: 22,
+          fontWeight: FontWeight.bold
+        )),
         dialogTheme: DialogTheme(
           backgroundColor: Color.fromARGB(255, 18, 18, 18)
         ),
@@ -127,8 +131,10 @@ class MyApp extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16))),
 
         primaryIconTheme: const IconThemeData(color: Colors.white),
+        
 
         textTheme: const TextTheme(
+          
             displaySmall: TextStyle(
               fontFamily: "Poppins",
               fontWeight: FontWeight.w600,
@@ -147,6 +153,12 @@ class MyApp extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 35,
                 fontWeight: FontWeight.bold),
+            titleMedium: TextStyle(
+              fontFamily: "Poppins",
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+              color: Colors.white
+            ),
             bodySmall: TextStyle(
                 color: Colors.white,
                 fontFamily: "Poppins",

@@ -12,6 +12,24 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   final _formkey = GlobalKey<FormState>();
   String _newDisplayName = "";
+  final _displayNameController = TextEditingController();
+  final _pronounsController = TextEditingController();
+  final _bioController = TextEditingController();
+
+  _checkIfProfileImageExists() {
+    if (widget.user.profilePictureUrl == "") {
+      return CircleAvatar(
+        child: Text(widget.user.displayName.substring(0, 1).toUpperCase()),
+      );
+    }
+
+    else {
+      return CircleAvatar(
+        backgroundImage: NetworkImage(widget.user.profilePictureUrl),
+      );
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +43,71 @@ class _EditProfileState extends State<EditProfile> {
             ),
             body: SingleChildScrollView(
               child: Column(
-                children: [],
+                children: [
+                  Form(child: Stack(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          //actions for changing header image
+
+                        },
+                        child: Image.network("https://pbs.twimg.com/profile_banners/1201209148018434048/1665952533/1500x500"),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          
+                          children: [
+                            SizedBox(height: 30),
+                            InkWell(
+                              onTap: () {
+                                //actions for changing profile picture
+
+                              },
+                              child: CircleAvatar(
+                              radius: 60,
+                              backgroundImage: NetworkImage("https://pbs.twimg.com/profile_images/1692646588382916608/WXqlbVuf_400x400.jpg"),
+                            ),
+                            ),
+                            SizedBox(height: 50),
+                            TextFormField(
+                              controller: _displayNameController,
+                              decoration: InputDecoration(
+                                labelText: "Display Name",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                                )
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            TextFormField(
+                              controller: _pronounsController,
+                              decoration: InputDecoration(
+                                labelText: "Pronouns",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                                )
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            TextFormField(
+                              controller: _bioController,
+                              decoration: InputDecoration(
+                                labelText: "Description",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                                )
+                              ),
+                            ),
+                            ElevatedButton(onPressed: () {
+
+                            }, child: Text("Save changes"))
+                          ],
+                        ),
+                      )
+                    ],
+                  ))
+                ],
               ),
             ));
       }

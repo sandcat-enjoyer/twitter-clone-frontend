@@ -32,6 +32,24 @@ class _UserProfileState extends State<UserProfile> {
     super.dispose();
   }
 
+  _checkIfProfileImageExists() {
+    if (widget._user.profilePictureUrl == "") {
+      return CircleAvatar(
+        radius: 60,
+        child: Text(widget._user.displayName.substring(0, 1).toUpperCase(), style: TextStyle(
+          fontSize: 48
+        ),),
+      );
+    }
+
+    else {
+      return CircleAvatar(
+        backgroundImage: NetworkImage(widget._user.profilePictureUrl),
+      );
+    }
+
+  }
+
   void _showCustomModalBottomSheet(BuildContext context) {
     final animationController = AnimationController(
       vsync: Navigator.of(context),
@@ -97,11 +115,7 @@ class _UserProfileState extends State<UserProfile> {
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
-                        CircleAvatar(
-                          radius: 60.0,
-                          backgroundImage:
-                              NetworkImage(widget._user.profilePictureUrl),
-                        ),
+                        _checkIfProfileImageExists(),
                         const SizedBox(height: 16.0),
                         Text(widget._user.displayName,
                             style: Theme.of(context).textTheme.titleLarge),

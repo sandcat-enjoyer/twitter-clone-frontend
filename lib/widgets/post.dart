@@ -314,6 +314,23 @@ class Post extends StatelessWidget {
     );
   }
 
+  _checkIfProfileImageExists() {
+    if (bolt.userProfileImageUrl == "") {
+      return CircleAvatar(
+        radius: 20,
+        child: Text(bolt.username.substring(0, 1).toUpperCase()),
+      );
+    }
+
+    else {
+      return CircleAvatar(
+        radius: 20,
+        backgroundImage: NetworkImage(bolt.userProfileImageUrl),
+      );
+    }
+
+  }
+
   _buildPhonePosts(BuildContext context) {
     return Card(
       elevation: 1.0,
@@ -326,10 +343,7 @@ class Post extends StatelessWidget {
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                CircleAvatar(
-                  radius: 20.0,
-                  backgroundImage: NetworkImage(bolt.userProfileImageUrl),
-                ),
+                _checkIfProfileImageExists(),
                 const SizedBox(width: 8),
                 Text(
                   bolt.displayName,

@@ -45,6 +45,7 @@ class _LoginState extends State<Login> {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
             child: Form(
               key: _formKey,
               child: Column(
@@ -56,7 +57,7 @@ class _LoginState extends State<Login> {
                     height: 150,
                   ),
                   const SizedBox(height: 20),
-                  Text("Sign in to Spark.",
+                  Text("Sign in to Spark",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: 20),
@@ -97,7 +98,6 @@ class _LoginState extends State<Login> {
                       color: Theme.of(context).textTheme.bodySmall!.color,
                     ),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       errorStyle: const TextStyle(
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.bold,
@@ -118,7 +118,31 @@ class _LoginState extends State<Login> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () async {
-                      try {
+                      if (_emailController.text == "" && _passwordController.text == "") {
+                        showDialog(context: context, builder: (context) {
+                          return AlertDialog(
+                            title: Text("Oops!"),
+                            actions: [
+                              TextButton(onPressed: () {
+                                Navigator.of(context).pop();
+
+                              }, child: Text("OK"))
+                            ],
+                            
+                            content: Container(
+                            
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              decoration: BoxDecoration(
+                                
+                                borderRadius: BorderRadius.circular(16)
+                              ),
+                              child: Text("Please make sure you have filled in an e-mail address and password and try to log in again.", style: Theme.of(context).textTheme.bodyMedium,),
+                            )
+                          );
+                        });
+                      }
+                      else {
+                        try {
                         UserCredential? userCredential = await _authService.signIn(_emailController.text, _passwordController.text);
                         if (userCredential != null) {
                           print(userCredential.user!.uid);
@@ -131,14 +155,30 @@ class _LoginState extends State<Login> {
                       }
 
                       catch (e) {
-                        print("Error: $e");
+                        showDialog(context: context, builder: (context) {
+                          return AlertDialog(
+                            title: Text("An error occurred"),
+                            content: Text(e.toString()),
+                            actions: [
+                              TextButton(onPressed: () {
+                              }, child: Text("OK"))
+                            ],
+                          );
+                        });
+                      }
                       }
 
                     },
                     style: ButtonStyle(
+                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)
+
+                      )
+                     ),
                       
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.all(16)
+                        EdgeInsets.fromLTRB(30, 15, 30, 15)
                       ),
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Theme.of(context).primaryColor)),
@@ -157,7 +197,7 @@ class _LoginState extends State<Login> {
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => Register()));
                       },
-                      child: const Text("Register",
+                      child: const Text("Create a new account",
                           style: TextStyle(
                               fontFamily: "Poppins",
                               fontWeight: FontWeight.bold)))

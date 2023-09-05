@@ -26,13 +26,21 @@ class FirstSignIn extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 40),
+              
+              Text("*tagline goes here*",
+              style: Theme.of(context).textTheme.titleMedium,),
+              SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
                       .pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
                 },
                 style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)
+                    )
+                  ),
                   backgroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 88, 242, 226),
                   ),
@@ -40,7 +48,7 @@ class FirstSignIn extends StatelessWidget {
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: Text(
-                    "Sign In",
+                    "Continue",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
