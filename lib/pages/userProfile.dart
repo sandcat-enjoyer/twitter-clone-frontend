@@ -96,6 +96,7 @@ class _UserProfileState extends State<UserProfile> {
     return Scaffold(
         appBar: AppBar(),
         body: SingleChildScrollView(
+          
           child: Stack(
             children: [
               Image.network(
@@ -164,64 +165,6 @@ class _UserProfileState extends State<UserProfile> {
                             const Text("Joined July 2023")
                           ],
                         ),
-                        /* Row(
-                          children: [
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    const Icon(Icons.location_city_rounded),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      "Antwerp",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 15),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const Icon(Icons.link_rounded),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text("Website Link")
-                                  ],
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(Icons.people_alt_rounded),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          "332 Followers",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(children: [
-                            Icon(Icons.calendar_month_outlined),
-                            SizedBox(width: 8),
-                            Text("Joined July 2023")
-                          ],)
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ), */
                         const SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: () {

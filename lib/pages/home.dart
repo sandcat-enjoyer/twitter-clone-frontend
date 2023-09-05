@@ -153,7 +153,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             } else {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
+                
                 itemBuilder: (context, index) {
                   Map<String, dynamic> data = snapshot.data!.docs[index].data();
 
@@ -491,6 +492,22 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
+  
+  checkIfProfileImageExistsForDrawer() {
+    if (widget._user.profilePictureUrl == "") {
+      return CircleAvatar(
+        maxRadius: 20,
+        child: Text(widget._user.username.substring(0, 1).toUpperCase()),
+      );
+    }
+    else {
+      return CircleAvatar(
+        maxRadius: 20,
+        backgroundImage: NetworkImage(widget._user.profilePictureUrl),
+      );
+    }
+  }
+
   Widget buildProfileDrawer() {
     double iconSize = 32.0;
     TextStyle profileDrawerTextStyle = const TextStyle(
@@ -504,15 +521,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               decoration: BoxDecoration(
                 color: _checkTheme(),
               ),
-              otherAccountsPictures: const [
-                CircleAvatar(
-                  maxRadius: 20,
-                  backgroundImage: NetworkImage(
-                      "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg"),
-                )
-              ],
               accountName: Text(
-                "jules ! :3",
+                widget._user.displayName,
                 style: TextStyle(
                     color: _checkThemeForText(),
                     fontFamily: "Poppins",
@@ -520,17 +530,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     fontWeight: FontWeight.bold),
               ),
               accountEmail: Text(
-                "@sandcat_enjoyer",
+                widget._user.username,
                 style: TextStyle(
                     fontFamily: "Poppins",
                     color: _checkThemeForText(),
                     fontWeight: FontWeight.w500),
               ),
-              currentAccountPicture: const CircleAvatar(
-                maxRadius: 20,
-                backgroundImage: NetworkImage(
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg"),
-              ),
+              currentAccountPicture: checkIfProfileImageExistsForDrawer()
             ),
             ListTile(
               leading: Icon(Icons.person,

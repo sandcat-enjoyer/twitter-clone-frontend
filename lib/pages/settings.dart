@@ -68,7 +68,7 @@ class _SettingsState extends State<SettingsPage> {
             leading: Icon(Icons.person, color: Theme.of(context).primaryIconTheme.color),
             title: Text('Account Settings',
                 style: Theme.of(context).textTheme.bodyMedium),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color,),
             onTap: () {
               
             },
@@ -77,7 +77,7 @@ class _SettingsState extends State<SettingsPage> {
             leading: Icon(Icons.brush, color: Theme.of(context).primaryIconTheme.color),
             title:
                 Text('Colors', style: Theme.of(context).textTheme.bodyMedium),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => ColorsPage(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
 
@@ -87,7 +87,7 @@ class _SettingsState extends State<SettingsPage> {
             leading: Icon(Icons.language, color: Theme.of(context).primaryIconTheme.color),
             title: Text('Language',
                 style: Theme.of(context).textTheme.bodyMedium),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color),
             onTap: () {
               // Navigate to language settings screen here
             },
@@ -96,7 +96,7 @@ class _SettingsState extends State<SettingsPage> {
             leading: Icon(Icons.security, color: Theme.of(context).primaryIconTheme.color),
             title: Text('Security',
                 style: Theme.of(context).textTheme.bodyMedium),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color),
             onTap: () {
               // Navigate to security settings screen here
             },
@@ -106,7 +106,7 @@ class _SettingsState extends State<SettingsPage> {
             leading: Icon(Icons.help, color: Theme.of(context).primaryIconTheme.color),
             title: Text('Help & Support',
                 style: Theme.of(context).textTheme.bodyMedium),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color),
             onTap: () {
               // Navigate to help & support screen here
             },
@@ -114,20 +114,24 @@ class _SettingsState extends State<SettingsPage> {
           ListTile(
             leading: Icon(Icons.info, color: Theme.of(context).primaryIconTheme.color),
             title:
-                Text('About', style: Theme.of(context).textTheme.bodyMedium),
-            trailing: const Icon(Icons.arrow_forward_ios),
+                Text('About', style: Theme.of(context).textTheme.bodyMedium, ),
+            trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color),
             onTap: () {
               showDialog(context: context, builder: (context) {
                 return AlertDialog(
+                  
                   title: Text("About Spark", style: Theme.of(context).textTheme.bodyLarge,),
-                  content: Column(
-                    
+                  content: Container(
+                    height: 200,
+                    child:Column(
                     children: [
                       Image.asset("assets/icon.png", width: 100,),
-                      SizedBox(height: 100),
-                      Text("Version number goes here", style: Theme.of(context).textTheme.bodyMedium,),
+                      SizedBox(height: 50),
+                      
+                      Text("Closed Beta Version", style: Theme.of(context).textTheme.bodyMedium,),
                     ],
                   ),
+                  ), 
                   actions: [
                     TextButton(onPressed: () {
                       Navigator.pop(context);

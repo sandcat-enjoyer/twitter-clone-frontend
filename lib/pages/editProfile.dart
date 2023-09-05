@@ -11,7 +11,6 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   final _formkey = GlobalKey<FormState>();
-  String _newDisplayName = "";
   final _displayNameController = TextEditingController();
   final _pronounsController = TextEditingController();
   final _bioController = TextEditingController();
