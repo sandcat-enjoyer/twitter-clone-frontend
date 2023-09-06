@@ -48,6 +48,16 @@ class _UserProfileState extends State<UserProfile> {
 
   }
 
+
+_checkIfHeaderImageExists() {
+  if (widget._user.headerUrl == "" || widget._user.headerUrl == null) {
+    return Container();
+  }
+  else {
+    return Image.network(widget._user.headerUrl!, height: 200, width: double.infinity, fit: BoxFit.cover,);
+  }
+}
+
   void _showCustomModalBottomSheet(BuildContext context) {
     final animationController = AnimationController(
       vsync: Navigator.of(context),
@@ -97,13 +107,7 @@ class _UserProfileState extends State<UserProfile> {
           
           child: Stack(
             children: [
-              Image.network(
-                widget._user.headerUrl!,
-                height:
-                    200, // Set the height of the header image as per your requirement
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+              _checkIfHeaderImageExists(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [

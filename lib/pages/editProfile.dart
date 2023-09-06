@@ -101,10 +101,15 @@ class _EditProfileState extends State<EditProfile> {
   // }
 
   _checkIfProfileImageExists() {
-    if (widget.user.profilePictureUrl == "") {
+    if (_imageFileProfile == null) {
+      if (widget.user.profilePictureUrl == "") {
       return CircleAvatar(
         radius: 60,
-        child: Text(widget.user.displayName.substring(0, 1).toUpperCase()),
+        child: Text(widget.user.displayName.substring(0, 1).toUpperCase(), style: TextStyle(
+          fontFamily: "Poppins",
+          fontSize: 55,
+          fontWeight: FontWeight.bold
+        ),),
       );
     }
 
@@ -114,22 +119,85 @@ class _EditProfileState extends State<EditProfile> {
         backgroundImage: NetworkImage(widget.user.profilePictureUrl),
       );
     }
+    }
+    else {
+      return CircleAvatar(
+        radius: 60,
+        backgroundImage: FileImage(_imageFileProfile!)
+      );
+
+    }
+    
 
   }
 
   _checkIfHeaderImageIsBeingChanged() {
     if (_imageFileHeader == null) {
-      if (widget.user.headerUrl == null) {
-        return Container();
+      if (widget.user.headerUrl == null || widget.user.headerUrl == "") {
+        return Container(
+          height: 200,
+        );
       }
       else {
-        return Image.network(widget.user.headerUrl!);
+        return Container(
+          height: 200,
+          width: MediaQuery.of(context).size.width,
+          child: Image.network(widget.user.headerUrl!, fit: BoxFit.cover,)
+        );
       }
     }
     else {
       //need to find a more proper way of scaling the image here
-      return Image.file(_imageFileHeader!, height: MediaQuery.of(context).size.height * 0.2, width: MediaQuery.of(context).size.width, fit: BoxFit.fill,);
+      return Container(
+        height: 200,
+        width: MediaQuery.of(context).size.width,
+        child: Image.file(_imageFileHeader!, fit: BoxFit.cover,)
+      );
     }
+  }
+
+  _fillValuesFromUser() {
+    print(_bioController.text);
+    if (_bioController.text == "" && widget.user.bio != "") {
+      setState(() {
+        _bioController.value = TextEditingValue(
+          text: widget.user.bio!
+        );
+      });
+      
+    }
+
+    if (_displayNameController.text == "" && widget.user.displayName != "") {
+      setState(() {
+        _displayNameController.value = TextEditingValue(
+          text: widget.user.displayName
+        );
+      });
+      
+    }
+
+    if (_pronounsController.text == "" && widget.user.pronouns != "") {
+      setState(() {
+        _pronounsController.value = TextEditingValue(
+          text: widget.user.pronouns!
+        );
+      });
+      
+    }
+  }
+
+  @override 
+  void initState() {
+    _fillValuesFromUser();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bioController.dispose();
+    _displayNameController.dispose();
+    _pronounsController.dispose();
+    super.dispose();
   }
 
   @override
@@ -147,6 +215,7 @@ class _EditProfileState extends State<EditProfile> {
                 children: [
                   Form(child: Stack(
                     children: [
+                     
                       InkWell(
                         onTap: () {
                           _getImageHeader();
@@ -169,11 +238,12 @@ class _EditProfileState extends State<EditProfile> {
                               },
                               child: _checkIfProfileImageExists()
                             ),
-                            SizedBox(height: 50),
+                            SizedBox(height: 80),
                             TextFormField(
                               controller: _displayNameController,
                               decoration: InputDecoration(
                                 labelText: "Display Name",
+
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)
                                 )
@@ -199,6 +269,7 @@ class _EditProfileState extends State<EditProfile> {
                                 )
                               ),
                             ),
+                            SizedBox(height: 50),
                             ElevatedButton(onPressed: () async {
                               await _uploadHeaderImage();
                               await _uploadProfileImage();

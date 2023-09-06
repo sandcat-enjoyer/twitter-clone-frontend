@@ -1,8 +1,13 @@
 import "dart:io";
 
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:permission_handler/permission_handler.dart";
+import "package:spark/pages/settingsPages/accountSettings.dart";
 import "package:spark/pages/settingsPages/colors.dart";
+import "package:spark/pages/settingsPages/securityPage.dart";
+import "package:spark/pages/splash.dart";
+import "package:spark/services/auth_service.dart";
 
 import "../data/user.dart";
 
@@ -70,7 +75,7 @@ class _SettingsState extends State<SettingsPage> {
                 style: Theme.of(context).textTheme.bodyMedium),
             trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color,),
             onTap: () {
-              
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => AccountSettings(widget._user)));
             },
           ),
           ListTile(
@@ -89,6 +94,17 @@ class _SettingsState extends State<SettingsPage> {
                 style: Theme.of(context).textTheme.bodyMedium),
             trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color),
             onTap: () {
+              showDialog(context: context, builder: (context) {
+                return AlertDialog(
+                  title: Text("Language picker"),
+                  content: Text("Available soon."),
+                  actions: [
+                    TextButton(onPressed: () {
+                      Navigator.of(context).pop();
+                    }, child: Text("Close"))
+                  ],
+                );
+              });
               // Navigate to language settings screen here
             },
           ),
@@ -99,6 +115,7 @@ class _SettingsState extends State<SettingsPage> {
             trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color),
             onTap: () {
               // Navigate to security settings screen here
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SecurityPage(widget._user)));
             },
           ),
           const Divider(),
@@ -109,8 +126,21 @@ class _SettingsState extends State<SettingsPage> {
             trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color),
             onTap: () {
               // Navigate to help & support screen here
+              showDialog(context: context, builder: (context) {
+                return AlertDialog(
+                  title: Text("Help & Support"),
+                  content: Text("Moderation tools and other useful stuff coming later."),
+                  actions: [
+                    TextButton(onPressed: () {
+                      Navigator.of(context).pop();
+
+                    }, child: Text("Close"))
+                  ],
+                );
+              });
             },
           ),
+          
           ListTile(
             leading: Icon(Icons.info, color: Theme.of(context).primaryIconTheme.color),
             title:
@@ -119,7 +149,7 @@ class _SettingsState extends State<SettingsPage> {
             onTap: () {
               showDialog(context: context, builder: (context) {
                 return AlertDialog(
-                  title: Text("About Spark", style: Theme.of(context).textTheme.bodyLarge,),
+                  title: Text("About Spark"),
                   content: Container(
                     height: 200,
                     child:Column(
@@ -138,6 +168,16 @@ class _SettingsState extends State<SettingsPage> {
                   ],
                 );
               },);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.help, color: Colors.red),
+            title: Text('Log Out',
+                style: Theme.of(context).textTheme.bodyMedium),
+            trailing: Icon(Icons.arrow_forward_ios, color: Colors.red),
+            onTap: () async {
+              await AuthService().signOut();
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Splash()));
             },
           ),
         ],

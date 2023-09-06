@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:spark/services/auth_service.dart';
 
 import '../data/user.dart';
@@ -23,6 +27,53 @@ class _NewTweetState extends State<NewTweet> {
   bool isDarkMode = false;
   late List<CameraDescription> _cameras;
   final AuthService authService = AuthService();
+  String mediaURL = "";
+
+  File? _mediaFile;
+
+  Future<void> _getMediaFromCamera() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      setState(() {
+        _mediaFile = File(pickedFile.path);
+      });
+    }
+    
+  }
+
+  Future<void> _getMediaFromGallery() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _mediaFile = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<void> _uploadMedia() async {
+    try {
+      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget._user.uid}/images/posts/");
+      final UploadTask uploadTask = storageRef.putFile(_mediaFile!);
+
+      if (_mediaFile == null) {
+        return;
+      }
+      else {
+        await uploadTask.whenComplete(() => print("Media was uploaded"));
+        mediaURL = await FirebaseStorage.instance.ref("users/${widget._user.uid}/images/posts/").getDownloadURL();
+        print("URL for media: $mediaURL");
+      }
+    }
+    catch(e) {
+      print("Error uploading media: $e");
+    }
+  }
+
+
 
   @override
   void initState() {

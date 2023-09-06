@@ -158,6 +158,7 @@ class _RegisterState extends State<Register> {
                       try {
                         if (_passwordController.text == _confirmPasswordController.text) {
                             await _authService.signUp(_emailController.text, _passwordController.text, _usernameController.text, context);
+                            
 
                         } 
                         
