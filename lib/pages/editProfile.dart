@@ -158,7 +158,7 @@ class _EditProfileState extends State<EditProfile> {
 
   _fillValuesFromUser() {
     print(_bioController.text);
-    if (_bioController.text == "" && widget.user.bio != "") {
+    if (_bioController.text == "" && widget.user.bio! != null && widget.user.bio != "") {
       setState(() {
         _bioController.value = TextEditingValue(
           text: widget.user.bio!
@@ -167,7 +167,7 @@ class _EditProfileState extends State<EditProfile> {
       
     }
 
-    if (_displayNameController.text == "" && widget.user.displayName != "") {
+    if (_displayNameController.text == "" && widget.user.displayName != null && widget.user.displayName != "") {
       setState(() {
         _displayNameController.value = TextEditingValue(
           text: widget.user.displayName
@@ -176,7 +176,7 @@ class _EditProfileState extends State<EditProfile> {
       
     }
 
-    if (_pronounsController.text == "" && widget.user.pronouns != "") {
+    if (_pronounsController.text == "" && widget.user.pronouns != null && widget.user.pronouns != "") {
       setState(() {
         _pronounsController.value = TextEditingValue(
           text: widget.user.pronouns!

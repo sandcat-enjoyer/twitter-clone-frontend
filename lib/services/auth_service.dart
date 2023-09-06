@@ -18,6 +18,8 @@ class AuthService {
         "email": email,
         "posts": [],
         "profilePictureUrl": "",
+        "headerUrl": "",
+        "pronouns": "",
         "bio": "",
         "displayname": username.toUpperCase()
       });
