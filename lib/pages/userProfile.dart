@@ -18,9 +18,6 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  String headerImageUrl =
-      "https://pbs.twimg.com/profile_banners/1201209148018434048/1665952533/1500x500";
-  String pronouns = "he/him";
 
   @override
   void initState() {
@@ -100,7 +97,7 @@ class _UserProfileState extends State<UserProfile> {
           child: Stack(
             children: [
               Image.network(
-                headerImageUrl,
+                widget._user.headerUrl!,
                 height:
                     200, // Set the height of the header image as per your requirement
                 width: double.infinity,
@@ -123,7 +120,7 @@ class _UserProfileState extends State<UserProfile> {
                         const SizedBox(height: 4.0),
                         Text(widget._user.username),
                         const SizedBox(height: 8),
-                        Text(pronouns,
+                        Text(widget._user.pronouns ?? "",
                             style: Theme.of(context).textTheme.bodyMedium),
                         const SizedBox(height: 8.0),
                         Text(

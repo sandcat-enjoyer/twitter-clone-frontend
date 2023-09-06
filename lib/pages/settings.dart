@@ -79,7 +79,7 @@ class _SettingsState extends State<SettingsPage> {
                 Text('Colors', style: Theme.of(context).textTheme.bodyMedium),
             trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryIconTheme.color),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ColorsPage(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ColorsPage(user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
 
             },
           ),

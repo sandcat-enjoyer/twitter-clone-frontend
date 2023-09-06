@@ -5,14 +5,19 @@ class UserLocal {
     final String displayName;
     final String username;
     final String profilePictureUrl;
+    final String? headerUrl;
+    final String? pronouns;
     final String? bio;
+
 
     UserLocal({
       required this.uid,
       required this.displayName,
       required this.username,
       required this.profilePictureUrl,
-      required this.bio
+      required this.headerUrl,
+      required this.bio,
+      required this.pronouns
       
     });
 
@@ -22,6 +27,8 @@ class UserLocal {
       displayName: map["displayname"], 
       username: map["username"], 
       profilePictureUrl: map["profilePictureUrl"],
+      pronouns: map["pronouns"],
+      headerUrl: map["headerImageUrl"],
       bio: map["bio"],
      );
     }

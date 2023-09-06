@@ -106,7 +106,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => PostDetail(
-                                    user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio,),
+                                    user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio,),
                                     postId: snapshot.data!.docs[index].id)));
                           },
                           child: Post(Tweet(
@@ -132,13 +132,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           "Search haha",
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        Notifications(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio, )),
+        Notifications(user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio, )),
         Text(
           "Message Haha",
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        UserProfile(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio, )),
-        SettingsPage(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio,))
+        UserProfile(user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio, )),
+        SettingsPage(user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio,))
       ];
     } else {
       //phone layout
@@ -176,7 +176,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => PostDetail(
-                                      user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio),
+                                      user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio),
                                       postId: snapshot.data!.docs[index].id)));
                             },
                             child: Post(Tweet(
@@ -197,99 +197,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               );
             }
           },
-        )
-        /* ListView(
-          children: [
-            InkWell(
-              onTap: () {
-                //we will need a much more sophisticated way of keeping post IDs but for testing purposes this is fine (probably)
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => PostDetail(user: widget._user, postId: 1)));
-              },
-              child: Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => PostDetail(user: widget._user, postId: 2)));
-
-              },
-              child: Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText:
-                    "Haha BUSINESS fomfidhgbisogufdjosghufjpuibhjkgioshiujklgfbhfnfbhndfsjbhnlfdjgbhiogfjnkldjnkldndonldjsonlojpiknsgophjklnodpikns,pokghjiksfophjfklsojnlsgjnf,gsjnjlfjoshiknslopfkohifsdhu",
-                likes: 10,
-                retweets: 2)),
-            ),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2,
-                imageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg")),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-            Post(Tweet(
-                displayName: "jules ! :3",
-                username: "@sandcat_enjoyer",
-                userProfileImageUrl:
-                    "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg",
-                timeOfTweet: DateTime.now(),
-                postText: "Haha BUSINESS",
-                likes: 10,
-                retweets: 2)),
-          ],
-        ), */
-        ,
+        ),
         Text(
           "Search haha",
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        Notifications(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio)),
+        Notifications(user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio)),
         Text(
           "Message Haha",
           style: Theme.of(context).textTheme.titleLarge,
-        )
+        ),
+        UserProfile(user: widget._user),
+        SettingsPage(user: widget._user)
       ];
     }
   }
@@ -323,7 +242,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       duration: const Duration(milliseconds: 500),
     );
 
-    final sheet = NewTweet(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio));
+    final sheet = NewTweet(user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio));
 
     const curve = Curves
         .fastEaseInToSlowEaseOut; // You can experiment with different curves here
@@ -365,7 +284,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.message), label: ""),
+         
         ],
         currentIndex: _selectedIndex,
         showSelectedLabels: false,
@@ -548,7 +469,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => UserProfile(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
+                    builder: (context) => UserProfile(user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
               },
             ),
             ListTile(
@@ -574,7 +495,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SettingsPage(user: UserLocal(uid: widget._user.uid, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
+                    builder: (context) => SettingsPage(user: UserLocal(uid: widget._user.uid, pronouns: widget._user.pronouns, headerUrl: widget._user.headerUrl, displayName: widget._user.displayName, username: widget._user.username, profilePictureUrl: widget._user.profilePictureUrl, bio: widget._user.bio))));
               },
             ),
             ListTile(

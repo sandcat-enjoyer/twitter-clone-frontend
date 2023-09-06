@@ -1,5 +1,13 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:spark/data/user.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 class EditProfile extends StatefulWidget {
   final UserLocal user;
@@ -14,6 +22,83 @@ class _EditProfileState extends State<EditProfile> {
   final _displayNameController = TextEditingController();
   final _pronounsController = TextEditingController();
   final _bioController = TextEditingController();
+  File? _imageFileHeader;
+  File? _imageFileProfile;
+  String headerURL = "";
+  String profileURL = "";
+
+  Future<void> _getImageHeader() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imageFileHeader = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<void> _getImageProfile() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imageFileProfile = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<void> _uploadProfileImage() async {
+    try {
+      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget.user.uid}/images/profile");
+      final UploadTask uploadTask = storageRef.putFile(_imageFileProfile!);
+      if (_imageFileProfile == null) {
+        return;
+      }
+      else {
+        await uploadTask.whenComplete(() => print("Profile image was uploaded successfully"));
+        profileURL = await FirebaseStorage.instance.ref("users/${widget.user.uid}/images/profile").getDownloadURL();
+        print("URL for profile: " + profileURL);
+      }
+    }
+
+    catch(e) {
+      print("Error uploading profile picture: $e");
+    }
+  }
+
+  
+
+  Future<void> _uploadHeaderImage() async {
+    try {
+      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget.user.uid}/images/header");
+      final UploadTask uploadTask = storageRef.putFile(_imageFileHeader!);
+      if (_imageFileHeader == null) {
+        return;
+      }
+      else {
+        await uploadTask.whenComplete(() => print("Image was uploaded successfully"));
+        headerURL = await FirebaseStorage.instance.ref("users/${widget.user.uid}/images/header").getDownloadURL();
+        print("URL for header: " + headerURL);
+      }
+      
+    }
+    catch (e) {
+      print("Error uploading: $e");
+    }
+  }
+
+  // Future<void> _uploadProfileImage(File imageFile) async {
+  //   try {
+  //     final Reference storageRef = FirebaseStorage.instance.ref().child("images");
+  //     final UploadTask uploadTask = storageRef.putFile(imageFile);
+  //     await uploadTask.whenComplete(() => print("Image was uploaded successfully"));
+  //   }
+  //   catch (e) {
+  //     print("Error uploading: $e");
+  //   }
+  // }
 
   _checkIfProfileImageExists() {
     if (widget.user.profilePictureUrl == "") {
@@ -30,6 +115,16 @@ class _EditProfileState extends State<EditProfile> {
 
   }
 
+  _checkIfHeaderImageIsBeingChanged() {
+    if (_imageFileHeader == null) {
+      return Image.network("https://pbs.twimg.com/profile_banners/1201209148018434048/1665952533/1500x500");
+    }
+    else {
+      //need to find a more proper way of scaling the image here
+      return Image.file(_imageFileHeader!, height: MediaQuery.of(context).size.height * 0.2, width: MediaQuery.of(context).size.width, fit: BoxFit.fill,);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
@@ -38,7 +133,7 @@ class _EditProfileState extends State<EditProfile> {
       } else {
         return Scaffold(
             appBar: AppBar(
-              title: Text("Edit profile"),
+              title: const Text("Edit profile"),
             ),
             body: SingleChildScrollView(
               child: Column(
@@ -47,10 +142,11 @@ class _EditProfileState extends State<EditProfile> {
                     children: [
                       InkWell(
                         onTap: () {
+                          _getImageHeader();
                           //actions for changing header image
 
                         },
-                        child: Image.network("https://pbs.twimg.com/profile_banners/1201209148018434048/1665952533/1500x500"),
+                        child:_checkIfHeaderImageIsBeingChanged(),
                       ),
                       Container(
                         padding: EdgeInsets.all(16),
@@ -60,6 +156,7 @@ class _EditProfileState extends State<EditProfile> {
                             SizedBox(height: 30),
                             InkWell(
                               onTap: () {
+                                _getImageProfile();
                                 //actions for changing profile picture
 
                               },
@@ -98,7 +195,20 @@ class _EditProfileState extends State<EditProfile> {
                                 )
                               ),
                             ),
-                            ElevatedButton(onPressed: () {
+                            ElevatedButton(onPressed: () async {
+                              await _uploadHeaderImage();
+                              await _uploadProfileImage();
+                              FirebaseFirestore.instance.collection("users").doc(widget.user.uid).update({
+                                "bio": _bioController.text,
+                                "displayname": _displayNameController.text,
+                                "pronouns": "he/him",
+                                "email": FirebaseAuth.instance.currentUser!.email,
+                                "profilePictureUrl": profileURL,
+                                "headerImageUrl": headerURL,
+                                "username": widget.user.username
+                              });
+
+                              Navigator.of(context).pop();
 
                             }, child: Text("Save changes"))
                           ],

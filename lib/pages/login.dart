@@ -161,6 +161,7 @@ class _LoginState extends State<Login> {
                             content: Text(e.toString()),
                             actions: [
                               TextButton(onPressed: () {
+                                Navigator.of(context).pop();
                               }, child: Text("OK"))
                             ],
                           );

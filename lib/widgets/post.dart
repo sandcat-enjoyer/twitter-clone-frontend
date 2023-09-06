@@ -94,10 +94,8 @@ class Post extends StatelessWidget {
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                CircleAvatar(
-                  radius: 20.0,
-                  backgroundImage: NetworkImage(bolt.userProfileImageUrl),
-                ),
+
+                _checkIfProfileImageExists(),
                 const SizedBox(width: 8),
                 Text(
                   bolt.displayName,
