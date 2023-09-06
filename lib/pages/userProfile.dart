@@ -41,6 +41,7 @@ class _UserProfileState extends State<UserProfile> {
 
     else {
       return CircleAvatar(
+        radius: 60,
         backgroundImage: NetworkImage(widget._user.profilePictureUrl),
       );
     }

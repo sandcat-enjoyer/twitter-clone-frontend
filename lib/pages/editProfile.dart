@@ -103,12 +103,14 @@ class _EditProfileState extends State<EditProfile> {
   _checkIfProfileImageExists() {
     if (widget.user.profilePictureUrl == "") {
       return CircleAvatar(
+        radius: 60,
         child: Text(widget.user.displayName.substring(0, 1).toUpperCase()),
       );
     }
 
     else {
       return CircleAvatar(
+        radius: 60,
         backgroundImage: NetworkImage(widget.user.profilePictureUrl),
       );
     }
@@ -117,7 +119,12 @@ class _EditProfileState extends State<EditProfile> {
 
   _checkIfHeaderImageIsBeingChanged() {
     if (_imageFileHeader == null) {
-      return Image.network("https://pbs.twimg.com/profile_banners/1201209148018434048/1665952533/1500x500");
+      if (widget.user.headerUrl == null) {
+        return Container();
+      }
+      else {
+        return Image.network(widget.user.headerUrl!);
+      }
     }
     else {
       //need to find a more proper way of scaling the image here
@@ -160,10 +167,7 @@ class _EditProfileState extends State<EditProfile> {
                                 //actions for changing profile picture
 
                               },
-                              child: CircleAvatar(
-                              radius: 60,
-                              backgroundImage: NetworkImage("https://pbs.twimg.com/profile_images/1692646588382916608/WXqlbVuf_400x400.jpg"),
-                            ),
+                              child: _checkIfProfileImageExists()
                             ),
                             SizedBox(height: 50),
                             TextFormField(
