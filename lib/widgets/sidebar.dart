@@ -1,13 +1,17 @@
+
 import 'package:flutter/material.dart';
+import 'package:spark/data/user.dart';
 
 class Sidebar extends StatefulWidget {
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
+  final UserLocal user;
 
   Sidebar(
       {super.key,
       required this.selectedIndex,
-      required this.onDestinationSelected});
+      required this.onDestinationSelected,
+      required this.user});
 
   @override
   _SidebarState createState() => _SidebarState();
@@ -21,24 +25,43 @@ _checkIfExtendedIsNeeded(BuildContext context) {
   }
 }
 
-_checkIfProfileImagePresent() {
+
+
+
+
+class _SidebarState extends State<Sidebar> {
+
+  _checkIfProfileImagePresent() {
+  if (widget.user.profilePictureUrl == "") {
+    return CircleAvatar(
+      radius: 25,
+      child: Text(widget.user.username.substring(0,1).toUpperCase()),
+    );
+  }
+  else {
+    return CircleAvatar(
+      radius: 25,
+      backgroundImage: NetworkImage(widget.user.profilePictureUrl),
+    );
+  }
+
+
   
 }
 
-_showProfileNameWhenNeeded(BuildContext context) {
+  _showProfileNameWhenNeeded(BuildContext context) {
   if (MediaQuery.of(context).size.width <= 900 &&
       MediaQuery.of(context).size.width >= 600) {
     return Container();
   } else {
     return Container(
       child: Row(
-        children: [SizedBox(width: 25), Text("jules :3 - 2%")],
+        children: [const SizedBox(width: 25), Text(widget.user.displayName)],
       ),
     );
   }
 }
 
-class _SidebarState extends State<Sidebar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -83,11 +106,7 @@ class _SidebarState extends State<Sidebar> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  CircleAvatar(
-                                    radius: 25,
-                                    backgroundImage: NetworkImage(
-                                        "https://pbs.twimg.com/profile_images/1678072904884318208/zEC1bBWi_400x400.jpg"),
-                                  ),
+                                  _checkIfProfileImagePresent(),
                                   _showProfileNameWhenNeeded(context)
                                 ],
                               ),

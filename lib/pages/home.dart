@@ -341,6 +341,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           _selectedIndex = index;
                         });
                       },
+                      user: widget._user,
                     );
                   } else {
                     return buildProfileDrawer();

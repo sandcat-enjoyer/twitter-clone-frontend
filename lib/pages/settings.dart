@@ -119,16 +119,14 @@ class _SettingsState extends State<SettingsPage> {
             onTap: () {
               showDialog(context: context, builder: (context) {
                 return AlertDialog(
-                  
                   title: Text("About Spark", style: Theme.of(context).textTheme.bodyLarge,),
                   content: Container(
                     height: 200,
                     child:Column(
                     children: [
                       Image.asset("assets/icon.png", width: 100,),
-                      SizedBox(height: 50),
-                      
-                      Text("Closed Beta Version", style: Theme.of(context).textTheme.bodyMedium,),
+                      SizedBox(height: 50),        
+                      Text("Closed Beta 1", style: Theme.of(context).textTheme.bodyMedium,),
                     ],
                   ),
                   ), 
