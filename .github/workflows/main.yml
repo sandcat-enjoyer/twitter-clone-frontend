@@ -30,13 +30,17 @@ jobs:
           very_good packages get --recursive
       - name: 🛠️ Build the application
         run: flutter build web -t lib/main.dart
-      - name: Builds - build Flutter APK and create github release
-        uses: Dank-del/flutter-build-and-publish-action@v1
+      - name: 📱 Build APK version
+        run: flutter build apk
       - name: ⬇️ Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
           name: build
           path: build/web
+      - name: APK build
+        with: 
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
   
 
   deploy:
