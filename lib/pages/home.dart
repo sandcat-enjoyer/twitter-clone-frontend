@@ -116,6 +116,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               postText: data['content'],
                               likes: data["likes"],
                               retweets: data["rebolts"],
+                              imageUrl: data["imageUrl"] ?? "",
                               timeOfTweet: data["createdAt"],
                               userProfileImageUrl:
                                   userData["profilePictureUrl"])),
@@ -184,6 +185,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               displayName: userData["displayname"],
                               username: userData["username"],
                               postText: data['content'],
+                              imageUrl: data["imageUrl"] ?? "",
                               likes: data["likes"],
                               retweets: data["rebolts"],
                               timeOfTweet: data["createdAt"],

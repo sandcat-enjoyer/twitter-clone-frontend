@@ -1,12 +1,12 @@
 import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:spark/data/user.dart';
 import 'package:image_picker/image_picker.dart';
+import "package:flutter_image_compress/flutter_image_compress.dart";
 
 
 class EditProfile extends StatefulWidget {
@@ -50,15 +50,24 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<void> _uploadProfileImage() async {
-    try {
-      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget.user.uid}/images/profile");
-      final UploadTask uploadTask = storageRef.putFile(_imageFileProfile!);
+    if (_imageFileProfile == null) {
+      return;
+    }
+    else {
+      try {
+     Uint8List? compressedImageBytes = await FlutterImageCompress.compressWithFile(
+        _imageFileProfile!.path,
+        quality: 55
+      );
+
+      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget.user.uid}/images/profile.jpg");
+      final UploadTask uploadTask = storageRef.putData(compressedImageBytes!);
       if (_imageFileProfile == null) {
         return;
       }
       else {
         await uploadTask.whenComplete(() => print("Profile image was uploaded successfully"));
-        profileURL = await FirebaseStorage.instance.ref("users/${widget.user.uid}/images/profile").getDownloadURL();
+        profileURL = await FirebaseStorage.instance.ref("users/${widget.user.uid}/images/profile.jpg").getDownloadURL();
         print("URL for profile: " + profileURL);
       }
     }
@@ -66,20 +75,25 @@ class _EditProfileState extends State<EditProfile> {
     catch(e) {
       print("Error uploading profile picture: $e");
     }
+    }
   }
 
   
 
   Future<void> _uploadHeaderImage() async {
     try {
-      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget.user.uid}/images/header");
-      final UploadTask uploadTask = storageRef.putFile(_imageFileHeader!);
+      Uint8List? compressedImageBytes = await FlutterImageCompress.compressWithFile(
+        _imageFileHeader!.path,
+        quality: 65
+      );
+      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget.user.uid}/images/header.jpg");
+      final UploadTask uploadTask = storageRef.putData(compressedImageBytes!);
       if (_imageFileHeader == null) {
         return;
       }
       else {
         await uploadTask.whenComplete(() => print("Image was uploaded successfully"));
-        headerURL = await FirebaseStorage.instance.ref("users/${widget.user.uid}/images/header").getDownloadURL();
+        headerURL = await FirebaseStorage.instance.ref("users/${widget.user.uid}/images/header.jpg").getDownloadURL();
         print("URL for header: " + headerURL);
       }
       
@@ -182,7 +196,14 @@ class _EditProfileState extends State<EditProfile> {
           text: widget.user.pronouns!
         );
       });
-      
+    }
+
+    if (widget.user.profilePictureUrl != null && widget.user.profilePictureUrl != "") {
+      profileURL = widget.user.profilePictureUrl;
+    }
+
+    if (widget.user.headerUrl != null && widget.user.headerUrl != "") {
+      headerURL = widget.user.headerUrl!;
     }
   }
 

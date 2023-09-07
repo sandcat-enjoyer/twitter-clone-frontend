@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spark/services/auth_service.dart';
+import 'package:uuid/uuid.dart';
 
 import '../data/user.dart';
 
@@ -110,11 +111,16 @@ class _NewTweetState extends State<NewTweet> {
     String boltText = boltController.text;
     if (boltText.isNotEmpty) {
       try {
+        if (_mediaFile != null) {
+          await _uploadMedia();
+        }
+        
         DocumentReference userRef = FirebaseFirestore.instance.collection("users").doc(widget._user.uid);
         await FirebaseFirestore.instance.collection("posts").add({
           "content": boltText,
           "createdAt": FieldValue.serverTimestamp(),
           "user": userRef,
+          "imageUrl": mediaURL,
           "likes": 0,
           "rebolts": 0,
           "likedBy": []
@@ -150,10 +156,6 @@ class _NewTweetState extends State<NewTweet> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0, MediaQuery.of(context).size.width * 0.05, MediaQuery.of(context).size.height * 0.5),
-          height: MediaQuery.of(context).size.height * 0.30,
-          alignment: Alignment.center,
-          
           child: Material(      
           color: _checkTheme(),
           shape:
@@ -205,17 +207,27 @@ class _NewTweetState extends State<NewTweet> {
                   ),
                 ),
               ),
+              if (_mediaFile != null) ...[
+                Center(
+                  child: Image.file(_mediaFile!, height: 200)
+                )
+              ],
+              
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Row(
                 
                 children: [
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _getMediaFromCamera();
+                      },
                       child: const Icon(Icons.camera_alt_rounded, size: 28,
                           color: Color.fromARGB(255, 88, 242, 226))),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _getMediaFromGallery();
+                      },
                       child: const Icon(Icons.photo_rounded, size: 28,
                           color: Color.fromARGB(255, 88, 242, 226))),
                   TextButton(

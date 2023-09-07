@@ -120,7 +120,7 @@ class Post extends StatelessWidget {
               height: 4,
             ),
             
-            if (bolt.imageUrl != null) ...[
+            if (bolt.imageUrl != null && bolt.imageUrl != "") ...[
               const SizedBox(height: 8),
               GestureDetector(
                 child: ClipRRect(
@@ -366,7 +366,7 @@ class Post extends StatelessWidget {
               height: 4,
             ),
             
-            if (bolt.imageUrl != null) ...[
+            if (bolt.imageUrl != null && bolt.imageUrl != "") ...[
               const SizedBox(height: 8),
               GestureDetector(
                 child: ClipRRect(
