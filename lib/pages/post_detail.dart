@@ -129,6 +129,11 @@ class _PostDetailState extends State<PostDetail> {
                             const SizedBox(height: 16)
                           ],
                         ),
+                        if (postData["imageUrl"] != null && postData["imageUrl"] != "") ...[
+                          Container(
+                          child: Image.network(postData["imageUrl"]),
+                        )
+                        ],
                         const Divider(),
                         Row(
                           children: [
