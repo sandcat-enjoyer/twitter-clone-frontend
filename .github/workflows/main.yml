@@ -38,6 +38,7 @@ jobs:
           name: build
           path: build/web
       - name: APK build
+        uses: actions/upload-artifact@master
         with: 
           name: release-apk
           path: build/app/outputs/apk/release/app-release.apk
