@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:spark/services/auth_service.dart';
 import 'package:uuid/uuid.dart';
@@ -29,6 +31,7 @@ class _NewTweetState extends State<NewTweet> {
   late List<CameraDescription> _cameras;
   final AuthService authService = AuthService();
   String mediaURL = "";
+  String mediaName = "";
 
   File? _mediaFile;
 
@@ -50,6 +53,8 @@ class _NewTweetState extends State<NewTweet> {
 
     if (pickedFile != null) {
       setState(() {
+        mediaName = Uuid().v4();
+        print(mediaName);
         _mediaFile = File(pickedFile.path);
       });
     }
@@ -57,7 +62,9 @@ class _NewTweetState extends State<NewTweet> {
 
   Future<void> _uploadMedia() async {
     try {
-      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget._user.uid}/images/posts/");
+
+      Uint8List? compressedImageBytes = await FlutterImageCompress.compressWithFile(_mediaFile!.path, quality: 60);
+      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget._user.uid}/images/posts/${mediaName}.jpg");
       final UploadTask uploadTask = storageRef.putFile(_mediaFile!);
 
       if (_mediaFile == null) {
@@ -65,7 +72,7 @@ class _NewTweetState extends State<NewTweet> {
       }
       else {
         await uploadTask.whenComplete(() => print("Media was uploaded"));
-        mediaURL = await FirebaseStorage.instance.ref("users/${widget._user.uid}/images/posts/").getDownloadURL();
+        mediaURL = await FirebaseStorage.instance.ref("users/${widget._user.uid}/images/posts/${mediaName}.jpg").getDownloadURL();
         print("URL for media: $mediaURL");
       }
     }

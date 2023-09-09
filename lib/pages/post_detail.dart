@@ -1,6 +1,7 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:flutter/material.dart";
 import "package:http/http.dart";
+import "package:spark/widgets/expandedImagePage.dart";
 
 import "../data/user.dart";
 
@@ -48,6 +49,95 @@ class _PostDetailState extends State<PostDetail> {
       _replies = snapshot.docs.map((e) => e.data()).toList();
     });
   }
+
+Future<List<DocumentReference<Object?>>> _fetchLikedBy(String postId) async {
+  final postReference = FirebaseFirestore.instance.collection("posts").doc(postId);
+  final postSnapshot = await postReference.get();
+  final List<dynamic> likedBy = postSnapshot.get("likedBy");
+  
+  // Convert likedBy to a List<DocumentReference>
+  final List<DocumentReference<Object?>> likedByRefs = likedBy.cast<DocumentReference<Object?>>().toList();
+
+  return likedByRefs;
+}
+
+_buildLikedByDialog() async {
+  try {
+    final likedByRefs = await _fetchLikedBy(widget._postId);
+    bool profilePictureExists;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Liked by"),
+          content: Container(
+            height: 300,
+            width: 300,
+            child: ListView.builder(
+              itemCount: likedByRefs.length,
+              itemBuilder: (context, index) {
+                final userRef = likedByRefs[index];
+
+                return FutureBuilder(
+                  future: userRef.get(),
+                  builder: (context, userSnapshot) {
+                    if (userSnapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
+
+                    if (userSnapshot.hasError) {
+                      return Text("Error: ${userSnapshot.error}");
+                    }
+
+                    if (!userSnapshot.hasData ||
+                        userSnapshot.data!.data() == null) {
+                      return Text("User not found");
+                    }
+
+                    final userData = userSnapshot.data!.data() as Map<String, dynamic>;
+                    print(userData);
+                    final displayName = userData["displayname"];
+                    final username = userData["username"];
+                    final profilePictureUrl = userData["profilePictureUrl"];
+                    if (userData["profilePictureUrl"] != null && userData["profilePictureUrl"] != ""){
+                      profilePictureExists = true;
+                    }
+                    else {
+                      profilePictureExists = false;
+                    }
+
+                    return ListTile(
+                      leading: profilePictureExists ? CircleAvatar(
+                        radius: 25,
+                        backgroundImage: NetworkImage(profilePictureUrl),
+                      ) : CircleAvatar(
+                        radius: 25,
+                        child: Text(displayName.substring(0,1).toUpperCase()) ,
+                      ),
+                      title: Text(displayName),
+                      subtitle: Text(username),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Close"),
+            ),
+          ],
+        );
+      },
+    );
+  } catch (e) {
+    print("Error fetching liked usernames: $e");
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -131,15 +221,34 @@ class _PostDetailState extends State<PostDetail> {
                         ),
                         if (postData["imageUrl"] != null && postData["imageUrl"] != "") ...[
                           Container(
-                          child: Image.network(postData["imageUrl"]),
+                           
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ExpandedImagePage(imageUrl: postData["imageUrl"], profileDisplayName: '', profileUserName: "profileUserName", profilePictureUrl: "profilePictureUrl", boltDescription: "boltDescription", likes: postData["likes"], reposts: postData["rebolts"])));
+
+                              },
+                              child: Image.network(postData["imageUrl"],
+                              
+                            ),
+                            
+                          ) ),
                         )
                         ],
                         const Divider(),
                         Row(
                           children: [
-                            Text("${postData['likes']} Likes",
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                            TextButton(child: Text("${postData['likes']} Likes", style: TextStyle(
+                                      fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white
+                                    ),),
+                            onPressed: () async {
+                              _buildLikedByDialog();
+                              
+
+                            },
+                                style: ButtonStyle(
+                                    )),
                             const SizedBox(width: 20),
                             Text("${postData['rebolts']} Rebolts",
                                 style: const TextStyle(
@@ -159,6 +268,8 @@ class _PostDetailState extends State<PostDetail> {
                                 onPressed: () {
                                   // Handle like button tap
                                   if (_isLiked) {
+                                    final currentUserReference = FirebaseFirestore.instance.collection("users").doc(widget._user.uid);
+                                    final postReference = FirebaseFirestore.instance.collection("posts").doc(widget._postId);
                                     // If already liked, decrement likes count
                                     FirebaseFirestore.instance
                                         .collection('posts')
@@ -166,13 +277,18 @@ class _PostDetailState extends State<PostDetail> {
                                         .update({
                                       'likes': FieldValue.increment(-1),
                                       "likedBy": FieldValue.arrayRemove(
-                                          [widget._user.uid])
+                                          [currentUserReference])
                                     });
+                                    
+                                    
+
                                     setState(() {
                                       _likesCount--;
                                       _isLiked = false;
                                     });
                                   } else {
+                                    final currentUserReference = FirebaseFirestore.instance.collection("users").doc(widget._user.uid);
+                                    final postReference = FirebaseFirestore.instance.collection("posts").doc(widget._postId);
                                     // If not liked, increment likes count
                                     FirebaseFirestore.instance
                                         .collection('posts')
@@ -181,8 +297,10 @@ class _PostDetailState extends State<PostDetail> {
                                       'likes': FieldValue.increment(1),
                                       //temporary id assigned here, don't forget to remove this later on
                                       "likedBy": FieldValue.arrayUnion(
-                                          [widget._user.uid])
+                                          [currentUserReference])
                                     });
+
+                                    
                                     setState(() {
                                       _likesCount++;
                                       _isLiked = true;
