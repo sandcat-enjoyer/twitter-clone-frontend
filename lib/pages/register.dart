@@ -1,7 +1,4 @@
-import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
-import "package:spark/data/user.dart";
-import "package:spark/pages/home.dart";
 import "package:spark/services/auth_service.dart";
 
 class Register extends StatefulWidget {
@@ -72,7 +69,7 @@ class _RegisterState extends State<Register> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: _usernameController,
                     keyboardType: TextInputType.emailAddress,
@@ -127,7 +124,7 @@ class _RegisterState extends State<Register> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: _confirmPasswordController,
                     obscureText: true,

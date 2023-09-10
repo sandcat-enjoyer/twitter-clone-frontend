@@ -53,7 +53,7 @@ class _NewTweetState extends State<NewTweet> {
 
     if (pickedFile != null) {
       setState(() {
-        mediaName = Uuid().v4();
+        mediaName = const Uuid().v4();
         print(mediaName);
         _mediaFile = File(pickedFile.path);
       });
@@ -64,7 +64,7 @@ class _NewTweetState extends State<NewTweet> {
     try {
 
       Uint8List? compressedImageBytes = await FlutterImageCompress.compressWithFile(_mediaFile!.path, quality: 60);
-      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget._user.uid}/images/posts/${mediaName}.jpg");
+      final Reference storageRef = FirebaseStorage.instance.ref().child("users/${widget._user.uid}/images/posts/$mediaName.jpg");
       final UploadTask uploadTask = storageRef.putFile(_mediaFile!);
 
       if (_mediaFile == null) {
@@ -72,7 +72,7 @@ class _NewTweetState extends State<NewTweet> {
       }
       else {
         await uploadTask.whenComplete(() => print("Media was uploaded"));
-        mediaURL = await FirebaseStorage.instance.ref("users/${widget._user.uid}/images/posts/${mediaName}.jpg").getDownloadURL();
+        mediaURL = await FirebaseStorage.instance.ref("users/${widget._user.uid}/images/posts/$mediaName.jpg").getDownloadURL();
         print("URL for media: $mediaURL");
       }
     }

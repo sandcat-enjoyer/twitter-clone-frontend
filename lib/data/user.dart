@@ -1,4 +1,3 @@
-import 'package:spark/data/tweet.dart';
 
 class UserLocal {
     final String uid;

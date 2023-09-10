@@ -3,7 +3,7 @@ import 'package:spark/data/user.dart';
 
 class AccountSettings extends StatefulWidget {
   final UserLocal user;
-  AccountSettings(this.user);
+  const AccountSettings(this.user, {super.key});
 
   @override
   _AccountSettingsState createState() => _AccountSettingsState();
@@ -15,9 +15,9 @@ class _AccountSettingsState extends State<AccountSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Account Settings")
+        title: const Text("Account Settings")
       ),
-      body: Text("Account Settings")
+      body: const Text("Account Settings")
     );
   }
 }

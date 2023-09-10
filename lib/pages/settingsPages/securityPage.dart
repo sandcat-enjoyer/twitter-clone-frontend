@@ -3,7 +3,7 @@ import 'package:spark/data/user.dart';
 
 class SecurityPage extends StatefulWidget {
   final UserLocal user;
-  SecurityPage(this.user);
+  const SecurityPage(this.user, {super.key});
 
   @override
   _SecurityPageState createState() => _SecurityPageState();
@@ -15,9 +15,9 @@ class _SecurityPageState extends State<SecurityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Security")
+        title: const Text("Security")
       ),
-      body: Text("Security Page")
+      body: const Text("Security Page")
     );
   }
 }

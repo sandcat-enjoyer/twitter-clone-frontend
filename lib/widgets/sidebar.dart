@@ -7,7 +7,7 @@ class Sidebar extends StatefulWidget {
   final ValueChanged<int> onDestinationSelected;
   final UserLocal user;
 
-  Sidebar(
+  const Sidebar(
       {super.key,
       required this.selectedIndex,
       required this.onDestinationSelected,
@@ -88,7 +88,7 @@ class _SidebarState extends State<Sidebar> {
                       onTap: () {
                         showMenu(
                             context: context,
-                            position: RelativeRect.fromLTRB(0, 0, 0, 0),
+                            position: const RelativeRect.fromLTRB(0, 0, 0, 0),
                             items: [
                               PopupMenuItem(
                                   child: Text(
@@ -98,7 +98,7 @@ class _SidebarState extends State<Sidebar> {
                             ]);
                       },
                       child: Padding(
-                          padding: EdgeInsets.only(bottom: 16),
+                          padding: const EdgeInsets.only(bottom: 16),
                           child: Wrap(
                             alignment: WrapAlignment.center,
                             crossAxisAlignment: WrapCrossAlignment.center,
@@ -122,7 +122,7 @@ class _SidebarState extends State<Sidebar> {
                       size: 32,
                       color: Theme.of(context).primaryIconTheme.color,
                     ),
-                    selectedIcon: Icon(
+                    selectedIcon: const Icon(
                       Icons.home_rounded,
                       color: Color.fromARGB(255, 0, 200, 226),
                       size: 32,
@@ -137,7 +137,7 @@ class _SidebarState extends State<Sidebar> {
                       size: 32,
                       color: Theme.of(context).primaryIconTheme.color,
                     ),
-                    selectedIcon: Icon(
+                    selectedIcon: const Icon(
                       Icons.search_rounded,
                       color: Color.fromARGB(255, 0, 200, 226),
                       size: 32,
@@ -152,7 +152,7 @@ class _SidebarState extends State<Sidebar> {
                       size: 32,
                       color: Theme.of(context).primaryIconTheme.color,
                     ),
-                    selectedIcon: Icon(
+                    selectedIcon: const Icon(
                       Icons.notifications_rounded,
                       color: Color.fromARGB(255, 0, 200, 226),
                       size: 32,
@@ -167,7 +167,7 @@ class _SidebarState extends State<Sidebar> {
                       size: 32,
                       color: Theme.of(context).primaryIconTheme.color,
                     ),
-                    selectedIcon: Icon(
+                    selectedIcon: const Icon(
                       Icons.mail_rounded,
                       color: Color.fromARGB(255, 0, 200, 226),
                       size: 32,
@@ -182,7 +182,7 @@ class _SidebarState extends State<Sidebar> {
                       size: 32,
                       color: Theme.of(context).primaryIconTheme.color,
                     ),
-                    selectedIcon: Icon(
+                    selectedIcon: const Icon(
                       Icons.person_rounded,
                       color: Color.fromARGB(255, 0, 200, 226),
                       size: 32,
@@ -197,7 +197,7 @@ class _SidebarState extends State<Sidebar> {
                       size: 32,
                       color: Theme.of(context).primaryIconTheme.color,
                     ),
-                    selectedIcon: Icon(
+                    selectedIcon: const Icon(
                       Icons.settings_rounded,
                       color: Color.fromARGB(255, 0, 200, 226),
                       size: 32,

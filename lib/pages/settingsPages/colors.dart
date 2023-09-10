@@ -29,9 +29,9 @@ class _ColorsPageState extends State<ColorsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Colors"),
+        title: const Text("Colors"),
       ),
-      body: Text("This is where custom colors will go")
+      body: const Text("This is where custom colors will go")
     );
   }
 }

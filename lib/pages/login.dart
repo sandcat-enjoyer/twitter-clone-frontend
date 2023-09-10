@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
             child: Form(
               key: _formKey,
               child: Column(
@@ -121,12 +121,12 @@ class _LoginState extends State<Login> {
                       if (_emailController.text == "" && _passwordController.text == "") {
                         showDialog(context: context, builder: (context) {
                           return AlertDialog(
-                            title: Text("Oops!"),
+                            title: const Text("Oops!"),
                             actions: [
                               TextButton(onPressed: () {
                                 Navigator.of(context).pop();
 
-                              }, child: Text("OK"))
+                              }, child: const Text("OK"))
                             ],
                             
                             content: Container(
@@ -157,12 +157,12 @@ class _LoginState extends State<Login> {
                       catch (e) {
                         showDialog(context: context, builder: (context) {
                           return AlertDialog(
-                            title: Text("An error occurred"),
+                            title: const Text("An error occurred"),
                             content: Text(e.toString()),
                             actions: [
                               TextButton(onPressed: () {
                                 Navigator.of(context).pop();
-                              }, child: Text("OK"))
+                              }, child: const Text("OK"))
                             ],
                           );
                         });
@@ -179,7 +179,7 @@ class _LoginState extends State<Login> {
                      ),
                       
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.fromLTRB(30, 15, 30, 15)
+                        const EdgeInsets.fromLTRB(30, 15, 30, 15)
                       ),
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Theme.of(context).primaryColor)),
@@ -196,7 +196,7 @@ class _LoginState extends State<Login> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Register()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Register()));
                       },
                       child: const Text("Create a new account",
                           style: TextStyle(

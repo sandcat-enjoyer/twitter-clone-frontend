@@ -1,10 +1,8 @@
-import "package:animated_splash_screen/animated_splash_screen.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:spark/data/user.dart";
 import "package:spark/pages/firstSignin.dart";
-import 'package:page_transition/page_transition.dart';
 import "package:spark/pages/home.dart";
 
 class Splash extends StatefulWidget {
@@ -56,7 +54,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
           
         }
         else {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FirstSignIn()));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FirstSignIn()));
         }
         
       }

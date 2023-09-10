@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:spark/data/navigationbloc.dart';
 import 'package:spark/data/user.dart';
-import 'package:spark/pages/firstSignin.dart';
 import 'package:spark/pages/newTweet.dart';
 import 'package:spark/pages/notifications.dart';
 import 'package:spark/pages/post_detail.dart';
-import 'package:spark/pages/register.dart';
 import 'package:spark/pages/settings.dart';
 import 'package:spark/pages/splash.dart';
 import 'package:spark/pages/userProfile.dart';
@@ -61,13 +58,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents =
         snapshot.docs;
 
-    documents.forEach((document) {
+    for (var document in documents) {
       print("Document ID: ${document.id}");
       print("Document data: ${document.data()}");
       setState(() {
         posts = document.data();
       });
-    });
+    }
   }
 
   List<Widget> getWidgetOptions(BuildContext context) {
@@ -148,7 +145,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           future: FirebaseFirestore.instance.collection("posts").orderBy("createdAt", descending: true).get(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Text("Error: ${snapshot.error}");
             } else {
@@ -484,7 +481,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 style: profileDrawerTextStyle,
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Splash()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Splash()));
               },
             ),
             const Divider(thickness: 0.2, color: Colors.grey),

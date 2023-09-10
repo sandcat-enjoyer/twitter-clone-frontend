@@ -1,6 +1,5 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:flutter/material.dart";
-import "package:http/http.dart";
 import "package:spark/widgets/expandedImagePage.dart";
 
 import "../data/user.dart";
@@ -33,8 +32,6 @@ class _PostDetailState extends State<PostDetail> {
     super.dispose();
   }
 
-  
-
   Future<void> fetchReplies() async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance
@@ -50,100 +47,108 @@ class _PostDetailState extends State<PostDetail> {
     });
   }
 
-Future<List<DocumentReference<Object?>>> _fetchLikedBy(String postId) async {
-  final postReference = FirebaseFirestore.instance.collection("posts").doc(postId);
-  final postSnapshot = await postReference.get();
-  final List<dynamic> likedBy = postSnapshot.get("likedBy");
-  
-  // Convert likedBy to a List<DocumentReference>
-  final List<DocumentReference<Object?>> likedByRefs = likedBy.cast<DocumentReference<Object?>>().toList();
+  Future<List<DocumentReference<Object?>>> _fetchLikedBy(String postId) async {
+    final postReference =
+        FirebaseFirestore.instance.collection("posts").doc(postId);
+    final postSnapshot = await postReference.get();
+    final List<dynamic> likedBy = postSnapshot.get("likedBy");
 
-  return likedByRefs;
-}
+    // Convert likedBy to a List<DocumentReference>
+    final List<DocumentReference<Object?>> likedByRefs =
+        likedBy.cast<DocumentReference<Object?>>().toList();
 
-_buildLikedByDialog() async {
-  try {
-    final likedByRefs = await _fetchLikedBy(widget._postId);
-    bool profilePictureExists;
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Liked by"),
-          content: Container(
-            height: 300,
-            width: 300,
-            child: ListView.builder(
-              itemCount: likedByRefs.length,
-              itemBuilder: (context, index) {
-                final userRef = likedByRefs[index];
-
-                return FutureBuilder(
-                  future: userRef.get(),
-                  builder: (context, userSnapshot) {
-                    if (userSnapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
-                    }
-
-                    if (userSnapshot.hasError) {
-                      return Text("Error: ${userSnapshot.error}");
-                    }
-
-                    if (!userSnapshot.hasData ||
-                        userSnapshot.data!.data() == null) {
-                      return Text("User not found");
-                    }
-
-                    final userData = userSnapshot.data!.data() as Map<String, dynamic>;
-                    print(userData);
-                    final displayName = userData["displayname"];
-                    final username = userData["username"];
-                    final profilePictureUrl = userData["profilePictureUrl"];
-                    if (userData["profilePictureUrl"] != null && userData["profilePictureUrl"] != ""){
-                      profilePictureExists = true;
-                    }
-                    else {
-                      profilePictureExists = false;
-                    }
-
-                    return ListTile(
-                      leading: profilePictureExists ? CircleAvatar(
-                        radius: 25,
-                        backgroundImage: NetworkImage(profilePictureUrl),
-                      ) : CircleAvatar(
-                        radius: 25,
-                        child: Text(displayName.substring(0,1).toUpperCase()) ,
-                      ),
-                      title: Text(displayName),
-                      subtitle: Text(username),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Close"),
-            ),
-          ],
-        );
-      },
-    );
-  } catch (e) {
-    print("Error fetching liked usernames: $e");
+    return likedByRefs;
   }
-}
+
+  _buildLikedByDialog() async {
+    try {
+      final likedByRefs = await _fetchLikedBy(widget._postId);
+      bool profilePictureExists;
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Liked by"),
+            content: SizedBox(
+              height: 300,
+              width: 300,
+              child: ListView.builder(
+                itemCount: likedByRefs.length,
+                itemBuilder: (context, index) {
+                  final userRef = likedByRefs[index];
+
+                  return FutureBuilder(
+                    future: userRef.get(),
+                    builder: (context, userSnapshot) {
+                      if (userSnapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      }
+
+                      if (userSnapshot.hasError) {
+                        return Text("Error: ${userSnapshot.error}");
+                      }
+
+                      if (!userSnapshot.hasData ||
+                          userSnapshot.data!.data() == null) {
+                        return const Text("User not found");
+                      }
+
+                      final userData =
+                          userSnapshot.data!.data() as Map<String, dynamic>;
+                      print(userData);
+                      final displayName = userData["displayname"];
+                      final username = userData["username"];
+                      final profilePictureUrl = userData["profilePictureUrl"];
+                      if (userData["profilePictureUrl"] != null &&
+                          userData["profilePictureUrl"] != "") {
+                        profilePictureExists = true;
+                      } else {
+                        profilePictureExists = false;
+                      }
+
+                      return ListTile(
+                        leading: profilePictureExists
+                            ? CircleAvatar(
+                                radius: 25,
+                                backgroundImage:
+                                    NetworkImage(profilePictureUrl),
+                              )
+                            : CircleAvatar(
+                                radius: 25,
+                                child: Text(
+                                    displayName.substring(0, 1).toUpperCase()),
+                              ),
+                        title: Text(displayName),
+                        subtitle: Text(username),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Close"),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      print("Error fetching liked usernames: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Bolt Details"),
+          title: const Text("Bolt Details"),
         ),
         body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           future: FirebaseFirestore.instance
@@ -183,18 +188,21 @@ _buildLikedByDialog() async {
                             if (userData["profilePictureUrl"] == "") ...[
                               CircleAvatar(
                                 radius: 30,
-                                child: Text(userData["username"].toString().substring(0, 1), style: TextStyle(
-                                  fontSize: 30
-                                ),),
+                                child: Text(
+                                  userData["username"]
+                                      .toString()
+                                      .substring(0, 1),
+                                  style: const TextStyle(fontSize: 30),
+                                ),
                               )
                             ],
                             if (userData["profilePictureUrl"] != "") ...[
                               CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  NetworkImage(userData["profilePictureUrl"]),
-                            ),
-                            ],                            
+                                radius: 30,
+                                backgroundImage:
+                                    NetworkImage(userData["profilePictureUrl"]),
+                              ),
+                            ],
                             const SizedBox(width: 8),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,36 +227,54 @@ _buildLikedByDialog() async {
                             const SizedBox(height: 16)
                           ],
                         ),
-                        if (postData["imageUrl"] != null && postData["imageUrl"] != "") ...[
+                        if (postData["imageUrl"] != null &&
+                            postData["imageUrl"] != "") ...[
                           Container(
-                           
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ExpandedImagePage(imageUrl: postData["imageUrl"], profileDisplayName: '', profileUserName: "profileUserName", profilePictureUrl: "profilePictureUrl", boltDescription: "boltDescription", likes: postData["likes"], reposts: postData["rebolts"])));
-
-                              },
-                              child: Image.network(postData["imageUrl"],
-                              
-                            ),
-                            
-                          ) ),
-                        )
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ExpandedImagePage(
+                                                    imageUrl:
+                                                        postData["imageUrl"],
+                                                    profileDisplayName: '',
+                                                    profileUserName:
+                                                        "profileUserName",
+                                                    profilePictureUrl:
+                                                        "profilePictureUrl",
+                                                    boltDescription:
+                                                        "boltDescription",
+                                                    likes: postData["likes"],
+                                                    reposts:
+                                                        postData["rebolts"])));
+                                  },
+                                  child: Image.network(
+                                    postData["imageUrl"],
+                                  ),
+                                )),
+                          )
                         ],
                         const Divider(),
                         Row(
                           children: [
-                            TextButton(child: Text("${postData['likes']} Likes", style: TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white
-                                    ),),
-                            onPressed: () async {
-                              _buildLikedByDialog();
-                              
-
-                            },
-                                style: ButtonStyle(
-                                    )),
+                            TextButton(
+                                onPressed: () async {
+                                  _buildLikedByDialog();
+                                },
+                                style: const ButtonStyle(),
+                                child: Text(
+                                  "${postData['likes']} Likes",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .color),
+                                )),
                             const SizedBox(width: 20),
                             Text("${postData['rebolts']} Rebolts",
                                 style: const TextStyle(
@@ -268,8 +294,14 @@ _buildLikedByDialog() async {
                                 onPressed: () {
                                   // Handle like button tap
                                   if (_isLiked) {
-                                    final currentUserReference = FirebaseFirestore.instance.collection("users").doc(widget._user.uid);
-                                    final postReference = FirebaseFirestore.instance.collection("posts").doc(widget._postId);
+                                    final currentUserReference =
+                                        FirebaseFirestore.instance
+                                            .collection("users")
+                                            .doc(widget._user.uid);
+                                    final postReference = FirebaseFirestore
+                                        .instance
+                                        .collection("posts")
+                                        .doc(widget._postId);
                                     // If already liked, decrement likes count
                                     FirebaseFirestore.instance
                                         .collection('posts')
@@ -279,16 +311,20 @@ _buildLikedByDialog() async {
                                       "likedBy": FieldValue.arrayRemove(
                                           [currentUserReference])
                                     });
-                                    
-                                    
 
                                     setState(() {
                                       _likesCount--;
                                       _isLiked = false;
                                     });
                                   } else {
-                                    final currentUserReference = FirebaseFirestore.instance.collection("users").doc(widget._user.uid);
-                                    final postReference = FirebaseFirestore.instance.collection("posts").doc(widget._postId);
+                                    final currentUserReference =
+                                        FirebaseFirestore.instance
+                                            .collection("users")
+                                            .doc(widget._user.uid);
+                                    final postReference = FirebaseFirestore
+                                        .instance
+                                        .collection("posts")
+                                        .doc(widget._postId);
                                     // If not liked, increment likes count
                                     FirebaseFirestore.instance
                                         .collection('posts')
@@ -300,7 +336,6 @@ _buildLikedByDialog() async {
                                           [currentUserReference])
                                     });
 
-                                    
                                     setState(() {
                                       _likesCount++;
                                       _isLiked = true;
@@ -358,19 +393,20 @@ _buildLikedByDialog() async {
                                               as Map<String, dynamic>;
 
                                       return ListTile(
-                                        onTap: () {
-
-                                        },
+                                        onTap: () {},
                                         leading: CircleAvatar(
                                           backgroundImage: NetworkImage(
                                               replyUserData[
                                                   "profilePictureUrl"]),
                                         ),
-                                        title:
-                                            Text(replyUserData["displayname"], style: TextStyle(
-                                              color: Theme.of(context).textTheme.bodyMedium!.color,
-                                              fontWeight: FontWeight.bold
-                                            )),
+                                        title: Text(
+                                            replyUserData["displayname"],
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium!
+                                                    .color,
+                                                fontWeight: FontWeight.bold)),
                                         subtitle: Text(replyData["text"]),
                                         trailing: Text(
                                           DateTime.now().toString(),

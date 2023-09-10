@@ -1,17 +1,12 @@
-import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:spark/data/post_provider.dart';
-import 'package:spark/data/user.dart';
-import 'package:spark/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:spark/pages/splash.dart';
 import 'firebase_options.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:macos_window_utils/macos_window_utils.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -60,7 +55,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: colorScheme,
         brightness: Brightness.light,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           foregroundColor: Colors.grey,
           elevation: 0
@@ -123,7 +118,7 @@ class MyApp extends StatelessWidget {
           fontSize: 22,
           fontWeight: FontWeight.bold
         )),
-        dialogTheme: DialogTheme(
+        dialogTheme: const DialogTheme(
           backgroundColor: Color.fromARGB(255, 18, 18, 18)
         ),
         hintColor: Colors.white,
@@ -199,7 +194,7 @@ class MyApp extends StatelessWidget {
         // Divider Color
         dividerColor: Colors.grey,
       ),
-      home: Splash(),
+      home: const Splash(),
     )); 
   }
 }

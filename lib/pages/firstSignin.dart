@@ -29,7 +29,7 @@ class FirstSignIn extends StatelessWidget {
               
               Text("*tagline goes here*",
               style: Theme.of(context).textTheme.titleMedium,),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)

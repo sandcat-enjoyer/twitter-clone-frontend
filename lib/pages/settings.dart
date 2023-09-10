@@ -1,6 +1,5 @@
 import "dart:io";
 
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:permission_handler/permission_handler.dart";
 import "package:spark/pages/settingsPages/accountSettings.dart";
@@ -96,12 +95,12 @@ class _SettingsState extends State<SettingsPage> {
             onTap: () {
               showDialog(context: context, builder: (context) {
                 return AlertDialog(
-                  title: Text("Language picker"),
-                  content: Text("Available soon."),
+                  title: const Text("Language picker"),
+                  content: const Text("Available soon."),
                   actions: [
                     TextButton(onPressed: () {
                       Navigator.of(context).pop();
-                    }, child: Text("Close"))
+                    }, child: const Text("Close"))
                   ],
                 );
               });
@@ -128,13 +127,13 @@ class _SettingsState extends State<SettingsPage> {
               // Navigate to help & support screen here
               showDialog(context: context, builder: (context) {
                 return AlertDialog(
-                  title: Text("Help & Support"),
-                  content: Text("Moderation tools and other useful stuff coming later."),
+                  title: const Text("Help & Support"),
+                  content: const Text("Moderation tools and other useful stuff coming later."),
                   actions: [
                     TextButton(onPressed: () {
                       Navigator.of(context).pop();
 
-                    }, child: Text("Close"))
+                    }, child: const Text("Close"))
                   ],
                 );
               });
@@ -149,13 +148,13 @@ class _SettingsState extends State<SettingsPage> {
             onTap: () {
               showDialog(context: context, builder: (context) {
                 return AlertDialog(
-                  title: Text("About Spark"),
-                  content: Container(
+                  title: const Text("About Spark"),
+                  content: SizedBox(
                     height: 200,
                     child:Column(
                     children: [
                       Image.asset("assets/icon.png", width: 100,),
-                      SizedBox(height: 50),        
+                      const SizedBox(height: 50),        
                       Text("Closed Beta 1", style: Theme.of(context).textTheme.bodyMedium,),
                     ],
                   ),
@@ -164,17 +163,17 @@ class _SettingsState extends State<SettingsPage> {
                     TextButton(onPressed: () {
                       Navigator.pop(context);
 
-                    }, child: Text("OK"))
+                    }, child: const Text("OK"))
                   ],
                 );
               },);
             },
           ),
           ListTile(
-            leading: Icon(Icons.help, color: Colors.red),
+            leading: const Icon(Icons.help, color: Colors.red),
             title: Text('Log Out',
                 style: Theme.of(context).textTheme.bodyMedium),
-            trailing: Icon(Icons.arrow_forward_ios, color: Colors.red),
+            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.red),
             onTap: () async {
               await AuthService().signOut();
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Splash()));

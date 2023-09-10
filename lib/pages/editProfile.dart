@@ -11,7 +11,7 @@ import "package:flutter_image_compress/flutter_image_compress.dart";
 
 class EditProfile extends StatefulWidget {
   final UserLocal user;
-  EditProfile(this.user);
+  const EditProfile(this.user, {super.key});
 
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -68,7 +68,7 @@ class _EditProfileState extends State<EditProfile> {
       else {
         await uploadTask.whenComplete(() => print("Profile image was uploaded successfully"));
         profileURL = await FirebaseStorage.instance.ref("users/${widget.user.uid}/images/profile.jpg").getDownloadURL();
-        print("URL for profile: " + profileURL);
+        print("URL for profile: $profileURL");
       }
     }
 
@@ -94,7 +94,7 @@ class _EditProfileState extends State<EditProfile> {
       else {
         await uploadTask.whenComplete(() => print("Image was uploaded successfully"));
         headerURL = await FirebaseStorage.instance.ref("users/${widget.user.uid}/images/header.jpg").getDownloadURL();
-        print("URL for header: " + headerURL);
+        print("URL for header: $headerURL");
       }
       
     }
@@ -119,7 +119,7 @@ class _EditProfileState extends State<EditProfile> {
       if (widget.user.profilePictureUrl == "") {
       return CircleAvatar(
         radius: 60,
-        child: Text(widget.user.displayName.substring(0, 1).toUpperCase(), style: TextStyle(
+        child: Text(widget.user.displayName.substring(0, 1).toUpperCase(), style: const TextStyle(
           fontFamily: "Poppins",
           fontSize: 55,
           fontWeight: FontWeight.bold
@@ -153,7 +153,7 @@ class _EditProfileState extends State<EditProfile> {
         );
       }
       else {
-        return Container(
+        return SizedBox(
           height: 200,
           width: MediaQuery.of(context).size.width,
           child: Image.network(widget.user.headerUrl!, fit: BoxFit.cover,)
@@ -162,7 +162,7 @@ class _EditProfileState extends State<EditProfile> {
     }
     else {
       //need to find a more proper way of scaling the image here
-      return Container(
+      return SizedBox(
         height: 200,
         width: MediaQuery.of(context).size.width,
         child: Image.file(_imageFileHeader!, fit: BoxFit.cover,)
@@ -172,7 +172,7 @@ class _EditProfileState extends State<EditProfile> {
 
   _fillValuesFromUser() {
     print(_bioController.text);
-    if (_bioController.text == "" && widget.user.bio! != null && widget.user.bio != "") {
+    if (_bioController.text == "" && widget.user.bio != "") {
       setState(() {
         _bioController.value = TextEditingValue(
           text: widget.user.bio!
@@ -181,7 +181,7 @@ class _EditProfileState extends State<EditProfile> {
       
     }
 
-    if (_displayNameController.text == "" && widget.user.displayName != null && widget.user.displayName != "") {
+    if (_displayNameController.text == "" && widget.user.displayName != "") {
       setState(() {
         _displayNameController.value = TextEditingValue(
           text: widget.user.displayName
@@ -198,7 +198,7 @@ class _EditProfileState extends State<EditProfile> {
       });
     }
 
-    if (widget.user.profilePictureUrl != null && widget.user.profilePictureUrl != "") {
+    if (widget.user.profilePictureUrl != "") {
       profileURL = widget.user.profilePictureUrl;
     }
 
@@ -246,11 +246,11 @@ class _EditProfileState extends State<EditProfile> {
                         child:_checkIfHeaderImageIsBeingChanged(),
                       ),
                       Container(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         child: Column(
                           
                           children: [
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             InkWell(
                               onTap: () {
                                 _getImageProfile();
@@ -259,7 +259,7 @@ class _EditProfileState extends State<EditProfile> {
                               },
                               child: _checkIfProfileImageExists()
                             ),
-                            SizedBox(height: 80),
+                            const SizedBox(height: 80),
                             TextFormField(
                               controller: _displayNameController,
                               decoration: InputDecoration(
@@ -270,7 +270,7 @@ class _EditProfileState extends State<EditProfile> {
                                 )
                               ),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             TextFormField(
                               controller: _pronounsController,
                               decoration: InputDecoration(
@@ -280,7 +280,7 @@ class _EditProfileState extends State<EditProfile> {
                                 )
                               ),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             TextFormField(
                               controller: _bioController,
                               decoration: InputDecoration(
@@ -290,7 +290,7 @@ class _EditProfileState extends State<EditProfile> {
                                 )
                               ),
                             ),
-                            SizedBox(height: 50),
+                            const SizedBox(height: 50),
                             ElevatedButton(onPressed: () async {
                               await _uploadHeaderImage();
                               await _uploadProfileImage();
@@ -306,7 +306,7 @@ class _EditProfileState extends State<EditProfile> {
 
                               Navigator.of(context).pop();
 
-                            }, child: Text("Save changes"))
+                            }, child: const Text("Save changes"))
                           ],
                         ),
                       )
@@ -321,9 +321,9 @@ class _EditProfileState extends State<EditProfile> {
 }
 
 Widget _buildPopUpDialog(BuildContext context) {
-  final _displayNameController = TextEditingController();
-  final _pronounsController = TextEditingController();
-  final _bioController = TextEditingController();
+  final displayNameController = TextEditingController();
+  final pronounsController = TextEditingController();
+  final bioController = TextEditingController();
 
   String headerImageUrl =
       "https://pbs.twimg.com/profile_banners/1201209148018434048/1665952533/1500x500";
@@ -333,7 +333,7 @@ Widget _buildPopUpDialog(BuildContext context) {
   return Dialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     child: Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       //need to re-evaluate this based on device orientation but this works for now
       width: MediaQuery.of(context).size.width * 0.6,
       height: MediaQuery.of(context).size.height * 0.7,
@@ -343,7 +343,7 @@ Widget _buildPopUpDialog(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                child: Icon(
+                child: const Icon(
                   Icons.cancel,
                   size: 36,
                 ),
@@ -351,16 +351,16 @@ Widget _buildPopUpDialog(BuildContext context) {
                   Navigator.of(context).pop();
                 },
               ),
-              Text(
+              const Text(
                 "Edit Profile",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 100,
               ),
               ElevatedButton(
-                style: ButtonStyle(),
-                child: Text("Save"),
+                style: const ButtonStyle(),
+                child: const Text("Save"),
                 onPressed: () {
                   //actions for saving the new changes to the profile
                   Navigator.of(context).pop();
@@ -368,7 +368,7 @@ Widget _buildPopUpDialog(BuildContext context) {
               ),
             ],
           ),
-          Divider(),
+          const Divider(),
           Form(
               child: Stack(
             children: [
@@ -380,34 +380,34 @@ Widget _buildPopUpDialog(BuildContext context) {
                 fit: BoxFit.cover,
               ),
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     CircleAvatar(
                       radius: 60,
                       backgroundImage: NetworkImage(profileImageUrl),
                     ),
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     TextFormField(
-                      controller: _displayNameController,
+                      controller: displayNameController,
                       decoration: InputDecoration(
                           labelText: "Display Name",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           )),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     TextFormField(
-                      controller: _pronounsController,
+                      controller: pronounsController,
                       decoration: InputDecoration(
                           labelText: "Pronouns",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     TextFormField(
-                      controller: _bioController,
+                      controller: bioController,
                       decoration: InputDecoration(
                           labelText: "Bio",
                           border: OutlineInputBorder(

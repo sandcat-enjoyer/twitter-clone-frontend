@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import "package:http/http.dart" as http;
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:intl/intl.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:spark/data/tweet.dart';
@@ -82,7 +81,7 @@ class Post extends StatelessWidget {
 
   _buildTabletPosts(BuildContext context) {
     return Center(
-      child: Container(
+      child: SizedBox(
         width: 450,
         child: Card(
       elevation: 1.0,

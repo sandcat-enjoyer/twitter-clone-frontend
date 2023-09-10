@@ -33,7 +33,7 @@ class ExpandedImagePage extends StatelessWidget {
             Expanded(
               child: PhotoView(
                 loadingBuilder: (context, event) => Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 20,
                     height: 20,
                     child: CircularProgressIndicator(

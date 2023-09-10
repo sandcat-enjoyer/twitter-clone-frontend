@@ -2,7 +2,6 @@ import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:spark/data/user.dart";
-import "package:spark/pages/home.dart";
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,11 +29,11 @@ class AuthService {
 
       showDialog(context: context, builder: (context) {
         return AlertDialog(
-          title: Text("Account created successfully!"),
+          title: const Text("Account created successfully!"),
           content: Text("A verification e-mail has been sent to ${authResult.user?.email}. Please check your inbox and sign in to your account afterwards."),
           actions: [
             TextButton(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -48,7 +47,7 @@ class AuthService {
     }
     catch (e) {
       print("Error during sign up: $e");
-      return null;
+      return;
     }
   }
 

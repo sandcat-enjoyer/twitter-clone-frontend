@@ -1,10 +1,7 @@
-import "package:cloud_firestore/cloud_firestore.dart";
 import "package:flutter/material.dart";
 import "package:spark/pages/editProfile.dart";
 
-import "../data/tweet.dart";
 import "../data/user.dart";
-import "../widgets/post.dart";
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key, required UserLocal user})
@@ -33,7 +30,7 @@ class _UserProfileState extends State<UserProfile> {
     if (widget._user.profilePictureUrl == "") {
       return CircleAvatar(
         radius: 60,
-        child: Text(widget._user.displayName.substring(0, 1).toUpperCase(), style: TextStyle(
+        child: Text(widget._user.displayName.substring(0, 1).toUpperCase(), style: const TextStyle(
           fontSize: 48
         ),),
       );
